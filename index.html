@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network Centralization Replication</title>
+<meta name="description" content="Replication of Bernstein, Shore and Jang (2023) with LLM agents, with trial replays and counterfactual network structures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=30">
+</head>
+<body>
+<nav class="toc"><div class="wrap">
+  <a href="#paper" data-tab="paper">Replication</a><a href="#game" data-tab="game">Replication trials</a><a href="#counterfactuals" data-tab="counterfactuals">Counterfactuals</a><a href="#cf-game" data-tab="cf-game">Counterfactual trials</a><a href="#data" data-tab="data">Raw data</a></div></nav>
+
+<main>
+<section id="paper" class="wrap">
+  <p class="kicker">Replication of the original treatments</p>
+  <h2>Outcomes by network treatment</h2>
+  <div class="card">
+    <div class="card-head"><h3>Figure 1. Mean number of participants correct at the end of the game (of 9)</h3>
+      <div class="legend"><span><i class="sw humans"></i>Humans (original study, 30 trials per network)</span><span><i class="sw agents"></i>Agents (10 trials per network)</span><span><i class="sw dash"></i><span id="iso-key">Isolates</span></span></div></div>
+    <div id="chart-paper" class="chart"></div>
+  </div>
+  <div class="hyp" id="hyp"></div>
+  <details class="more">
+    <summary>Agent settings</summary>
+    <div class="more-body" id="calibration"></div>
+  </details>
+</section>
+
+<section id="game">
+  <div class="wrap">
+    <p class="kicker">Replication trials</p>
+    <h2>Answer dynamics, original treatments</h2>
+    <div class="slot"><div id="player-block">
+    <div class="picker" id="picker"></div>
+    <div class="player card">
+      <div class="graph-col">
+        <div class="graph-top">
+          <div><strong id="g-title"></strong> <span class="muted" id="g-sub"></span></div>
+          <label class="trial-sel">Trial <select id="trial-select"></select></label>
+        </div>
+        <svg id="graph" viewBox="-20 -20 340 340" role="img" aria-label="Network of agents"></svg>
+        <div class="controls">
+          <button id="play" class="btn" aria-label="Play">&#9654;</button>
+          <input id="scrub" type="range" min="0" max="29" value="29" aria-label="Game time">
+          <span id="clock" class="clock">15:00</span>
+        </div>
+        <div class="legend center"><span><i class="dot c1"></i>Correct</span><span><i class="dot c2"></i>Red herring</span><span><i class="dot c3"></i>Other suspect</span><span><i class="dot c0"></i>No answer yet</span><span><i class="ring-key"></i>Core node</span><span class="muted">Number: confidence (%)</span><span class="muted">i &rarr; j: j observes i; &harr; both ways</span></div>
+        <div id="area" class="area"></div>
+      </div>
+      <aside class="side" id="side"></aside>
+    </div>
+    <p class="note" id="g-note"></p>
+    </div></div>
+  </div>
+</section>
+
+
+
+<section id="counterfactuals">
+  <div class="wrap">
+    <p class="kicker">Counterfactual structures</p>
+    <h2>Variations of the one-way core-periphery networks</h2>
+    <div class="spot card" id="spot"></div>
+    <div class="card">
+      <div class="card-head"><h3>Figure 2. Share correct at the end of the game, by structure</h3>
+        <div class="seg" id="metric"><button data-k="share" class="on">All agents</button><button data-k="core">Core agents</button></div></div>
+      <p class="muted small">Mean share correct per trial, 95% bootstrap CI, 20 trials per structure. Shaded band: CI of the original structure. Labelled p-values: two-sided permutation test against the original structure, p &lt; 0.05.</p>
+      <div class="cf-grid"><div id="cf-out"></div><div id="cf-in"></div></div>
+    </div>
+    <details class="more">
+      <summary>Additional results</summary>
+      <div class="more-body" id="cf-more"></div>
+    </details>
+  </div>
+</section>
+
+<section id="cf-game">
+  <div class="wrap">
+    <p class="kicker">Counterfactual trials</p>
+    <h2>Answer dynamics, counterfactual structures</h2>
+    <div class="slot"></div>
+  </div>
+</section>
+
+<section id="data" class="wrap">
+  <p class="kicker">Raw data</p>
+  <h2>Trials</h2>
+  <div class="filters">
+    <select id="f-ds"><option value="">All datasets</option></select>
+    <select id="f-net"></select>
+    <select id="f-out"><option value="">Any outcome</option><option value="all">All agents correct</option><option value="hi">More than two thirds correct</option><option value="lo">0 or 1 correct</option><option value="rh">All or all but one on the red herring</option></select>
+    <input id="f-q" type="search" placeholder="Search message text">
+    <span class="muted small" id="d-count"></span>
+    <button class="linkbtn" id="d-csv">Download CSV</button>
+  </div>
+  <div class="card table-card"><table id="d-table" class="dt sortable"></table></div>
+  <div class="card" id="d-detail" hidden></div>
+</section>
+</main>
+
+<footer class="wrap foot">
+  <details class="more plain">
+    <summary>Method</summary>
+    <div class="more-body" id="method"></div>
+  </details>
+  <p class="muted small">Prototype. Human data: Bernstein, Shore &amp; Jang (2023), Dataverse doi:10.7910/DVN/X2HQXD.</p>
+</footer>
+
+<div id="tip" class="tip" hidden></div>
+<script src="data/summary.js?v=30"></script>
+<script src="data/trials.js?v=30"></script>
+<script src="app.js?v=30"></script>
+</body>
+</html>
