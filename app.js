@@ -81,7 +81,7 @@ const cfCore = S.counterfactuals;
   const y = v => top + (H - top - B) * (1 - v / ymax), gw = (W - L - R) / order.length, bw = gw * 0.3;
   for (let v = 0; v <= ymax; v++) {
     svg("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: v ? "#ecebe5" : "#c3c2b7" }, s);
-    svg("text", { x: L - 10, y: y(v) + 4, "text-anchor": "end", "font-size": 12, fill: "#898781" }, s).textContent = v;
+    svg("text", { x: L - 10, y: y(v) + 4, "text-anchor": "end", "font-size": 16, fill: "#898781" }, s).textContent = v;
   }
   const iso = [[mean(S.isolates.humans), "#bdbcb4"], [mean(S.isolates.agents), "#3f3e3a"]];
   for (const [v, c] of iso) svg("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: c, "stroke-dasharray": "5 4", "stroke-width": 1.5 }, s);
@@ -91,9 +91,9 @@ const cfCore = S.counterfactuals;
       const vals = P[n][who], m = mean(vals), x = cx + side * (bw / 2 + 2) - bw / 2;
       const r = svg("path", { d: barPath(x, y(m), bw, y(0) - y(m), 4), fill: c }, s);
       hover(r, `<b>${NAMES[n]}</b><br>${who === "humans" ? "Humans" : "Agents"}: mean ${m.toFixed(2)} of 9 correct<br>${vals.length} trials; 0 to 1 correct in ${pct(vals.filter(v => v <= 1).length / vals.length)} of trials`);
-      svg("text", { x: x + bw / 2, y: y(m) - 6, "text-anchor": "middle", "font-size": 12.5, fill: "#0b0b0b", "font-weight": 500 }, s).textContent = m.toFixed(1);
+      svg("text", { x: x + bw / 2, y: y(m) - 6, "text-anchor": "middle", "font-size": 16, fill: "#0b0b0b", "font-weight": 500 }, s).textContent = m.toFixed(1);
     });
-    svg("text", { x: cx, y: H - 16, "text-anchor": "middle", "font-size": 13, fill: "#52514e" }, s).textContent = NAMES[n];
+    svg("text", { x: cx, y: H - 16, "text-anchor": "middle", "font-size": 17, fill: "#52514e" }, s).textContent = NAMES[n];
   });
   document.getElementById("iso-key").textContent = `Isolates (dashed): humans ${iso[0][0].toFixed(1)}, agents ${iso[1][0].toFixed(1)}`;
 })();
@@ -276,7 +276,7 @@ function labelSpot(n, edges, pos, R) {
 function drawArea(t) {
   const box = document.getElementById("area");
   box.innerHTML = "";
-  const W = 520, H = 62, n = t.nodes.length, s = svg("svg", { viewBox: `0 0 ${W} ${H}` }, box);
+  const W = 520, H = 66, n = t.nodes.length, s = svg("svg", { viewBox: `0 0 ${W} ${H}` }, box);
   const x = k => 4 + (W - 8) * k / 29, y = v => 6 + (H - 22) * (1 - v / n);
   const counts = t.turns.map(row => [1, 2, 3, 0].map(c => row.filter(a => (a ? a[2] : 0) === c).length));
   let base = counts.map(() => 0);
@@ -286,7 +286,7 @@ function drawArea(t) {
     svg("path", { d, fill: COL[c], opacity: c ? 0.9 : 0.6 }, s);
     base = top;
   });
-  [0, 10, 20, 29].forEach(k => svg("text", { x: x(k), y: H - 1, "font-size": 8, fill: "#898781", "text-anchor": k ? (k === 29 ? "end" : "middle") : "start" }, s).textContent = mmss((k + 1) * 30 - (k === 29 ? 0 : 0)));
+  [0, 10, 20, 29].forEach(k => svg("text", { x: x(k), y: H - 1, "font-size": 12, fill: "#898781", "text-anchor": k ? (k === 29 ? "end" : "middle") : "start" }, s).textContent = mmss((k + 1) * 30 - (k === 29 ? 0 : 0)));
   state.cursor = svg("line", { y1: 2, y2: H - 14, stroke: "#0b0b0b", "stroke-width": 1.5 }, s);
   const hit = svg("rect", { x: 0, y: 0, width: W, height: H, fill: "transparent" }, s);
   const kAt = ev => { const r = s.getBoundingClientRect(); return Math.max(0, Math.min(29, Math.round((ev.clientX - r.left) / r.width * 29))); };
@@ -427,25 +427,25 @@ function drawCF() {
     box.innerHTML = `<h3 style="margin:8px 0 4px">${d} core-periphery</h3>`;
     const rows = [];
     let y = 22;
-    for (const [g, nets] of SERIES[d]) { rows.push({ g, y }); y += 18; for (const n of nets) { rows.push({ n, y }); y += 26; } y += 4; }
-    const W = 520, L = 150, R = 62, H = y + 24, x = v => L + (W - L - R) * v;
+    for (const [g, nets] of SERIES[d]) { rows.push({ g, y }); y += 20; for (const n of nets) { rows.push({ n, y }); y += 28; } y += 6; }
+    const W = 520, L = 175, R = 80, H = y + 28, x = v => L + (W - L - R) * v;
     const s = svg("svg", { viewBox: `0 0 ${W} ${H}` }, box), base = cfCore[SERIES[d][0][1][0]][metric];
     for (const v of [0, 0.25, 0.5, 0.75, 1]) {
       svg("line", { x1: x(v), x2: x(v), y1: 10, y2: H - 20, stroke: "#ecebe5" }, s);
-      svg("text", { x: x(v), y: H - 6, "text-anchor": "middle", "font-size": 11, fill: "#898781" }, s).textContent = pct(v);
+      svg("text", { x: x(v), y: H - 6, "text-anchor": "middle", "font-size": 14, fill: "#898781" }, s).textContent = pct(v);
     }
     svg("rect", { x: x(base[1]), width: x(base[2]) - x(base[1]), y: 10, height: H - 30, fill: "#3f3e3a", opacity: 0.07 }, s);
     svg("line", { x1: x(base[0]), x2: x(base[0]), y1: 10, y2: H - 20, stroke: "#3f3e3a", "stroke-dasharray": "4 3" }, s);
     for (const r of rows) {
-      if (r.g) { svg("text", { x: 0, y: r.y + 4, "font-size": 10.5, "font-weight": 600, fill: "#898781", "letter-spacing": "0.06em" }, s).textContent = r.g.toUpperCase(); continue; }
+      if (r.g) { svg("text", { x: 0, y: r.y + 4, "font-size": 13, "font-weight": 600, fill: "#898781", "letter-spacing": "0.06em" }, s).textContent = r.g.toUpperCase(); continue; }
       const c = cfCore[r.n], [m, lo, hi] = c[metric], p = c["p_" + metric], isBase = p == null, sig = p != null && p < 0.05;
       const g = svg("g", { class: "row" }, s);
       svg("rect", { class: "hit", x: 0, y: r.y - 12, width: W, height: 24, fill: "transparent", rx: 6 }, g);
-      svg("text", { x: 8, y: r.y + 4, "font-size": 12.5, fill: "#52514e" }, g).textContent = rowLabel(r.n);
+      svg("text", { x: 8, y: r.y + 4, "font-size": 16, fill: "#52514e" }, g).textContent = rowLabel(r.n);
       const col = isBase ? "#3f3e3a" : sig ? "#0b0b0b" : "#a3a29a";
       svg("line", { x1: x(lo), x2: x(hi), y1: r.y, y2: r.y, stroke: col, "stroke-width": 2, "stroke-linecap": "round" }, g);
       svg("circle", { cx: x(m), cy: r.y, r: 5.5, fill: col, stroke: "#fff", "stroke-width": 2 }, g);
-      const t = svg("text", { x: x(hi) + 8, y: r.y + 4, "font-size": 12, fill: sig ? "#0b0b0b" : "#52514e", "font-weight": sig ? 700 : 400 }, g);
+      const t = svg("text", { x: x(hi) + 8, y: r.y + 4, "font-size": 15, fill: sig ? "#0b0b0b" : "#52514e", "font-weight": sig ? 700 : 400 }, g);
       t.textContent = pct(m) + (sig ? (p < 0.001 ? "  p<0.001" : `  p=${p.toFixed(3)}`) : "");
       hover(g, `<b>${fullName(r.n)}</b><br>${metric === "share" ? "All agents" : "Core agents"} correct: ${pct(m)} (95% CI ${pct(lo)} to ${pct(hi)})<br>${c.n} trials${isBase ? "" : `; vs original structure p = ${p < 0.001 ? "< 0.001" : p.toFixed(3)}`}<br><span style="opacity:.7">Select to open a trial</span>`);
       g.addEventListener("click", () => { hideTip(); goTo(representative(r.n).id, null, 29, "cf-game"); });
