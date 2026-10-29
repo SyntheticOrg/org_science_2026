@@ -1,5 +1,7 @@
 :root {
   color-scheme: light;
+  /* System fonts only: Helvetica Neue on Apple devices, Aptos where Microsoft Office installed it, else Arial. */
+  --font: "Helvetica Neue", Helvetica, Aptos, Arial, sans-serif;
   --bg: #fcfcfb; --band: #f4f3ef; --card: #ffffff;
   --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e7e6e0; --base: #c3c2b7;
   --c0: #dddcd6; --c1: #1baf7a; --c2: #eb6834; --c3: #6b6a64;
@@ -8,7 +10,7 @@
   --radius: 14px;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 h1, h2 { font-weight: 600; letter-spacing: -0.015em; }
 h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 8px 0 18px; max-width: 900px; }
@@ -24,8 +26,8 @@ a { color: var(--ink); }
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
 .tile { background: var(--card); border: 1px solid var(--grid); border-radius: var(--radius); padding: 18px 20px; }
 .tile .lab { font-size: 13px; color: var(--ink2); }
-.tile .big { font: 600 34px/1.1 Inter, sans-serif; margin: 6px 0 4px; }
-.tile .big small { font: 500 15px Inter, sans-serif; color: var(--muted); }
+.tile .big { font: 600 34px/1.1 var(--font); margin: 6px 0 4px; }
+.tile .big small { font: 500 15px var(--font); color: var(--muted); }
 .tile .verdict { font-size: 13px; font-weight: 600; }
 .ok { color: var(--yes); } .bad { color: var(--no); } .mid { color: var(--partly); }
 
@@ -50,7 +52,7 @@ section { padding: 64px 0 64px; }
 .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
 .dot.c0 { background: var(--c0); } .dot.c1 { background: var(--c1); } .dot.c2 { background: var(--c2); } .dot.c3 { background: var(--c3); }
 .chart svg { width: 100%; height: auto; display: block; }
-.chart text, .area text, .cf-grid text { font-family: Inter, sans-serif; }
+.chart text, .area text, .cf-grid text { font-family: var(--font); }
 
 .hyp { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
 .h { background: var(--card); border: 1px solid var(--grid); border-radius: 12px; padding: 14px 16px; }
@@ -73,7 +75,7 @@ details.plain { border-top: none; margin-top: 0; }
 .picker { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
 .prow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .picker .grp { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; width: 150px; flex: none; }
-.chip { border: 1px solid var(--base); background: var(--card); color: var(--ink2); border-radius: 99px; padding: 5px 12px; font: 500 13px Inter, sans-serif; cursor: pointer; }
+.chip { border: 1px solid var(--base); background: var(--card); color: var(--ink2); border-radius: 99px; padding: 5px 12px; font: 500 13px var(--font); cursor: pointer; }
 .chip:hover { border-color: var(--ink2); color: var(--ink); }
 .chip.on { background: var(--ink); border-color: var(--ink); color: #fff; }
 select.chip { padding-right: 8px; }
@@ -88,7 +90,7 @@ select.chip { padding-right: 8px; }
 #graph .node circle.body { stroke: #fff; stroke-width: 2.5; transition: fill 0.35s; cursor: pointer; }
 #graph .node.sel circle.ring { stroke: var(--ink); }
 #graph .node circle.ring { fill: none; stroke: transparent; stroke-width: 2; }
-#graph .node text { font: 500 9px Inter, sans-serif; fill: var(--ink2); text-anchor: middle; pointer-events: none; }
+#graph .node text { font: 500 9px var(--font); fill: var(--ink2); text-anchor: middle; pointer-events: none; }
 #graph .node text.lab { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
 #graph .node circle.core-mark { fill: none; stroke: var(--ink); stroke-width: 1.4; pointer-events: none; }
 #graph .node text.conf { font-size: 8px; fill: #fff; font-weight: 600; }
@@ -97,7 +99,7 @@ select.chip { padding-right: 8px; }
 .controls input[type=range] { flex: 1; accent-color: var(--ink); }
 .btn { border: 1px solid var(--base); background: var(--card); border-radius: 99px; width: 36px; height: 36px; cursor: pointer; font-size: 14px; color: var(--ink); flex: none; }
 .btn:hover { border-color: var(--ink); }
-.clock { font: 600 14px Inter, sans-serif; font-variant-numeric: tabular-nums; width: 44px; text-align: right; }
+.clock { font: 600 14px var(--font); font-variant-numeric: tabular-nums; width: 44px; text-align: right; }
 .area svg { width: 100%; height: auto; display: block; cursor: pointer; }
 
 .side { font-size: 14px; min-width: 0; }
@@ -105,7 +107,7 @@ select.chip { padding-right: 8px; }
 .side .blk { margin-bottom: 18px; }
 .outcome { display: flex; gap: 14px; flex-wrap: wrap; }
 .outcome div { font-size: 13px; color: var(--ink2); }
-.outcome b { display: block; font: 600 24px Inter, sans-serif; color: var(--ink); }
+.outcome b { display: block; font: 600 24px var(--font); color: var(--ink); }
 .ptable { width: 100%; border-collapse: collapse; font-size: 13px; }
 .ptable td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--grid); }
 .ptable tr { cursor: pointer; }
@@ -126,24 +128,24 @@ select.chip { padding-right: 8px; }
 .ex { background: var(--card); border: 1px solid var(--grid); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; }
 .ex.lead-ex { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .ex .tag { font-size: 12px; font-weight: 600; color: var(--agents); text-transform: uppercase; letter-spacing: 0.06em; }
-.ex h3 { font: 600 18px/1.3 Inter, sans-serif; margin: 6px 0 8px; }
+.ex h3 { font: 600 18px/1.3 var(--font); margin: 6px 0 8px; }
 .ex .stat { font-size: 13px; color: var(--ink2); margin-bottom: 12px; }
 .ex blockquote { margin: 0 0 10px; padding: 0 0 0 12px; border-left: 3px solid var(--grid); font-size: 14.5px; color: var(--ink); }
 .ex blockquote .when { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
 .ex .actions { margin-top: auto; padding-top: 8px; display: flex; gap: 10px; align-items: center; }
 .ex details summary { cursor: pointer; font-size: 13px; color: var(--ink2); }
-.linkbtn { border: none; background: none; color: var(--ink); font: 600 13px Inter, sans-serif; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--base); }
+.linkbtn { border: none; background: none; color: var(--ink); font: 600 13px var(--font); cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--base); }
 .linkbtn:hover { text-decoration: underline; }
 
 .spot { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 20px; align-items: center; }
 .spot .mini { text-align: center; }
 .spot .mini svg { width: 100%; max-width: 230px; }
 .spot .mini .cap { font-size: 13px; color: var(--ink2); }
-.spot .mini .num { font: 600 34px Inter, sans-serif; }
+.spot .mini .num { font: 600 34px var(--font); }
 .spot .say { font-size: 15px; color: var(--ink2); }
 .spot .say b { color: var(--ink); }
 .seg { display: inline-flex; border: 1px solid var(--base); border-radius: 99px; overflow: hidden; }
-.seg button { border: none; background: var(--card); padding: 6px 12px; font: 500 13px Inter, sans-serif; color: var(--ink2); cursor: pointer; }
+.seg button { border: none; background: var(--card); padding: 6px 12px; font: 500 13px var(--font); color: var(--ink2); cursor: pointer; }
 .seg button.on { background: var(--ink); color: #fff; }
 .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .cf-grid svg { width: 100%; height: auto; }
@@ -177,7 +179,7 @@ a.quiet:hover { text-decoration: underline; }
 .spot-t th { color: var(--muted); font-weight: 500; }
 
 .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
-.filters select, .filters input { font: 14px Inter, sans-serif; border: 1px solid var(--base); border-radius: 8px; padding: 6px 10px; background: var(--card); color: var(--ink); }
+.filters select, .filters input { font: 14px var(--font); border: 1px solid var(--base); border-radius: 8px; padding: 6px 10px; background: var(--card); color: var(--ink); }
 .filters input { min-width: 220px; }
 .table-card { padding: 0; max-height: 520px; overflow: auto; }
 table.dt { border-collapse: collapse; width: 100%; font-size: 13px; }
