@@ -8,12 +8,11 @@
   --radius: 14px;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 h1, h2 { font-weight: 600; letter-spacing: -0.015em; }
 h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 8px 0 18px; max-width: 900px; }
-h2 { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; margin: 4px 0 20px; }
+h2 { font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; margin: 4px 0 12px; }
 h3 { font-size: 15px; font-weight: 600; margin: 0; }
 a { color: var(--ink); }
 .muted { color: var(--muted); } .small { font-size: 13px; }
@@ -196,11 +195,21 @@ table.dt td.wrapcell { white-space: normal; min-width: 220px; }
 .d-head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
 .d-actions { display: flex; gap: 16px; }
 /* Pages that are also .wrap would otherwise lose their vertical padding to the .wrap shorthand. */
-main > section, main > section.wrap { padding-top: 56px; padding-bottom: 24px; }
+main > section, main > section.wrap { padding-top: 32px; padding-bottom: 24px; }
 
 /* Replay pages: compact header so the player fits on one screen */
-#game, #cf-game { padding-top: 32px !important; }
 #game h2, #cf-game h2 { margin-bottom: 12px; }
 #game .picker, #cf-game .picker { gap: 6px; margin-bottom: 10px; }
 #game .chip, #cf-game .chip { padding: 3px 10px; font-size: 12.5px; }
 .player.card { padding: 14px 20px; }
+
+.ov { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 40px; }
+.ov h3 { font-size: 15px; margin: 0 0 8px; }
+.ov-main p { color: var(--ink2); font-size: 15.5px; margin: 0 0 14px; max-width: 680px; }
+.ov-main h3 + p { margin-top: 0; }
+.ov-main p + h3 { margin-top: 26px; }
+.ov-link { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--grid); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.ov-link:hover { border-color: var(--base); }
+.ov-link b { display: block; font-size: 14px; margin-bottom: 2px; }
+.ov-link span { font-size: 13.5px; color: var(--ink2); }
+@media (max-width: 860px) { .ov { grid-template-columns: 1fr; gap: 24px; } }

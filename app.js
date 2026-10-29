@@ -370,7 +370,7 @@ function render() {
 
 function goTo(id, node, k, tab) {
   const t = findTrial(id), mode = tab || (PAPER.includes(t.network) || t.pilot ? "game" : "cf-game");
-  location.hash = mode;
+  history.pushState(null, "", "#" + mode);
   showTab(mode);
   loadTrial(t, { node, k });
 }
@@ -553,16 +553,23 @@ function byRound(n) {
 })();
 
 /* ---------------- tabs: one section per page, routed by the URL hash ---------------- */
-const TABS = ["paper", "game", "counterfactuals", "cf-game", "data"];
+const TABS = ["overview", "paper", "game", "counterfactuals", "cf-game", "data"];
 function showTab(tab) {
   document.querySelectorAll("main > section").forEach(s => s.classList.toggle("active", s.id === tab));
   document.querySelectorAll(".toc a").forEach(a => a.classList.toggle("on", a.dataset.tab === tab));
   if (tab === "game" || tab === "cf-game") mountPlayer(tab); else stop();
 }
 function route() {
-  showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "paper");
+  showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview");
   scrollTo(0, 0);
 }
 addEventListener("hashchange", route);
+addEventListener("popstate", route);
+// Tab links change the URL without the browser's jump to the section id, which would hide the page top under the tab bar.
+document.querySelectorAll(".toc a, a.ov-link").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault();
+  history.pushState(null, "", a.getAttribute("href"));
+  route();
+}));
 addEventListener("load", () => setTimeout(() => scrollTo(0, 0), 0)); // the browser jumps to the section id on load
 route();
