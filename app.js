@@ -558,7 +558,9 @@ function showTab(tab) {
   document.querySelectorAll("main > section").forEach(s => s.classList.toggle("active", s.id === tab));
   document.querySelectorAll(".toc a").forEach(a => a.classList.toggle("on", a.dataset.tab === tab));
   if (tab === "game" || tab === "cf-game") mountPlayer(tab); else stop();
-  if (tab !== "overview") document.getElementById("ov-video")?.pause(); // stop the narration when leaving the page
+  const video = document.getElementById("ov-video");
+  if (tab !== "overview") video?.pause(); // stop the narration when leaving the page
+  else if (video && video.readyState === 0) video.load(); // Safari may not load a video that was hidden at page load
 }
 function route() {
   showTab(TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview");
