@@ -121,7 +121,7 @@ function barPath(x, y0, w, h, r) {
     <tr><td>One search per 30-second turn, repeat searches allowed</td><td>One random matching clue per search, as on the original platform</td></tr>
     <tr><td>Mixed reasoning effort (low, medium, high)</td><td>Each agent gets one effort level at random</td></tr>
     <tr><td>Messages cost time</td><td>Writing takes 3 s plus 1.5 s per word out of the 30-second turn</td></tr>
-    <tr><td>Persona cards</td><td>Age, gender, education and Big Five traits drawn to match MTurk samples, plus susceptibility to influence</td></tr>
+    <tr><td>Persona cards</td><td>Age, gender, education, and Big Five traits drawn to match MTurk samples, plus susceptibility to influence</td></tr>
     <tr><td>Limited memory with a notepad</td><td>Agents see only their last 3 turns, plus a notepad of up to 15 words per turn</td></tr>
     <tr><td>Neutral payment wording</td><td>No instruction to enter an answer early</td></tr></table>
     <p>Isolates, mean correct of 9: agents ${mean(S.isolates.agents).toFixed(1)}, humans ${mean(S.isolates.humans).toFixed(2)}.</p>`;
@@ -476,7 +476,7 @@ function byRound(n) {
   document.getElementById("method").innerHTML = `
     <table>
     <tr><td>Task</td><td>The murder mystery of the original study: 41 clues in two waves, broadcasts at 0, 5 and 10 minutes, 15 minutes divided into 30 turns of 30 seconds. The second wave changes which suspect is the murderer.</td></tr>
-    <tr><td>Agents</td><td>gpt-6-luna via the OpenAI Responses API. In each turn an agent returns a structured action: search query, message, answers and private notes.</td></tr>
+    <tr><td>Agents</td><td>gpt-6-luna via the OpenAI Responses API. In each turn an agent returns a structured action: search query, message, answers, and private notes.</td></tr>
     <tr><td>Final settings</td><td>One search per turn with repeat search, mixed reasoning effort, time costs for messages, persona cards including susceptibility to influence, memory of three turns with a 15-word notepad, neutral payment wording.</td></tr>
     <tr><td>Trials</td><td>${S.n_trials_all} trials across all calibration and final runs; this page includes the ${S.n_trials_site - 1} trials with the final settings and one pilot trial.</td></tr>
     <tr><td>Cost</td><td>$${S.cost.toFixed(0)} in API fees across all runs.</td></tr>
