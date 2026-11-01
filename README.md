@@ -12,6 +12,7 @@ Website with results and trial replays for the network replication: https://orgs
 | `plugin/` | `synthetic-organisations` plugin for Claude Code and Codex |
 | `first-test/` | Replication of Maciejovsky and Budescu (2020), Study 1 |
 | `second-test/` | Replication of Bernstein, Shore, and Jang (2023), with 16 counterfactual networks |
+| `third-test/` | Replication of Brandts and Cooper (2025) |
 | `GENERAL_IDEA.md` | Research approach |
 
 ## Plugin
@@ -50,9 +51,9 @@ Groups of nine agents solve a murder mystery in 30 turns. Early clues point to a
 
 Specification and calibration log in `APPROACH.md`, findings in `results/second-test-findings.pdf`, one row per trial in `results/trials_summary.csv`. Raw runs in `runs/`; calibration and pilot transcripts are not included but are summarized in the CSV.
 
-## Third replication
+## third-test: managerial leadership and truth-telling
 
-The worked examples in `plugin/skills/simulation-harness/references/worked-examples.md` summarize a replication of Brandts and Cooper (2025). Its harness and runs are not included in this repository.
+A manager and two agents in seven treatments that vary communication and decision rights. Chat outperformed the safe outcome, as for humans, but agents misreported far less often under structured reports (11.1% against 41.6%) and managers rarely erred, so the advantage of chat largely disappeared. Design and results in `third-test/README.md`.
 
 ## Running
 

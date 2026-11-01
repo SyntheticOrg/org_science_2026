@@ -29,9 +29,9 @@ Each test was a replication of a published organisational experiment with the sa
 - **Intervention evidence:** a memory window of three or four turns plus a short notepad restored the direction (+1.30 in exploratory work); the final run kept little of it (+0.25, p = .43). Initial calibration used isolated players, but later interventions were selected while inspecting network pilots, including the focal contrast. Final settings were fixed before the last run; this does not remove that exploratory selection. The plugin's rule for future evaluation is stricter.
 - **Kit parts:** the memory window, persona and reasoning summaries in `agent.py`; `personas.py`; the effort mix; and the `Notepad`, taken from its engine.
 
-## Manager and agents (Brandts & Cooper, 2025)
+## third-test: manager and agents (Brandts & Cooper, 2025)
 
-The harness and runs of this replication are not included in this repository.
+Summary in `third-test/README.md`.
 
 - **Design:** a manager and two agents in seven communication and decision-rights treatments, with the authors' replication package.
 - **Replicated:** chat beat the safe outcome, and agents lied less in chat than with structured reports.
