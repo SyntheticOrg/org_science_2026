@@ -1,0 +1,305 @@
+{
+  "case_id": "full-profile-002",
+  "family": "full-profile",
+  "model": "gpt-6-luna",
+  "frame": "simulation",
+  "repeat": 2,
+  "fake": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+    },
+    {
+      "role": "user",
+      "content": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant B: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\nApplicant A: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths."
+    }
+  ],
+  "started": "2026-10-22T07:28:30.534620+00:00",
+  "text": "{\"scores\":{\"A\":4,\"B\":1,\"C\":1},\"ranking\":{\"first\":\"A\",\"second\":\"B\",\"third\":\"C\"}}",
+  "usage": {
+    "input_tokens": 287,
+    "cached_tokens": 0,
+    "output_tokens": 122,
+    "reasoning_tokens": 81
+  },
+  "answer": {
+    "scores": {
+      "A": 4,
+      "B": 1,
+      "C": 1
+    },
+    "ranking": {
+      "first": "A",
+      "second": "B",
+      "third": "C"
+    }
+  },
+  "assessment": {
+    "correct": 4,
+    "total": 4,
+    "all_correct": true
+  },
+  "status": "complete",
+  "elapsed_seconds": 1.8430202919989824,
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+      },
+      {
+        "role": "user",
+        "content": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant B: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\nApplicant A: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scores": {
+              "type": "object",
+              "properties": {
+                "A": {
+                  "type": "integer"
+                },
+                "B": {
+                  "type": "integer"
+                },
+                "C": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "A",
+                "B",
+                "C"
+              ],
+              "additionalProperties": false
+            },
+            "ranking": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "second": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "third": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                }
+              },
+              "required": [
+                "first",
+                "second",
+                "third"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scores",
+            "ranking"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "api_response": {
+    "id": "resp_0c32491a61cec56a016ad9bb1eb65c87d28a2933cd6c5017c6",
+    "object": "response",
+    "created_at": 1792654110,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792654112,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0c32491a61cec56a016ad9bb1f22c887d2b1f4f7e277130610",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2bsgjB_RbT6qvF2f-lQv8X8ihH8jz-QZsuFW9zp7SrnwqcPG-DK9MMfbOq5_EPO1VBRxFmdUGUIzl3YqHaLAPewIGPb7vByPQsQiNVVcw0i7KirWw0hqjc2wKt7WOw6ae_brHNw1DudLDRDDPm8rIz2td5O4A_fB5RnERbuFN9jmX39hEzqG2SBRAvAmPiCRTv8-pP93cueW7FBax-Bz9ci_cF5al04Np4g2oKyIqGJzDTn0AoFLM939OeZyxPR09uz-rvGAj2Zt9TcN55sJYASz6WtV8oxY4qV080fzaojPiV8WYxTXxMc_5Hxbea3dsOeMIgmb_UepJv3oieKekIGr5-RTQYznp5wXBQD8ydljj6iGNE4OZud3dU2Q3_zPtqMexQ1kUUlWMZnvNdUanv3-PgLfURWVBkRcVsMGg1yQOgcNyNS8Ip9R8vy5A7bO8D6kTWD9bz551KZZUigdSFqHC0eL_RDRJ8xKUdMR-YAsdCdzBAdVTFJJoImkTGLRiGiU9b0b386wCrL6D_leRZ6acADs-yuN5D-6CsoA8Fkdq3iSVCXp2GFJhoBP-vTUUdwPxkEh9CEvlZaszpeAk1QJsQ48t2OTx6LfmZaCJSiCRc8QEzSbuoAGYEpvB9N5kHHhCKyyMlGU1lucEkaXjKQjJPi9024JoJWJIO6HizvmDdXl6OMmmgNSR_OzuTD6uJC6QZCAz0oaGxQUGqhP7VXGDym6wzRxzjWLF6G2w_lUB5wrghhtS-1haV8T75vT8OW0_gYKJ4OlW67ZVDpk6kFSS4gcuqFPWAUPZWswiv1F_5Hl5iZsn1tPV4J7QWdds2PMu9LzHnhkIq1nsJl4LhErDPb2FUqITk2uxTRxscnQe2P4KYcb3k_l47qAzGx4xQgjS-vWisK0EtDTdLZtyVaA8D7ApCJDiwbQSWBPrDaZkMQKwaL2X4zGiC3ztAoE658UvtnncNZpPA8Px1WTe50fB-ENNK6unv2zYlkGDwwhC5oh1Ubw-HoYU5cyYYhY6g9QUDjjlacwAoMaqT_cmnOYXlpkRJJ2UDdu_5rIGRv9H9NWPGSju-xWdzFPdhitsGQpUmPygU1BJO-SzbK-X2nyez-ZZmefi1yXUG4tEO2_BWaEnOsX4s6s61tE4BGPN2VsjhGRrQX_ncyzbTGtFuG81ZoejDVzevN6LV-mfArfcd2ievVvvH6Z0DqgceJ5bcIpjmER__19_yTERKnNTUv5Gc4paIZrasvwj_udq5QtRf_1E-A1Dgf3OqjoXJsjNYQPb9eXrbfrK9ABayDwDHjBBb7PBN-xfH5-rR6bY3NvxLndG9HD1dlnEc-vG8kXQHuFR0dCsqhVADdvDL2SMqarMeFmqggEq9kl_gJNtw-yYWROaRz1cnghh9v5D4kruyMZ61i69RlCjwrdGnGktK5yClGhKX-KVT2XViUCH1Qcl1yv8rIgneutcmfrUmRmkcDtWpgvBJO0KxUmZWCfQD3E3A6xW3mfj-ornv1GmrFlcaWYkRdWG3BYoqjLpdDJtB2bqNAc6ftxv9ZQWakTYXsRXu64vVXwDwHfJahoUNrwX2ytNKY0Pg7urFDjANh5eglOApb5bK11mNz4eB7J4AwoelvlaIBhfy5AuXmdvKA-MTVCfmvlwE4lnZiz-PIfkA2sonHtQI-1qrKZWjailJYtdkBTxQKR0M4dGfTq9C81tBvdDjJBpHCxdRUuLdqoj2_eDqW7mR5Ju2Yonj4MT3zKAOdnfbScj-zEVoDJ4-3GPvIYlDnDAhmnXV7wl_5Pj7EBiQgVOqccJ_gP4jEUIIKEcTDRdLNtNqiUMGe8vpZWzmSPMBiPalPVneFRS9b_zAVn-5mqULCN7up-7D27RvGd9W0cgkA6EEi9zd_u9UvAopyMmiy73LkIUcXjJshkpjqf6CFktU10wMyJ-HqE56wwarxbSW7MBUZMJIGfaaThRR4vSv9P5uhyJ7ZcTA7sAkhqFt-Xqbg0IUOXxXl7j6zOwApVbcMdtXXNkgNZkVYPkL_1yIqG4sjjI5yFJjiUCoMhKjWzJlorRrbM4EgsY_E-xkk2Ag6tIS1SwuaDZum_gEB6Yp6AJn1AWI6-ulNeVnnkdHfqteuclj4l2U904IwWbRhlSTLgFj8FRJXblOywUNMP9vtT0N5Hc8hAqBq23b6ALFCBJXscMiW89TQCucy-HpS8MoxZF93rD3uQhnmNRKpSDaFpDPQnT6xwK6Yibsd2JEP-w_yvJnbZQNjzPxqShBFVCmuJ3788t2Fjr2v0g4c=",
+        "summary": []
+      },
+      {
+        "id": "msg_0c32491a61cec56a016ad9bb20076c87d295a7cea0ddc69633",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"scores\":{\"A\":4,\"B\":1,\"C\":1},\"ranking\":{\"first\":\"A\",\"second\":\"B\",\"third\":\"C\"}}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scores": {
+              "type": "object",
+              "properties": {
+                "A": {
+                  "type": "integer"
+                },
+                "B": {
+                  "type": "integer"
+                },
+                "C": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "A",
+                "B",
+                "C"
+              ],
+              "additionalProperties": false
+            },
+            "ranking": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "second": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "third": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                }
+              },
+              "required": [
+                "first",
+                "second",
+                "third"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scores",
+            "ranking"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 287,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 122,
+      "output_tokens_details": {
+        "reasoning_tokens": 81
+      },
+      "total_tokens": 409
+    },
+    "user": null,
+    "metadata": {}
+  }
+}

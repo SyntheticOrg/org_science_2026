@@ -1,0 +1,203 @@
+{
+  "case_id": "cost-00-reimbursed-002",
+  "family": "disclosure",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "frame": "simulation",
+  "repeat": 2,
+  "fake": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+    },
+    {
+      "role": "user",
+      "content": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. An external experiment budget reimburses the full £0 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option."
+    }
+  ],
+  "started": "2026-10-22T07:29:40.756154+00:00",
+  "text": "{\"choice\":\"O2\"}",
+  "usage": {
+    "input_tokens": 278,
+    "cached_tokens": 0,
+    "output_tokens": 132,
+    "reasoning_tokens": 114
+  },
+  "answer": {
+    "choice": "O2"
+  },
+  "assessment": {
+    "action": "release",
+    "release": true,
+    "earnings": {
+      "1": 14,
+      "2": 14,
+      "3": 14
+    },
+    "own_money_max_choice": true
+  },
+  "status": "complete",
+  "elapsed_seconds": 1.590654125000583,
+  "request": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "input": [
+      {
+        "role": "system",
+        "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+      },
+      {
+        "role": "user",
+        "content": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. An external experiment budget reimburses the full £0 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            }
+          },
+          "required": [
+            "choice"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "api_response": {
+    "id": "resp_00e1c07676e7444f016ad9bb64e58487d2ad1100497a168cec",
+    "object": "response",
+    "created_at": 1792654180,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792654182,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-5.4-mini-2026-03-17",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_00e1c07676e7444f016ad9bb65422087d2844af129e945b3ae",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2btmgL2opCAnhSDN5CsE8j7Z5rZeM5IwYNrHo_byh2khL0hGZw5S2rewQ-OFVc0I2ULGQrYwh6C0oTE9YxdOli5BDF3OzOPoP6qYb5sWVBOg6xKHdm4SOFp3IBe1EdMdd2_ZB0gHS6GhoB24Ym9OHnwcquHkuwh52_jkX39lhpPbSRbPX0LMt5WCPvtW27IKsrmgPHHqsvISRDygRrHqHBjB9O8x8iNgijbaj8SMIfqIyiDnyaGbFH6WBU022kMWg8wJhQl7OqE9CDXRRUZSQmrWgDSi3hd0nkBXoy-uBZ1efPOv4L9a1Zy1utVXHYAV_htSjHDr1b0Lgly52htmY4KoA9U5sE3PyP5tAc9kNtrPUgmVfgCXQm8WHBxltvzWmTJJ8azPM3FrmUExF2zRiCGIIa-rd2_-GBCFl1Rg5Djnh49JgigT8iSn0UJZDqMui8_GKyCDXAHD09DkREx67HPKF8krWwP_AEnrzoxd4W03N-QWBPbD_poabgh-oOtRrON_XXK_X0bO9dyrnKgT2P7u8iIfMOoMg7Nd0Jeh-44LjYf5nosYf6GA9IgpqIlYythE4CR8OQbLTkJpUu-6vkOfqxWuJUI_k7H4FMLHybYJrPRykNNAec4MvUI8Uu4jPldVcI9ov5V4-uh5NUYR73NTJaOv9sBVe_zli9UcndyB9Ped6feh_UAS7B-wWD2DSh8kF3lB0m7tM4-LRZ0wpNB2jW4-9ykZl3II-yvTaMNsXlXJN9nF4NckouXuWx7WEL3U5sHHkL6KqCIxeQ5bM-DdjivGVa9fUVdCeA_M6Zlob4ggWc2ZyFhsvaZOn-lheW7F1a76hKK_X9RpRncXPoc7mkaOBzRqojGK71VI6MJw5mpWiNeF7LgwMymjw7TorWyVMwMNKqVttU7FTMT0MbxEOtucz_aAmEUi8-AMHgWU9dwfHpA9H5MgHtBeiIUyJGXuceiG6D10A462bOvc489dlIJV74aeLwQsBnDmNp2n0yRURdSQy2mpXdd7IcxYZljXLvtGYzC2J65U6t7GUGB9LfKfwiPeIdiTED1x9mlmi2UqwbKmsEJKk4Rjf5GbgMWpUzprqPH77VtKlN74Fe7E4zzSx_ohgjwj8h5ekNLefQLHsANRy7Jh5eKi3DIl8Fmd4rTpMfo_3lLO7BMsisD_KkPyo4Qpdb8wLysBGvktlc0vZk-Mu_gtjEYYjSAgWjE-5Fp2AhcEapaSO0ChxBJfy8Eo3eqN1LKytSQlDoX3gTvNf1jLSeDu6g7vSz16XMXDQKFFwsJaXwygUMQnbhkpgjIsbLrK2v4Mp27d5nFNRZCLYHvC4ICkSuHWl3dT99FmwKgyK3DYxEw5AjlPt4W4nodRPXRYy3EvyJmCw010I264mdLsto21EEi6VLbQAL4NTZ9LS4o_xsVnijjJU6WS5AWLj0UuNdfWwsO-_BfKeOppRoip1R2Wy4wObNW7f8UaPUBs6mTwnP2djrV0aTASeXFKeFVK5HGT-bZUhI0WnVs0fihBq-Ar9RvMzZRPqxmXZfoREr025csczb5N-nhTsB1_pqmp6yNISPiOi2c3-nPFKqvKy6zeAHbhZJVtteyWah9Rx50kfuk_umUHWP8f3xTmr5l2ToGmeEJVa2mKYw__A1hQraWFh0bjnQ8acJ0SHp33TX3N9UDTlLg5PP6_Wjh0eIdCzJJ9TxZwMgjoDgoixVnF5fKMA9HerqAWONbNW6YzcbntRG-zSEpiyPE-aAgzpV5nZ7GX4SyXw3TGQetEApSOLUbTVsA_OCo3fMCQBDSbTsmHZLWZ4sSW0pee9IBrkp3FA4Y1Ao6ZupwwyqT9uS6WVZnnumPYcmnMCaexifLQsdnZp9T81mD-nu6HdubLSolKvXJiWGT4rLtpWZjglOaU8KJxOS2BR3BabZE-J7hURoUngKl4fteuaOaKp5LLuYGqF9ukjs16HgTnsxtB9OOTENTnGEa774cWk6LqB_bRhga6FHK04msyb1_Tb_wcmjp0xwcQHJdJM0vY_hrJOpWvQuXVmsAishdCseWRswY6Ow1cxwFKvyA_Ikk6aWYGIU9nHm1LAaXlWIdfbmepGp7OFfg-YTAAMPs-ZfmrOMzuePIyL4Y4uCuWd-HL4Dh02pAhYDK1VAXT7iH87bOYR1JsYfdTXE1s7NFS8wLDHLvW2dMqmOXDVqedTuBNcb-SUFmdsy5d_UuM8avYPS6ACI15-4QT1XkY95lvh7P0hjqfIDCrKKBWWkONFvKSaC1TVWoYq1IVswXzAnLe3K6RBjRbkUMk-0jiAnEdHXWXrkBoCC7Y-NJmja2ogIapjxshLqciI8lBE0Zqd1Ay6IQdgOCFoSCgD6GnNFK_QcCvmgnlgZ15GwM2_ZLyqZr80UUFQ46nSiZZnHinTpEOsXqHHGX75STWg420mRtJy0_J2DOPBw2CMQUey6riYeBn50tcXAs6fCp3bAZ88dqjUQcXfLLIEDxVcMuWqoXXti1OpY8bjp8q6WXL0gE7B49GRva1d8hlCqq8WSYUj7uK_hlfuoLhoSrkES9E11p68vdywplTHgVjLBalMkWpznkvY3WsG5N19e3KXQhxmsBDSFp_gMhu9QMjAgV1AAWMQ78uEre9gzf4DpJoXOjUNxocKFTyp6_BchgNYarzLJNoJVQszkZkBbILmiBnp6ccedPI7PVDP3nQiMBe5ayEtYFTypje0ERZ4cHidQkKAQAJb3q9PV-ewVmUW1DdkAFdsHoKX4eO0Jm3ggT6rlkH0CoQIOabKIQjNjbKChXIYPydGJiZosT0XpE7kSUpgZWM2ASI",
+        "summary": []
+      },
+      {
+        "id": "msg_00e1c07676e7444f016ad9bb66235487d2bf958ee2fcd784b1",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"choice\":\"O2\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "current_turn",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            }
+          },
+          "required": [
+            "choice"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 278,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 132,
+      "output_tokens_details": {
+        "reasoning_tokens": 114
+      },
+      "total_tokens": 410
+    },
+    "user": null,
+    "metadata": {}
+  }
+}

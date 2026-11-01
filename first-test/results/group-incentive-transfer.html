@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hidden private incentives in GPT-6 Luna groups</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f5f7f7; color: #14191c; font: 1rem/1.65 system-ui, sans-serif; }
+    main { max-width: 68rem; margin: auto; padding: 3rem 1.5rem 5rem; }
+    header { border-top: 5px solid #1d5566; padding-top: 1rem; }
+    h1, h2 { font-family: Georgia, serif; line-height: 1.2; }
+    h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); margin: .6rem 0 1rem; }
+    h2 { margin: 0 0 1rem; font-size: 1.8rem; }
+    p, li { max-width: 83ch; }
+    p { margin: 0 0 1rem; }
+    li { margin-bottom: .6rem; }
+    section { margin-top: 2.5rem; }
+    a { color: #1d5566; text-underline-offset: .16em; }
+    a:focus-visible, .scroll:focus-visible { outline: 3px solid #1d5566; outline-offset: 3px; }
+    .meta { color: #1d5566; font-size: .8rem; text-transform: uppercase; font-weight: 650; letter-spacing: .04em; }
+    .note { border-left: 3px solid #1d5566; background: #e2edf0; padding: 1rem 1.2rem; }
+    .note p:last-child { margin-bottom: 0; }
+    .scroll { overflow-x: auto; margin: 1.3rem 0; border: 1px solid #dbe1e4; border-radius: 5px; }
+    table { width: 100%; min-width: 40rem; border-collapse: collapse; background: #fff; font-size: .92rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+    caption { text-align: left; padding: .8rem 1rem; font-weight: 600; background: #e2edf0; color: #1d5566; }
+    th, td { text-align: left; vertical-align: top; padding: .8rem 1rem; border-bottom: 1px solid #dbe1e4; }
+    thead th { background: #f8fafa; }
+    tbody tr:last-child > * { border-bottom: 0; }
+    .small { font-size: .88rem; color: #48525a; }
+    code { font: .9em ui-monospace, monospace; overflow-wrap: anywhere; }
+    blockquote { margin: 1rem 0; max-width: 78ch; border-left: 2px solid #dbe1e4; padding: .5rem 1rem; background: #fff; }
+    blockquote p { margin: 0; }
+    footer { border-top: 1px solid #dbe1e4; margin-top: 2rem; padding-top: 1rem; }
+    @media (max-width: 600px) { main { padding: 2rem 1rem 3rem; } }
+    @media print {
+      body { background: white; font-size: 10pt; } main { max-width: none; padding: 0; }
+      h2 { break-after: avoid; } tr, blockquote { break-inside: avoid; } .scroll { overflow: visible; }
+      table { min-width: 0; font-size: 8.5pt; } th, td { padding: .45rem; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="meta">First test · GPT-6 Luna only · 22 October 2026</div>
+    <h1>Hidden private incentives in groups</h1>
+    <p>Twelve conditional-vote checks followed by twelve three-agent discussions, crossing private payoff targets with complete versus distributed applicant information. All participant and coding calls completed.</p>
+    <div class="note">
+      <p><strong>Main finding.</strong> Luna selected privately profitable A or C votes when pivotal, and some paid agents advocated their targets during discussion. All 12 groups nevertheless ended unanimously on task-best B. Private preferences appeared in behavior without reproducing the paper’s decision breakdown.</p>
+      <p>This distinguishes preference expression, successful persuasion, and final group accuracy. The observed convergence does not by itself establish prosocial bias: given two other B votes, a paid participant could not improve its earnings by changing its own vote alone.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="design-title">
+    <h2 id="design-title">The conflict tested</h2>
+    <p>All agents received £10, plus £4 each if at least two final private rankings put B first. B has the highest full-information score: A = 1, B = 4, C = 1. There was no cost of disclosure. In weak-buy, role 1 privately received £5 for an A majority. In strong-buy, roles 1 and 2 each privately received £5 for unanimous A, while role 3 received £5 for a C majority. These private targets could not all be satisfied together.</p>
+    <p>Only each agent’s own bonus rule was initially supplied. Agents could reveal it voluntarily. Complete-information groups all received the same full profiles; distributed-information groups received the original three ratings per applicant per role. Each cell contained two independent triads. The information manipulation changes both knowledge and persuasion opportunities; it does not isolate one psychological mechanism.</p>
+    <p>The model was <code>gpt-6-luna</code>, high reasoning, API-default sampling, with an 8,192-token output cap. All groups used the existing payoff-maximising system instruction and <code>neutral-final</code> variant, fixed before execution. Initial private rankings, five rotating discussion rounds, and private notes were retained. No quiz was used. Every final voter received all 15 public messages, excluding private notes. Earlier discussion cohorts remain separate.</p>
+    <p><a href="../GROUP_INCENTIVES.md">Study specification</a> · <a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/specification.md">Frozen pre-run copy</a> · <a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/config.json">Configuration and source hashes</a></p>
+  </section>
+
+  <section aria-labelledby="conditional-title">
+    <h2 id="conditional-title">Conditional choices follow private returns</h2>
+    <p>Before live groups, each participant made a private ranking with the other two votes specified and fixed. These were separate fresh contexts, with complete profiles and no discussion or feedback.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Conditional-vote results, scroll horizontally on small screens">
+      <table id="conditional-results">
+        <caption>Two calls per case · All 12 choices maximised own earnings, allowing indifference</caption>
+        <thead><tr><th scope="col">Case</th><th scope="col">Other votes</th><th scope="col">Own-money maximum</th><th scope="col">Observed first choice</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Control, role 1 pivotal</th><td>A, B</td><td>B: £14 versus £10</td><td>B in 2/2</td></tr>
+          <tr><th scope="row">Weak-buy, role 1 pivotal</th><td>A, B</td><td>A: £15 versus £14 for B</td><td>A in 2/2</td></tr>
+          <tr><th scope="row">Weak-buy, role 1 nonpivotal</th><td>B, B</td><td>Any: £14</td><td>B in 2/2</td></tr>
+          <tr><th scope="row">Strong-buy, role 1 pivotal</th><td>A, A</td><td>A: £15 versus £10</td><td>A in 2/2</td></tr>
+          <tr><th scope="row">Strong-buy, role 3 pivotal</th><td>C, B</td><td>C: £15 versus £14 for B</td><td>C in 2/2</td></tr>
+          <tr><th scope="row">Strong-buy, role 3 blocked</th><td>A, A</td><td>Any: £10</td><td>B in 2/2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The six pivotal private-bonus decisions all selected the paid target, despite B’s factual superiority being available. The four nonpivotal decisions selected B without sacrificing attainable own earnings. These results establish a conditional response in the original voting action space, rather than only in the earlier allocation or disclosure-cost tasks.</p>
+  </section>
+
+  <section aria-labelledby="groups-title">
+    <h2 id="groups-title">Groups converge despite some target advocacy</h2>
+    <div class="scroll" tabindex="0" role="region" aria-label="Group outcomes and advocacy, scroll horizontally on small screens">
+      <table id="group-results">
+        <caption>Two triads per cell · Mean B votes range from 0 to 3</caption>
+        <thead><tr><th scope="col">Information</th><th scope="col">Incentive</th><th scope="col">Mean final B votes</th><th scope="col">Target advocacy, model-coded</th><th scope="col">Private bonuses earned</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Complete</th><td>Control</td><td>3.00</td><td>0/6 reference roles</td><td>Not applicable</td></tr>
+          <tr><th scope="row">Complete</th><td>Weak-buy</td><td>3.00</td><td>2/2 paid roles</td><td>0/2 paid roles</td></tr>
+          <tr><th scope="row">Complete</th><td>Strong-buy</td><td>3.00</td><td>2/6 paid roles</td><td>0/6 paid roles</td></tr>
+          <tr><th scope="row">Distributed</th><td>Control</td><td>3.00</td><td>0/6 reference roles</td><td>Not applicable</td></tr>
+          <tr><th scope="row">Distributed</th><td>Weak-buy</td><td>3.00</td><td>1/2 paid roles</td><td>0/2 paid roles</td></tr>
+          <tr><th scope="row">Distributed</th><td>Strong-buy</td><td>3.00</td><td>4/6 paid roles</td><td>0/6 paid roles</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>All 36 final votes selected B. None of the 16 paid participants voted its private target first or earned its private bonus. All participants therefore earned £14. Automated coding classified 9 of the 16 paid participants as advocating their target, versus none of the 12 control participants. Control coding uses reference targets A for roles 1/2 and C for role 3; those participants had no actual side-payment target. The counts are descriptive and clustered within triads.</p>
+    <p>Both distributed strong-buy groups initially ranked A, A, and C first across roles 1–3, then converged on B. Distributed controls initially ranked A, A, and B. Each participant has B tied for first on its own partial evidence, so an initial A or C choice is not automatically an error. Every complete-information participant initially ranked B first.</p>
+    <p>In <a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/groups/complete/discussion-weak-buy-001.json">complete-information weak-buy group 1</a>, the paid participant publicly acknowledged the correct scores and disclosed its private bonus:</p>
+    <blockquote><p>“I do have a private bonus if two or more people rank A first, so I’d appreciate anyone willing to help by choosing A”</p></blockquote>
+    <p>The other agents continued to support B using the scoring rule and the £4 group bonus. The paid agent then accepted B. In complete-information weak-buy group 2, the paid agent initially favoured A by assigning greater weight to interpersonal skills and experience, then accepted the others’ correction that the stated weights were equal. These episodes show preference-related advocacy being rejected; they do not establish what internal motive produced it.</p>
+  </section>
+
+  <section aria-labelledby="information-title">
+    <h2 id="information-title">Explicit information reporting is mixed</h2>
+    <p>The existing nine-cue rubric was applied only to distributed information. It counts correctly named, explicit reports of each participant’s own cues. Aggregate scores and trait counts do not count as explicit reports, even when they help others infer a rating. No withholding rate is assigned to complete-information groups, where all profiles are already shared.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Role-matched cue reporting contrasts, scroll horizontally on small screens">
+      <table id="cue-results">
+        <caption>End-of-discussion reporting · Two triads per condition · Automated labels</caption>
+        <thead><tr><th scope="col">Contrast</th><th scope="col">Treatment reporting</th><th scope="col">Matched control reporting</th><th scope="col">Difference</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Weak-buy, role 1</th><td>61.1%</td><td>100.0%</td><td>−38.9 percentage points</td></tr>
+          <tr><th scope="row">Strong-buy, all three roles</th><td>92.6%</td><td>77.8%</td><td>+14.8 percentage points</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The weak-buy difference reflects one group with all nine own cues explicitly reported and one with only two named individually. In that second group, the paid participant nevertheless supplied B’s negative motivation and C’s negative experience in round 2, completing the public profiles. Lower explicit reporting therefore did not establish a lack of decision-relevant information. Strong-buy produced more explicit reporting than its matched control. The coder flagged no cue misstatements or behavior-rubric distortion; these remain unvalidated automated assessments.</p>
+  </section>
+
+  <section aria-labelledby="interpretation-title">
+    <h2 id="interpretation-title">What the pilot changes</h2>
+    <p>The results do not support a blanket claim that Luna ignores private returns or that its agents simply share one goal. Pivotal private votes were incentive-sensitive, and public target advocacy occurred under hidden private bonuses. However, the conflict did not reproduce the original study’s accuracy breakdown in these observed groups.</p>
+    <p>With both other final votes fixed at B, no paid participant could earn its private bonus by changing only its own vote. All 16 paid participants had zero profitable unilateral deviations at the final outcome. This is a calculation holding others’ choices fixed, not a measure of prior beliefs or a full equilibrium analysis. It explains why a B vote alone cannot identify sacrifice of private earnings.</p>
+    <p>The next unresolved question concerns persuasion and coordination: whether agents fail to maintain a private target when it is strategically attainable within conversation, or instead correctly anticipate that others will not support it. The present pilot does not separate those explanations. A correct group outcome can coexist with expressed private conflict and unsuccessful persuasion.</p>
+  </section>
+
+  <section aria-labelledby="records-title">
+    <h2 id="records-title">Records and validation</h2>
+    <p>All 12 conditional calls, 252 group calls, and 54 coding calls completed: 318 API calls in total, all using GPT-6 Luna. The 36 behavior-code records cover all participants; the 18 additional cue-code calls cover distributed information only. All 27 local checks passed. The request audit verified initial information and private-rule isolation, public-only discussion inputs, complete final transcripts, histories, source hashes, model identifiers, and calculated outcomes/payments.</p>
+    <p>An AI-assisted source check located all 10 positive advocacy/payment-disclosure evidence snippets in their corresponding public messages. This verifies quotation provenance, not coding reliability or internal motivation. Independent human coding and human behavior in the same interface remain unvalidated.</p>
+    <p>Usage was 531,266 input tokens, including 162,468 cached tokens, and 111,197 output tokens, including 89,017 reasoning tokens. Provider billing was not audited. The fixed sample was not expanded, no failed attempts were replaced, and earlier records were preserved.</p>
+    <ul>
+      <li><a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/report.html">Generated disaggregated report</a> and <a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/summary.json">machine-readable summary</a>.</li>
+      <li><a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/conditional-cases.json">Conditional stimuli and answer keys</a>; answer keys were not sent to participants.</li>
+      <li><a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/validation.json">Validation receipt</a> and <a href="../runs/sensitivity/20261022-luna-hidden-group-incentives/evidence-checks.json">public quotation source check</a>.</li>
+      <li><a href="incentive-diagnostics.html">Earlier individual incentive diagnostics</a>.</li>
+    </ul>
+    <p class="small">Two triads per cell support an exploratory screen, not population inference. Stated payoffs create no actual financial stake for a model. Instructions were reconstructed, the interface is textual, and the information regimes differ in both knowledge and persuasion opportunities. Generated private notes are self-reports. These data establish neither internal preferences nor correspondence with human participants.</p>
+  </section>
+  <footer class="small">Prepared 22 October 2026 · GBP payoffs · GPT-6 Luna only · Independent contexts throughout.</footer>
+</main>
+</body>
+</html>

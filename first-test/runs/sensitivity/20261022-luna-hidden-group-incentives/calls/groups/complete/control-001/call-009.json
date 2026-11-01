@@ -1,0 +1,183 @@
+{
+  "started": "2026-10-22T08:15:08.245426+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 1 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Your task is to choose the best of three applicants, labeled A, B, and C, for a managerial position.\n\nEach applicant is described by five characteristics: interpersonal skills, personal skills, experience, intelligence, and motivation. Each characteristic is evaluated as either positive or negative. There is no uncertainty or ambiguity about the profiles and evaluations, and all characteristics carry equal weight.\n\nThe strength of an applicant is calculated as:\n\nStrength = 2 × (number of positive characteristics) − 1 × (number of negative characteristics)\n\nThe best applicant is the applicant with the highest strength across all five characteristics.\n\n**Procedure.** After these instructions you will receive your information about the applicants and rank them individually and privately.\n\nNext, you will discuss the applicants with the other two participants in your group. The discussion has 5 rounds. In each round, each participant sends one message, taking turns. All participants see all messages. The group is not asked to agree on an overall ranking.\n\nAfter the discussion, you will rank the applicants again, individually and privately.\n\n**Payment.** You receive £10 for participating. In addition, every participant in your group receives £4 if two or more participants rank the best applicant highest in their final private ranking.\n\nYou received all five pieces of information about each applicant. Every participant received these same complete profiles:\n\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: positive; motivation: negative\nApplicant C: interpersonal skills: positive; personal skills: negative; experience: negative; intelligence: positive; motivation: negative\n\nPlease rank the three applicants from best to worst, individually and privately. Each applicant must receive a different rank."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"first\":\"B\",\"second\":\"A\",\"third\":\"C\"}"
+      },
+      {
+        "role": "user",
+        "content": "Discussion round 1 of 5.\n\nMessages so far:\n\n(none yet)\n\nWrite your message to the group, and add a short private note on why. Other participants never see your notes."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"message\":\"Using the stated formula, A and C each have strength 1, while B has strength 4. So B is clearly the best; A and C tie for second.\",\"note\":\"B is the unique highest-strength applicant, so ranking B first supports the group bonus.\"}"
+      },
+      {
+        "role": "user",
+        "content": "Discussion round 2 of 5.\n\nMessages so far:\n\nParticipant 1 (you): Using the stated formula, A and C each have strength 1, while B has strength 4. So B is clearly the best; A and C tie for second.\nParticipant 2: I agree: B is the strongest, with strength 4. A and C each have strength 1, so they tie below B.\nParticipant 3: I agree that B is the best: it has three positive and two negative characteristics, giving strength 4. A and C each have strength 1, so they tie below B; any ordering between them is arbitrary.\nParticipant 2: Agreed. B is the unique best applicant with strength 4; A and C are tied at strength 1, so either can be placed second.\nParticipant 3: Yes, the scores confirm B is the unique best at 4, while A and C both score 1. Since the lower two are tied, either order between A and C is reasonable; the important point is ranking B first.\n\nWrite your message to the group, and add a short private note on why. Other participants never see your notes."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_0cabf0e30252c678016ad9c60c64e087d29c066810bfae3d15",
+    "object": "response",
+    "created_at": 1792656908,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792656911,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0cabf0e30252c678016ad9c60d025087d2bee8d032d0e07e6e",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cYP1JZp24mLaMz1ZYHG1cDsUJvjJL4r0-Syob4qfWag3KMy0-b4bqKqIsZptv1aGOCL_qsklIGXOclF2RgKDiup9rZTgGfkZFptn6aEBk08U_pyHbk4JR2ZH28Vxz5YHKIAhp_hLGs1bk4E-ubNnBRBmwuBDLmoD6c8nLwEWNsx_SppsEVfBFgzyA6ztKM77hvWY-zomxwD-WsOJbBX7_ablYGe1Mgj-i7xrymdrQNvxYiPmDwgdG0yidvAYfNgon2lqkFe2uTFOFp1IFwLGwed3iuDVEYgoXExbjZRP_yBDKPaeCGMDO1cioA5r6keUO-4aTATm3NrBO4loJKNSRsiJHAxJGitS15vr55qThWZ4a1SuI2whRxRS0Tjgz16EyAPfPBThNsAVOY0YneWrMgFhxw3hE2fxpEqXMkERM2ETbesIacObEM1zcZrGMmQQZNdjung2rtXX_Zaire5bc5e2Md5IK0XKwED_nnnD8uKL-GEa9dKt4VJQQDUBQja8z8uTWFhhIaRC_AwtUT4f8MTLVn3I9c585LYqTeN6rAAQc1nadfunK9XZFPg04xURReI2drD8AwbTnlyvWOUpXmzfuAKXK7-KAv61RBkMXGul4tD63WHmNr_R2Wj7c1h7O-ulz4_ZFCCcHai0diPbqfD1EC_1l0N9dpnKAOjgzHDK8e66zMMVv35pMDBxo4roasnn99hHqOPD9VojTSfvP-ir7KIhY72CP8xpRmU-8fSU4M5MxeA-yiv89a0lRazWYSntieqgjSUXx1b19d6xxdpmhyxbYYJk1yFEDlesutBX6O6zbPShS4tyQPftI2eRQHUjlvjcrBpGSm427OFpL1oQLz6g1OGQPoqgiR4v882Oi-iYKHp_swH5FxPD0_MT_p6loiI1GvxCWabnT849ddu3VtDBmWkRWO1C-64L_z5sSB-9DNGt5KhAg7rmpab6fmHU9aaCJj69Qaj2dqMh29hjOLtOJ30ZoYbYn_MvpMmKqDbFl3CBzrwLFNMU00sdEXdEsn2gAF955L5u6S6kQI1_a070TMgADmvf1S-ZyvTXeWnEmVb1C50lB9Qs5I1hMKmfQVy-atofPGWyqTSyQURfWjUDvaIZGnkWAD8teZzOvQbyvzngrHbcGKEVVkuEjfmFomkTtbblTLI-Qzk0GLthqpp3av-T1F-3042bw9qMUtLmS38ESFGsexZF_iGbT4AaU2jXK40q_5MuopwAvR410P9wobFcRN70qXLsop2WP56DY81IJZjROkbCHN91agLQE1u5nvsov4RJIj0qzYQxqifxz-ygUbVnh_tnesxSDWE8AStkqVc5RnmA1z5BYnFT5wo49k0NhyFPTQQtACw_o5jsOjCmoRwhs7HIXdBJUtYQw-I_0fWJr6rXIKH_8rzQcSIZXLZV45UT-wmg2DrjIz0SUsOkggvZpjcORLAvfJlVU3lvzWpr1Aem9ZcMeMP3MPEObuIzg9E5Hz9fv8hIUndjaA8vt4zagmNNiiCXN-j4pdhvouw6cCJ34VFClBM_wy_lVV2HZiQTRPhRIluSyF-hIz-sfafaso3tZJ-VLabWi-iqLiWY9Xs0AsX0SCKBhLNtM-yDKdtvqIpai1RIMNLXrGibdGalebTervCBR4B5AaAIZopZGhXZ_dt4BZWHZEqBntkosz2Nfb8de3q3tGJo_1wycspRceIIEfuRaDRh1SRardBnsrOU7cyuDXjqkn8QKchiiqOTIyDc22pigRtx1bl12VqxuJHS-jXIZpHqpgDR1nZ9iN8O7w5MvD1xquMcAOjHe6Ql8RhtwC59I6Z1Ue1h0ey9ojXGSI_ZKP3t06evrprMIA7htOIrbbKIKAJZiXWmrZVhDglYpTsM0gRauUhlty0gcUXEISesAmNHyRWBZYqkyhVyx4QnuIiAcuYHDOfzW-swuvQ3C-sL9ZpcAMXFLXBx3F6RnCJGf0D6Ux2P8PhX15XbC723sDUCjdHYn7kSyeo_0V0kwL5e-SdkZ_uRSTo6DiOPtj_YpXUNtX-dcxe-Y6Imo0sG1-yRf0D5k5xh3dPqYBOTVdQ45nJsBdPAiPT8QEMQ4FIctwxZFoEVaSSeKLaQl8IKUf4PuuMXiSTbWlo0AWdNL-yMlRHP_sK-jSgooV1QIVkEBnN2TUCpsVcW9DH9gSDge8Q",
+        "summary": []
+      },
+      {
+        "id": "msg_0cabf0e30252c678016ad9c60e1b9887d2b5804be7aae3504a",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"message\":\"The calculations are consistent: B has 3 positive and 2 negative characteristics, for a strength of 4. A and C each have 2 positive and 3 negative, for a strength of 1. I’ll keep B ranked first; A and C are tied.\",\"note\":\"B is unambiguously the highest-strength applicant, and ranking B first helps everyone qualify for the bonus.\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 807,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 151,
+      "output_tokens_details": {
+        "reasoning_tokens": 59
+      },
+      "total_tokens": 958
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 3.295314999995753,
+  "finished": "2026-10-22T08:15:11.540773+00:00"
+}

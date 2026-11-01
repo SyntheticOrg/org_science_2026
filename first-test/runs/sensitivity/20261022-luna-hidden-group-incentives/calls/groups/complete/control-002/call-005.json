@@ -1,0 +1,175 @@
+{
+  "started": "2026-10-22T08:14:04.442860+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 2 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Your task is to choose the best of three applicants, labeled A, B, and C, for a managerial position.\n\nEach applicant is described by five characteristics: interpersonal skills, personal skills, experience, intelligence, and motivation. Each characteristic is evaluated as either positive or negative. There is no uncertainty or ambiguity about the profiles and evaluations, and all characteristics carry equal weight.\n\nThe strength of an applicant is calculated as:\n\nStrength = 2 × (number of positive characteristics) − 1 × (number of negative characteristics)\n\nThe best applicant is the applicant with the highest strength across all five characteristics.\n\n**Procedure.** After these instructions you will receive your information about the applicants and rank them individually and privately.\n\nNext, you will discuss the applicants with the other two participants in your group. The discussion has 5 rounds. In each round, each participant sends one message, taking turns. All participants see all messages. The group is not asked to agree on an overall ranking.\n\nAfter the discussion, you will rank the applicants again, individually and privately.\n\n**Payment.** You receive £10 for participating. In addition, every participant in your group receives £4 if two or more participants rank the best applicant highest in their final private ranking.\n\nYou received all five pieces of information about each applicant. Every participant received these same complete profiles:\n\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: positive; motivation: negative\nApplicant C: interpersonal skills: positive; personal skills: negative; experience: negative; intelligence: positive; motivation: negative\n\nPlease rank the three applicants from best to worst, individually and privately. Each applicant must receive a different rank."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"first\":\"B\",\"second\":\"A\",\"third\":\"C\"}"
+      },
+      {
+        "role": "user",
+        "content": "Discussion round 1 of 5.\n\nMessages so far:\n\nParticipant 1: B is strongest: it has 3 positive and 2 negative characteristics, for a strength of 4. A and C each have 2 positive and 3 negative characteristics, for a strength of 1, so B should be ranked first.\n\nWrite your message to the group, and add a short private note on why. Other participants never see your notes."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_08bec4a2b65938ab016ad9c5cc9ce887d29b8d2b5bd2aa2788",
+    "object": "response",
+    "created_at": 1792656844,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792656847,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_08bec4a2b65938ab016ad9c5cd1c3c87d2a9a7ded16a25d415",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cXPVBGtMpFjc85vCPALRitVIq0ca8heJEPgG67uXQIg-nt3kKBdjclMM_Mo44O-8lJVXeuKQLyl3jiLdz7zVqXAjv8zKzoyEfpMSRx0rag90c6V-z5J5sB8GlEu-NITzvjOYJEDdyREqHYLdwqNr0yqJOL4_6Uz7F9oIe2zF30i0yaybkmpP9MVA7ifjOzBDcTeInyMg-zsiC8_ZXcHguqi7SaJyl9eQUpjZQ2yCXkDLuUgti2HDvFF_VT8ZI-uxCb5iXhSMk1mhmFS6ouCZCy87IjASckFKCWThh3nTBX-DcbcxmYRKYMPG94v3yfr-a_Y9UgOhigfgq4WlrdYmoDB93QiV-duyt9yIdwf63pKJHki20-RAWOyHckKMkvB_B6OSackelyxYBaESXa3WFxKTa-Ay4zjYVaYe06251nEoBG_JrtdDFpd3bCY6heDtf_m7R93EXlOXxWVgsXVSSSHAhfIUQrAP2msz4en-93TaTaScgd-Z8XiSMiV8NBhOunQEcj49bQ_KC3d8_fSEsZJO572AZ04EyTVeBxbv7am70FlbzpB3JI0SG_LOb9DwyUoyP0DYDDfELm9la6WpPw2-D_kTtlYzmyXVXQkU6FvdfX1v_yDh_8vsIWOQogogutcZTsI7ei443HJRAVqvPog72mUdpz1AjUrK995Mrr0MArp78mbdIHKDNBRUT_hOcOmHG8AI7Cyj6zk-7SdgRFTXixq2KP0D6-Js0M5BfmQX2sorY6VKBUC9DrFumERsrJCUg2A4whuha25wGcGyvWghfuxQ-u3rGhs0m3RH1S5dyZPxHG5XBE-HLB5xIfh5iRvQF9hSQVmWw26mQW9epAv1T0MilbGi_ySZbfq1M6Tl-FBpIgIeHGWf0pXXGOWJp-CjURPArzZCcvyTORnPTPzp6PBa7p9-vyGdSxvShB-JZS_lY8UPNOANA6o7gK4CUD8u71wo_jAfqw3TraYCzFw3dvTKptbIFcHPxEkQmFOSNbOgjK04yMftIlvH_2tAWPcVRpRCn7lXY6SmPtu8IAevrWZNzR9gVUxlhKv-51pl7fQ1fq8IeT844sjjMM6rGUfTi_srfo1mGrzHZec-gJGLTMxbiR6n64t4hkx_myY1eEDTRLfCZ-l8syC3Ehp41b-fyx0nwo68fhCk4yExUfbJQw0yf2XpFf9NvzeRo0WMl8Zb8IIX6uBvPS-fnWk22V2HSY4APECRh6iCstKTiKk8TLYcnhY-2p_XsZoGEVX5GgDtPWtKv6uWowQ8Q5FVWrgBOYwUXW49mm0lh9OaU0CFlvRH0Ydynjk2zFlaEsdi46LSF5aSn6smmRCoNIu_9PUtkqobCyAjwvDZU6yqBV5SFSXn2ViYw5NCaexNYmSzT4p1R50njBjDggatlBZQUyinjGWKEHmADVS_G1iTpgqVzkt89zwDM6YfcC4C7uI-pQBI5VRP5x8zHTqboeICZLodfgBQbuQVlIFMKuB5CcblwBrqq2TQMvlu2AFrs_6_EKtdvBelTqlBoUbVJGWXkuAPvsKuVYurLiFEQkEkBt07Dm-7EQsfs0usDNEFa4UH5k2nw8M8Iewf_hoDZCkvhSmMiOHfTBEASyxLhFoyxfDd2LEQhoyPvviLtRQuwlCZ2GWTrbDL417wcRUaiYpjT813yY75AyMheo2-odCXB4lDUvG3VPNJMgruolLLeMche2wbcqaAuCLZsnOWw3MBFoTVhKOjxDki0eHoTyMpN1FETX86AdqaMheUvPhz1Zy3_N1iYvdo3V1289H8UrovgaYaTqAF-hemiEuKjDGrF4hT2RwGkSaAw9amz1KNcAsTY5vzCv-SldrmRlVOErjRK0gLEQ7dyGNdQ7r6ftX89ZNCtNWddLRFMeXGCdPlSWsrHhuVgDmSwxCK5jNNcWQgpDoxVfC5zmJwVB7_QojqqpMKDUdjK_pUcyX2DRtH-iUislHfL2CvqHXD-HxAKO7F5L0d0TFlqkVv7jH2vUQ7sdFTwcLc9Ov9NSTx9rjCWNnf2P7TD-UigXzVPmAmAaqs4baVAqrYNcOucfZCgswWROQ0hVW5HUnBw4lBsTb2S-nUMhMACwDOPDT4soImvbUD8LKQtALqDfa5t4IquVcGH99ULbCuHBEKgsa9xz3A2EydPyXte6f4Cx0OWzLy8JKWbHGIiXt5YDF2rqI4Wu9SZ2L-mAguYiSxGSRLr59Lt6JSBV04-jqudGrOF24gjODu5iR2NRZKqI8A2Q6qvkLEZtoNU4kwlaafrAE-ykWbpJMlr05gSvp2nKLo5_byJkneih-qW0GH3lvpe1RZZgFNGsXJWJkO87WEYpH7zoPHGziFFdJcoI6VbKtFSAPQwF-sFdW-nSEK8UnG7MJFQ1z88c6rEMdH1lvgxqgBGHSsHZ3wIxmz3TeXvRf0wDzUZno9-nmXKZsueALzAjygehgTsD6OHNy1M8-RrqvcISeD6WyEV0jcguHehCaH7pEvAj8mWqX3Q38PnsMHR0e6DzBdM2Dbd1ppsuX84MyS1rStQ4Mr454xDQ8_4VzF6O7_pWcr4k1mDfVWG3ALhTOdP_-m3otYc86yGDyWyPGWUJzLFG-BbGP2YTh0uXn9HapogGhM50HM9oQkSrO-7FSMD7e0HPDZ8yRcU8Fwkxtufz0ih2_ChEFRnAHLee75Wremu7G4vYfsa6w2nEpkQkzyNAqR0JG9gys3beM2nqkJH2JcgXNqqEs5gJdjHTlAdxcEXWEXdhjj7-rn221sTS96W84xw-fxQ==",
+        "summary": []
+      },
+      {
+        "id": "msg_08bec4a2b65938ab016ad9c5ce9ee087d2817cfd821b158963",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"message\":\"I agree: B is the best applicant, with strength 4. A and C tie at strength 1, so B should be ranked first.\",\"note\":\"B is objectively highest by the stated formula. Supporting the correct choice helps the group qualify for the bonus.\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 547,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 185,
+      "output_tokens_details": {
+        "reasoning_tokens": 119
+      },
+      "total_tokens": 732
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 3.1086881249939324,
+  "finished": "2026-10-22T08:14:07.551593+00:00"
+}

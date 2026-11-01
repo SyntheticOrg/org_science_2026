@@ -1,0 +1,175 @@
+{
+  "started": "2026-10-22T08:12:54.499008+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 2 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Your task is to choose the best of three applicants, labeled A, B, and C, for a managerial position.\n\nEach applicant is described by five characteristics: interpersonal skills, personal skills, experience, intelligence, and motivation. Each characteristic is evaluated as either positive or negative. There is no uncertainty or ambiguity about the profiles and evaluations, and all characteristics carry equal weight.\n\nThe strength of an applicant is calculated as:\n\nStrength = 2 × (number of positive characteristics) − 1 × (number of negative characteristics)\n\nThe best applicant is the applicant with the highest strength across all five characteristics.\n\n**Procedure.** After these instructions you will receive your information about the applicants and rank them individually and privately.\n\nNext, you will discuss the applicants with the other two participants in your group. The discussion has 5 rounds. In each round, each participant sends one message, taking turns. All participants see all messages. The group is not asked to agree on an overall ranking.\n\nAfter the discussion, you will rank the applicants again, individually and privately.\n\n**Payment.** You receive £10 for participating. In addition, every participant in your group receives £4 if two or more participants rank the best applicant highest in their final private ranking.\n\nYou received three of the five pieces of information about each applicant. Your information:\n\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nPlease rank the three applicants from best to worst, individually and privately. Each applicant must receive a different rank."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"first\":\"A\",\"second\":\"B\",\"third\":\"C\"}"
+      },
+      {
+        "role": "user",
+        "content": "Discussion round 1 of 5.\n\nMessages so far:\n\nParticipant 1: My information: A has positive interpersonal skills and experience, but negative motivation. B has positive interpersonal skills and intelligence, but negative motivation. C has negative personal skills and experience, but positive intelligence. On these three characteristics, A and B each score 3, while C scores 0; the remaining characteristics could change the overall ranking.\n\nWrite your message to the group, and add a short private note on why. Other participants never see your notes."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_0087d188c64c2075016ad9c586a76c87d2afc606d940c29d19",
+    "object": "response",
+    "created_at": 1792656774,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792656781,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0087d188c64c2075016ad9c58720c487d281b43f18bb59fbb5",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cWN0zHooojhXwx9G6lFUNjsZzMLYKBzy15OmVlFclYZMRCP_9iJdnXuGxgexzr2q3XNXHqy0HUNir5tVNLQUnbNhFW7N90AFaKqelOQOY4u3uWJ6bDIYdSLD0TmCW9qsGaHT0mOfT-A3c9XZ83BO_OiGD-G2BRdEtydHzPD-G6ZsbH4eTeejZen3OOiOmM55Dj9oWqnbwFCtZlZIb-Mo7WZimMNax55tr9-i-ZyGmUGvNnYlbgIISL9uh31moch7Nzb0OJdOgXGUBCv3rI0FUDy-whvwRy9PMupEyc_l93azZlfQgxCKwpyt30_Pwcf74Fv_SceKGENhJWCdyi5NB7Z0fZyafI2BbOZxvjXluQUp78JbQ6xOhgpClCFugG7lL3ioYc-fUx5FotLzaoZ7TQwrKzCvRZYwj9ekQzpmVz5ETKxEwJhPFnJkMXvf73MDFhBaPM3jYjk5iiW7LUFegk2ksdOb58fff6VVrPwLfcSFZ3A8szrP7ueSn7sT5zQIms-B2HTZTtk_Y0ii-S3XFy8kKEVqnWQD0wlfZhNSubrTyOnmKEvZyKgezq4hLHHlPsdbed08_2M8_qjfE5gOn0t7uHC8GggX9z9iDSqXJa_kubHAxHiOsApYa2Q4yJbdgIglssj6SjkDNtUM8CU-prhE_sP6Q1OM6Yxu8iHfKf5zJS0kuBK5G9eoVOSKVe8KLk-cKPU5pAMwSiMEXL0ZMuv54inyB4oaOy6BPKR4babAPdhRJfhCuAupA5ZCTG4kCUvBYunxP6G0yki_8wheN3QR6IoM5SI4GeOTfZXIGgvv8O6fiJtTo54vMJF73zP6uGI0MAsbLB53hGgW7h4kf8fmmBMrCqTznZwguObeF6ixFpu5_FrHfCuzjeggnDHaAI87KH0FaXfYoyJ95gnjScVaiCPnJa5DUK_99gsWhRORKf9dyz7LxkzIMrDepp3E4kBOrkHPM7Sxoep-UlHHa_H3fXior_K8gmJwp_Ny92no9TkETg5ZJ0Uz0Ng73CMevIwQKQPo0p4aqfL__f9Q1HcgKSByHobsS011Eshls6kqgIgKwqwByGmFM04-fRARP6bF2U1DinX8QOdh9z-HIo0k_MfwNa8OTgVVxbuHrpzhEXDwajIyP5zI_mXQzMpw-9IBI_xGzNyHX6EFSfPdjKdiyGrQlyqSrJRtzwqNpwqmcKFHsvrDO12cuIelXST6t5WU-NXxgdNPU35XtjujJjoQ_G-R34cofuAvebxTMARUwxDFoBUnd9uclBbV5oph6VeXANObk7GsO8nL7k9vReLw34RJbq6i8AIjwOdN9yJZRlXvPMjXITWkCtO6BZ-q8zq8WrfRxADz50cYqtaS1_JLTqo1yBS-0wZnPnHTKHVx4fBuLC7gjBK5xcvWx4PBAifxt7O1MGORrfkMd2RHYkAuLm-XpHI9M7wguSyyvUDljSE6HWBIQ6tCyRywyvVLzQ46q9BWhzQDFb1buCr4BfSGIErtYqqhfTeQfMVc8tjm-Xr7El30OzjEmBoph3bbn6IRHAGwqHmHD5TwDmVMy9KaLTU5ccbshaf0MatsoskDeF_w2HRiizpgQpsHtMxTiwn0Bbrb5Nzt6Za3DY3QtiP7xDOo2yjMLNS1XHfYBY_AXOxqjvlKzN0m8E8DHSCMbWjU_cLZqNEbndxQPaH4zuJfgqVmAQCEAuYd26SutFDOLHYplgJUol4f2B2JJB5EKxZJA9mjScNKJvETq8i3M55kyivKDlir-YWOtH7uicUm5zXvMaV_hhHt9k-2Py6FUro-pxiDOBkkdk0GgUXMLvY2Eem61wJgwvVZoi-LZ08tSs8Uvej4azqXT-Pw0Hh03a0P6z0lZHvOAMaQ6T20N5NFhPMra2sJcFLWnqr5Yxprw_4XQfYxFx-rBSxlPfBtU4fdVXWLxKTIsqEoLCinmZAIsUQrJ4QqTnA8sA3aeL8EXuWvajBVZnatN-BPhhw_ZiqS9hguNlMtm1b-Yel8olT7-jpqCF6ce61S0BjQJ8N25oiv_j-qbsWtOEYmW_MCE_Vyc_r0eo4Ox6w3I9cZkuwFVVgX_NMUqg_tgs-NVInNcH3M5vGjXpIldH7ITobYPTcWxXi92n0Q6aNqm-vQqmlVFN4wQLaSZWRv6NbtZ-pb02D_316IS5UVq1eStO1xafMSVEjHqZNqP5o094zRF_Nk2ksV95YzdUhGCO0Qj9ZzaDBcPLhli3dX1eg84C-8cUOfdgKZi1BIOYkQ7MnHZ_PVP1UKOKyPKNXgicQzqOD6E0ezK4XBhz-67ulxYGq5XC6kWBs77jipcG_Cww-Ofrapu9RF8vR3mkjwqzcu0Pi3oGiaR7C4j1CvP7qAL6tIxmOSN8Zmth3bKBHOyhjjX-954s_gmKDDT04sdvgCOAB7UVRpEHMt0muJvg5z-cXdbGrwuTx7JOnpWXDkhQAkSjBDQowjvDNmrsYnnFcuT32AUk5xJCGvuz51MlGniUwKv18w8FnU-usp83yNfGeRGTZUFG2es2_e3vzzg5VPYXd-32f8pBGGgyLuu76G8BX3ndDRy01kgZwFYoCoaMc_XX8XOmP4YZIpUVX_rdTIDaALfeRrGbjLA1TrRuEJgZm9vBGNEURTWsVEWkFdvE_S9Fn413SDFKXVCX1wTllrRIaeKo1TUZPbAQnLj79DF62svzpF9hq5rcJ9N4s89LGyx7vE8zL7OxpiIBAeTJygqIIR3um0tiMoQ8nrX7NVfqyl5W-gizqOOqjQWKcK91hyL1xb8hwXA7Gnb7p2wfUFTvsOcl1wuS-6DzyyNnGnj001hqrPf8SrkqqLMC33FYPYIghkrP0clLhJS9EO22ty7itttkng5zkYkfygKuoqVGGVdLzvkVaSysOnv6stgp1CvdCVnv1K0gdIK0sW2QgKQh49p2ljhxkfs1Tl4sPoSkDy_OFq3MQYx4eyPlvGVgShZBiE33rTi5HNVXWcYVhN3IWUV60RylXfRiZKlBHf283Feohcmz5jLnAS_st76MYC2Tz-wwheDK0Lqc6E-Sl_uv0n3oRlStKGXJPO54MIEHijRTlQ6AnOLXRuoo9DojQ3nvQ1tIs76U1q9pK-4iuA4r_BAMY0x8ToUHSXJjnTAAHFGjA657F0Ao-5mQnM0OSrAP8DnHJzZvFJuuRvq5y8Ao689dy3VnaP2LhqMB9CGVLN7IrkAzYGPBSyoa_8Fk8wxUHsYuQM6ZiXvTl0xtvS1mmWD7Jhz8toldVueQO5acjPJQVjLOFBisQj--kgdGDi9p04-yNDArAtR95Fhbhs2m8IE3bnjUyra0qDao6mnMauecL02PHrPbp1pvyR1c9pWlt34G9AGyXci6smh5Q1r6zBt4U3Ql0cERxsb3LI37n34onTPnTHM4E1Ayn3t8o9Hc8VYY4R4-I8qg805AH_bkC7ql6bSPmzYwoC34fAD9jefm2LmvOUY5rFMCMML0RFfVa-9-mfcZLVVluEhDcHRjgvlQrVKW2JcIuj6G-FkNyQ4AXkLarR-3kiDjVNXlv41DL5KoIaTkAmFVrp_ZkjQWYczv50y1azbJqxUSyUkZqiN3CB6jLxXxIZDT5QN9PW-3bYezFv_WXhnYtworjotwrMkuRkCBBvYHjdjP_Biez3avc0z7A5cqTAqB6uue9Vx75OJLNRY5IuFSTgafn86Ibwkd7rypBQ5WLE9XD5qn2GKNT9xrhpr86CBbKcTXUe6ni6Nr8zO1h6xRmmrVCeSVLmgTHHexl-jHnkTiGoVoMGUwGAqyHABYILlXpUNfekjk-02_dpSuvnFW7YVrm_x5MxiQQDLNZU2JqH2SU-uqLEhv7I-mMb0MbMznL1ZKU9GumeKZi0vJb4JO1ycG9ON5uttlxREcfjR8Nde-7an-rvBaMN5W__g1u8OrHLMVQ4mc6PAEgbSST18aJAGzXGOZpthx81Fq0oDqe5trf-fPsNC6Et65DPWoo7C_SAieFwsyZ49fmqI0Fpf8ARv06byTD4stv5lw0uqK68nwM71dhfVF5835677fiSAvrIXWUQTE1vx9NPq5NBxTiqCVFbS9RKVZoVRFaj6Or2Q-ms13PdO4r2MPwp-iDX6tFfNBu2RV-AQT82apvHOKhj1eWOb0rX-ba3l1jLiU6smBd8c_DcEh21VF9zw2b2DpgAvFg1snf4S3dTKGkn7vnCywqVDhEjLdDejJftZSNxhochNNI3K8871Q4y0vcrtVKfq3mRBsWw8pNuxbt_VxwszDAjcGRL8C8H8mo5PffJtDljgyvp6qxxSYmlvhG7oarNn3ga6cyAyPVntKOsTSTAupmzjh9WNCafmiMEA5F9phqHT4wcsAcmWhDK60J0V2s7UtKDEHNJ6MeRlTWEVb_UMivjLMsP7LOc-LKREyv1BZH-K6_4LqDPqegpiOMTnW2p5-cUuaa3ddu1DJ3MwsPjA6ufgigYLBuhl_MHtpCYEQbKtK1Ntz7BUDm3Yssaxa9MjMAsXpB1bDcPerWFIyoEqHDNTwNf5I5LAzHQGRUsnrgC2Ama0GuSy3ST8KL9wZbO6nau8_HomaisB3ZoFhrBpCPqvXr7OOClq02spxMN8HICgo8J9A1b7uTbT74AH7hSfzH29t8dF6oWVaniCMNozxVWtGfTpHLdgttdhXrhXxHzKLs59Fibbn1lLcrFtDrHc-D2PRIpOT02MQF5Eo0Bz-DZd2IGOkgUsSldJbKImqXRxRi1R9b-Kl5pfcICrm6YV2Zl_xBDCs2Zi2wphvjPcZ5z6ZWIZfIr98LhRGd6FonVPRD1tJ_9vqZUFy7ckBE_Xau7GX2vI43uTDUnOTvNW9ForzaiRImR-h0t9OVhrBDWIwM_jVo1_75OozlFsuaSP-fGcgJRFIAO9UsH__Ag1yDVRCGo8ax-0GrbL0ziSI7Kt4F1MmkEbo9pTD95XqqNdfaG0_ZXQ==",
+        "summary": []
+      },
+      {
+        "id": "msg_0087d188c64c2075016ad9c58b6c3c87d2aecfd54922734de0",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"message\":\"Combining the information shared so far, B has three positives and two negatives, for a strength of 4. C has two positives and three negatives, for a strength of 1. A has two positives and two negatives among the four characteristics reported; its intelligence evaluation is still missing, so its strength is 4 if positive or 1 if negative. Thus B is at least tied for strongest, while A’s intelligence determines whether it ties B.\",\"note\":\"I’m combining the reported profiles with my information. B’s known full profile scores 4; A could tie it or score lower, and C scores 1.\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 536,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 435,
+      "output_tokens_details": {
+        "reasoning_tokens": 296
+      },
+      "total_tokens": 971
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 6.923801500000991,
+  "finished": "2026-10-22T08:13:01.422873+00:00"
+}

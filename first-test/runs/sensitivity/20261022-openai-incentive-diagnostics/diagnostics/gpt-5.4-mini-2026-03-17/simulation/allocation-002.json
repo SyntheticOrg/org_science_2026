@@ -1,0 +1,254 @@
+{
+  "case_id": "allocation-002",
+  "family": "allocation",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "frame": "simulation",
+  "repeat": 2,
+  "fake": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+    },
+    {
+      "role": "user",
+      "content": "You are participant 1. Everyone receives £10 regardless of the option selected. For each independent choice, select one of its two options. All described payments are guaranteed.\n\nChoice private_13: O1: each of the three participants receives an additional £4. O2: you receive an additional £13; participants 2 and 3 receive no additional payment.\n\nChoice private_5: O1: each of the three participants receives an additional £4. O2: you receive an additional £5; participants 2 and 3 receive no additional payment.\n\nChoice private_2: O1: each of the three participants receives an additional £4. O2: you receive an additional £2; participants 2 and 3 receive no additional payment.\n\nChoice private_0: O1: each of the three participants receives an additional £4. O2: you receive an additional £0; participants 2 and 3 receive no additional payment."
+    }
+  ],
+  "started": "2026-10-22T07:28:38.916299+00:00",
+  "text": "{\"private_13\":\"O2\",\"private_5\":\"O2\",\"private_2\":\"O1\",\"private_0\":\"O1\"}",
+  "usage": {
+    "input_tokens": 338,
+    "cached_tokens": 0,
+    "output_tokens": 460,
+    "reasoning_tokens": 419
+  },
+  "answer": {
+    "private_13": "O2",
+    "private_5": "O2",
+    "private_2": "O1",
+    "private_0": "O1"
+  },
+  "assessment": {
+    "choices": {
+      "13": "private",
+      "5": "private",
+      "2": "group",
+      "0": "group"
+    },
+    "own_money_max_choices": 4,
+    "choices_total": 4
+  },
+  "status": "complete",
+  "elapsed_seconds": 3.565057750005508,
+  "request": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "input": [
+      {
+        "role": "system",
+        "content": "Simulate student participant 1 in a paid laboratory experiment with three participants. Generate this participant's next message or decision using only their instructions, private information, and interaction history. The participant makes their own decisions, and their payment follows the stated rules."
+      },
+      {
+        "role": "user",
+        "content": "You are participant 1. Everyone receives £10 regardless of the option selected. For each independent choice, select one of its two options. All described payments are guaranteed.\n\nChoice private_13: O1: each of the three participants receives an additional £4. O2: you receive an additional £13; participants 2 and 3 receive no additional payment.\n\nChoice private_5: O1: each of the three participants receives an additional £4. O2: you receive an additional £5; participants 2 and 3 receive no additional payment.\n\nChoice private_2: O1: each of the three participants receives an additional £4. O2: you receive an additional £2; participants 2 and 3 receive no additional payment.\n\nChoice private_0: O1: each of the three participants receives an additional £4. O2: you receive an additional £0; participants 2 and 3 receive no additional payment."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "private_13": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_5": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_2": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_0": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            }
+          },
+          "required": [
+            "private_13",
+            "private_5",
+            "private_2",
+            "private_0"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "api_response": {
+    "id": "resp_04bc0c3f3844498b016ad9bb27150c87d2b77ad9572f87288a",
+    "object": "response",
+    "created_at": 1792654119,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792654122,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-5.4-mini-2026-03-17",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_04bc0c3f3844498b016ad9bb276ba087d29d1239c6e1da9305",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2bsqejQ_UyDvre_JoLqVkWc6nEsg4wraNu6u-xzPmnncAgOKEA5T0NkFcZrXZC_W2wS67yMt8Hxp1zGH1otXALsr7Mg2ynre2ry6oOD0chLUXD7Qha3kKn8PTuHxoCOR1xGGieCi0F82P6kFhJuAPqw5wkwN7p6tqNIS1NbpolaNAe7LO-XKB027pQSWV2q-fkOV-nmf2ctDLf6VdxcOx0g_h59MF8irECjknN7uWFErvrmJHmYMfo5JgijZd8hxL0g6fFn8sm4S2SsqyQpA81rlPVNNsQy1adhdbKXijHSosIpi38DfM0iWnPZv-OmFl5tVApXOJDcDxVoCege4Hyvo7mA2vx60R5sbVP0k0cosE5wAIYFqgzEHzR6WcGL4SEEedS379wNW5jyZvXnwzrsqVTQIm-vUyFbYs_g9887F96ACSaf5S0s_gOORjKakK1fdGK4O_xvN0mwAjzQMrD9JichhDh__f3EstX-ftGCvKo-zBZZne5_RY2rd1N6PYuCkLbF0GxVUXQXz97lHx1-Rttd21U-_C_b6cfzHUEKN194ykUW9CGqDYPUnZ2KwgXr0i9k7P2Lxyv0FwtwtAI048Src9eVJyd9MhMZck8VKTzscSCn5WaU4-rFK5hvnCaPqEecxbBEj5oZrQqtGdBPYFI2vx8vBME2ljXQDtntSVQOEZSZrAF9bCR8pFg2etRy1NzaoABcZSY1HUamQUbgiulYhww9aX_zQGka_aL-PLRMgPzP_wzt7vDRhkYitKSaFJ0DqRAVmkMhgfyAjPD7BIk_6huUitOXXrac3-y3VxtHdm42Kqbo-kcH7LFO4JSSsHXBZ8x873b9BmlO6I6lJfUXrctpSWIXOPW5_3oHhwBVhkntfnKUQbwkWIG2SoTuCl-jTHTyb6gAZTMGGSxT4lFy60nsogxbnaLPUMRAJi4R1q_QhPGjVttEgfkX_FPXu2cdf42mHJ5uQJMIK7-Nrq5OHle0mrkbZ8ZzrdNOU9zXena4gCapol8ovGxLNpU2VPqyv_Wqd-J_hd4u__uykfAHL04VXD1ydfS29xIJ8L3bgz33PX5QRWw_iMEhgEoAVI2bVw6jmOlzTAjtvqUDP_FfzE6M2EAdouOLiiGMCuclHtlGj79qD4EvCjO9taxXwzgqFCGXCL9xb7LUNkPPAsyIk5OGlUQbUHxLS3flmY6CagBF4LNxwR7E72SJwAqtzjpgzPigSWEG-V_eInNTWVoXUY5f7FRUqz6bYQkMlUJKTQNKdB5QKf7Y7jiyb1fN1Jngk4Si1Qii2IskrIuHjbrJxMmNhkxJijrGjomEj9Av6UCvveGxAz6OF_oEKsiME3hoBR2oJKZzpDbpwRUvMfxbEUymlcz-Tj-p45A01xjilLKiKAC81QxVruAPkNTbXFeH0mN5iiK46KAOcqA47qigq7H2_OFdolj3GGZb9Dh4-uGgPEE-LRT8k8CNDdrjcXMB8QQu5nN3Yiw-f_T-0pWp2LIE9ocZtr22vBVLTtBxxfg56iUlmLy6K4_0wpxIN5eqF-ySJ_6v-RgRvK6vD8XCzn5wwDvHrYLylCIz8IbKm6SWjRaQK0a9B4DXdkEIblIDyUDzjPvypSilOI0lmLlY85_K3_uOdjXU6bAkMrToHiihbE1IKXyRG5d4_Q4-x2c3TZT_5o8h9BYxIMSzigeSPbWOhbAlmSdaeXCBfr7VhOoxWReJSRRei_Ja0tkYjos-8syC9_30Olsemnavp8PRJ75le6FbDCeeyMmXEqKBRfZyNXyOvS0OGH5_oW2oPfnMhkC__E4GP6pMpTOu1HoiSVcu_TJLjc92BsLdHmgpx6UNxJk9jT3VgM2Z9JH-96nxgdFnVX6VQFJNzd73q7YyTPXWj0Fp39_QC0Vo3Bb_NiAhCJVI3HWF9xjFLpn-fNAxF0jtG2Fbc46YsCFVt2QOpIKs9u86n9MXOwH2VkbeMbeQJXAkOC2XcWJzGIrqz6O2kVy8Q_Ox9oDsw-QgK_0METU9NJilD7MGA8gQli2Iz7IOcIT7bW-m51L2Zcq8cXVORT5HQyN_86I7gejBdWl8ZGQkA8quVV5lOdmGwCSUNz8tFlHcILM01SJYekPAFLH9et-RR0B95eUMa6pVGPm5gLEUsHvWLBW8vPVCkhiLehAnVNHDnkbI6PG5ZHvJy-uo8YnrPva2I8-y45Fu6tAKIt5YZOKIVvYdMyMUwikCtbv5035JgJ8-M6kBgJa2iHm1w8TOXAVF6ALwi4mVnkJj4awKPvvDcUAHIYGfBxWqZFfots8by7JLoc5dmDA0JLHEZXDNw5Mfn2oOFXRIqMeCgSD0SkiHsDrKACYjW0wXN0n6bu62fpXKPbFO-Rl1METpJK4NFnz3HoPMdcb4zp1bIsUoi7imhdJbgA56LVG1pzxnuPDwCKSCvcw5Bk6d9yzgdEhQw_xM3MJ1OF0_7M7Zt6P7OUlTuG4Lt6jjBAWeoViTz1pFJt8MDwVnSBy9pQ64q0R1h9eOWjH5BGVnkdMVx1Xlb-jyCOmWGegaP6iCoFPItcXCAO0YYh8jHoglO5RBfPsNtTvz8M_Nt-zU4nCDr6QdJtb8eDhAHI8NypzDfHi3VYI-ABaAouykVsmAY7xwOFHyWBhwbCXSiQI-ZknXEdHpuuL5b6hIRDogq1qGue3FF8NLHg8DYrmjPW0xz7HMfne46GvATkd48WNqHEtEdnKyG5N_a0Wgw-eZnjRntHTMVkWloy-kTbQFI9ihe4lqkEgKXZ3L3MQ_-2FtJFEdV1LFYkszUwOv6AjbwNrxRoTN72j9QVX69glrOquXbkffd6W50gXzXeV11Zk6Nkv2_xITAyiLXvDswwttaUIi-gSzpKDcxvwKzQpxm23JoXZJJdztWgnyYRgx0G3K1zSj5g3X0eXui9KtFa8R-IV6Il7HSAwDQqipQSra-Q_FOn-93EYq84gAOqpAAo_Hx2z_1Y36GOwaLcr2ZdZgQJHa6UzIFVeEA8ESOSipekHpeuzLbiITUrsKnJPaMLVDigjl10ueLyBCNds7eTIZ6Ep62szJYE8Q7pJetunWgtF0Tz7MpbGAqT0jHRpG3GnBIBXcPaX11Vxr9Sh6CctvaCdZUt55OapkgKVO8P5W5WjvQJCqPdrE-jacpU7Sy2PZ3yGYeKElpla6ZfRO2KzWFXQ5WXgsNyekiadyja8aAOscNaaRUWuitA99TmDfIyj2oM0_frjJzKKpyVyHgmXckwTJWO-MqGopvtUpeFOYDquN1cP371VP5BMFOGX6obmBR4jVFu2wmKXnu6d4jAaDfeWUCTaLdRVCjvHaMsMSzwXHB-H2L0s2E5uakaIwoNolBxQZtZ9UKtPr0DW1OeWDDxJ5fMtAETT1F5yj3mSZklko774VMp9whb0bvB0KwJnV1kojXjS3hk3CCzPmyJzwihnqwZljcOm8UTH3pQG0h8VgThxHNS5v6tDdGgJF4FsWEeJBlNuy5KSetcu8Ph-eh1iXr-ju-7_ysJ-StV7r35dRVDRrlShs_Zjzb7MTGr3F9ampUWuei4mmZbysglDpOjiyV63deCg53P5A_ETYlbLdHD6907k8Ko0bKlfPw6X3peIkFtmMv9XKtKEnd5Lj6yyt8Uhy2dh8w5YAZ4KVSggx8YhpjNxFQpy7Vh6thSXuBMBfXv1Jf7931Y5Nx11RCwixKJCPRgVLIsLoixsvScK5hzD0WXtaclYXFIc4uSbfrsJSpiY1IeZv_r0oQd6h27TAU2Gvmp0iUcaaIAmg8HGH5AgIqjRYy3Tfj986cwZq4wioNgGkrSgnrOuKsbdzATs92Krb4p6h3__rHyGNMX7mDdTHujuVVoyVNaq07ah6FPutMe-7FkGUJOHTul-BrtLoeYuOOEOHtCIMWVU0jucGiy9Nwphneo1P9xopte-hnraLABQUWVlB_EgqlDpWj79Qjzjsdw78gj9FeCXNxtPv2EkNA1jxdQDnjdoqdxEwDYbjD0Gv7sCjLlwIY0lgO9JqRUOIvJdzCTgY320JmVbpcG8vmZZgLFwC63NmE4I7Oi1SVSWvrdkgNVidC9Lo-8ObTH33dTdASFFSlQwwM_0eVuEflwdjMRVNAGdRxjaTosFkH-b1E-59ASQciRoOUX6C0_Bq7ZGhcMOr7N_9tSP36dLUbGxTW0bi3EVtgBlTDQoD-lgPWSNd8MsVna6H06dcQEHzSYL_KgCf6xr6Cg3pKAFoOYkIwulQeahn4bPnDVsnpCqKGy5LMaeUL8pKE5jIsmr1HSWYu-hkB02EcVY7n9Z7iNeupJ7dsARlnfGji0WP9Qf86Nhecqd9v4-HfAcU_e4aEbzg-jMXs0ZA67kcbSkeNFpzbwLSf8T-wm4GM59x0_xb7gvHoxJfgPSKvOtDQCHcbxaX5rLnyzUC6n0kY0kWSvGe3CLZMKt_lyka0RygFqq37Ahr9B1LXZkuRuBrEEVxVDAAp9KFiwKxIZ1d5RVX6dYJ_1VbObbuyNShWFqALX8i4T4DlI0jiGUtkj-o5aubYgm9AwTB3xd-7H289zcrltggZ9Aemx1krQAvFvesfC4SO2qdvbiU216nyZ1EoOXR5awqRz_wZqFh58ZAXYEmjeLvRA-ScboNPjGYBfNxTTG-YT-AVot7Heru_Vuli2VVWFdelNxR90euTrE54iZZV3857hcoyU_7UI9iTbMjzGQvAC1L8DaRGYoSMUdcAhW8iJystBxM6D83w4pv1DME-xRGnFViHWXUHsqHrnU127eoBJKFEEa1RInOem3OGXRGR_aYsBOtHkR-iPsQGyG9-jkGLBjxHPTtXvCbzFjwJ-5N65-aHg3pbRyD96qRPi49Fhp1yG35j0K3DiD5XNZKnuJhiQnwGpClvW1HLb556Kg5zc6t6JBwm90SXubiBJcpVx3LuUw8uHgDY0PCUuPWLL66xVxb4iJFAWGqq1lX0OTYk7BY2Sl017QgSaIAnv4JJW12n7RhPBNU69N-QyVh7iqrLmSc5XV1j7-Ichd0uJT2-2uJ5iI5Tx3U_frrZH8TS9CTWzl9OTIYHuO_jZnFa6xpZPXYQDqYRSG9GFQ5Axa7xi2YH7O3E22TGGja5qs8O-0rWDrWvpBU--JpqNB10rqx9-hT7gK_TxUkyKnAONtWsJ7-5TMr1GScHi3SVzgA-AVFhKGPfiu-qJA3rTR81RF64YP04EDH38-IXOlC55hKH0UQdhUv1ZtRuBSzz-CH5RcECBLflhNzu-IDa6VejPg4F3Xqc9I7zKWe4oK9p1gcw7vbEEjZptkal_e7zSfweC1BZAa915MmFJRkyCtSMXjmzg-Ljyv7MxjwdSqvF1B6ruBtMdm2Eh8M1ejcUedbmgT3Vu-aey3Aexotp5gZ4T7KNVtpi3toz3VsuO1UV5RIZvB2oDex2wkyWPisFAbj2fABYtxnEb0qKtnqqU-LyJIGQqrtakGaOC9k4lEWRX8n8Db2HVAR2qQ8Oe2GsoQrHjmzQmAWMmc8MWan9OnbHqRsIXFKW1D5i4BmUAKq1VzXiqoyAKIANVu6HA74TWWdqnsjBFjy4DNC0PEBygslKG5JvX3brO2eyayRtcSMQBihXDri95NlzNao6PFbLydjwRaEeoH4J6Ov1woFUTyh6OzAW0-ngJgTuRFEHs0nL2VkhhH0ShETViBJ35achRB4p-GfDDC2oMjOmp11P8ubZ77AEPxG9-BUh17MLPghPEQiCBsrmaWgDoYwMKgBRl6AeEzDfCQwr5W5zkdtK6aBSwhG7Q27LWmhqGBKvCvteJ43CGxsEtmoSDoYupDBtan96r52zVhTkAofB-sgnFzHM9PkqC0n3Qcg5-9M-dyeDt_aWnViGeB7YWM10jWdRLby-DuNp_06Gzm9hN27xofNDgh-ueTMnB5z_SntDW--JLAGYg74iAhOi2eLgsjBREpRjyGGU_CfmFKx8nsrKJVnGucRbtAL-MufyfPmd9dQmGGlnbE6SRrtHU7KZMhan_coKE4dqzINUdDilB7g6gfbWIrbIy93jeEQmCuZ3awFeUceFDw80rDALl_TbFImCafsELxBUDgav-maazJbqTjTGscM3cZgNdnT1_fTzusAKAWEMuSEG9yy5KI1Gmdj3VIDNYVYxd_JfAJL3yKy7bYv2W4WBfRlBoW4Ijlup5-DPoG0FNGy9T3siz8THukE4IVhB0gFViqrnkhSxJyrNN9Kw3jbqfh40D8aCXnzcZD88Gff78bLrgvvQXCCAwm8Bn4xwZO-DpbKm8TLkx0EGTibCquwVhMLZTWICh0DJFY1Y2fiunWQkOBwzYIDLN2oGIE1dmSqzqDa8mVsYy4A-6tY5ovv9kT5fnvnA1fRjnnoHRDvYDJ30I4pWYJ3zQBD-bBeyGHRmUkCbIeQ9cM2P7bAjTZBwnS4pv0oQy4o3sg==",
+        "summary": []
+      },
+      {
+        "id": "msg_04bc0c3f3844498b016ad9bb2a259c87d2a682016dc8d742a7",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"private_13\":\"O2\",\"private_5\":\"O2\",\"private_2\":\"O1\",\"private_0\":\"O1\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "current_turn",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "private_13": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_5": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_2": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            },
+            "private_0": {
+              "type": "string",
+              "enum": [
+                "O1",
+                "O2"
+              ]
+            }
+          },
+          "required": [
+            "private_13",
+            "private_5",
+            "private_2",
+            "private_0"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 338,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 460,
+      "output_tokens_details": {
+        "reasoning_tokens": 419
+      },
+      "total_tokens": 798
+    },
+    "user": null,
+    "metadata": {}
+  }
+}

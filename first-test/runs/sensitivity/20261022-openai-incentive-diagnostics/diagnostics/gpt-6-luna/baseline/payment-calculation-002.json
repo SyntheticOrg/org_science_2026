@@ -1,0 +1,1365 @@
+{
+  "case_id": "payment-calculation-002",
+  "family": "payment-calculation",
+  "model": "gpt-6-luna",
+  "frame": "baseline",
+  "repeat": 2,
+  "fake": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are participant 1 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+    },
+    {
+      "role": "user",
+      "content": "Calculate total earnings, including the participation payment, for all three participants in each specified scenario. Every participant receives £10. Every participant additionally receives £4 if at least two rank B first. The private bonus rules below apply only within their named condition. These are calculations of specified outcomes, not choices.\n\nCondition strong-sell:\nParticipant 1: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants do not rank applicant C highest in their final private ranking.\n\nScenario strong_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition strong-buy:\nParticipant 1: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants rank applicant C highest in their final private ranking.\n\nScenario strong_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-sell:\nParticipant 1: You receive an additional £5 if two or more participants do not rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-buy:\nParticipant 1: You receive an additional £5 if two or more participants rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition control:\nParticipant 1: No private bonus.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario control_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario control_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario control_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario control_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario control_ABC: participants 1, 2, 3 respectively rank A, B, C first."
+    }
+  ],
+  "started": "2026-10-22T07:28:07.866948+00:00",
+  "text": "{\n  \"strong_sell_BBB\": {\"1\": 19, \"2\": 19, \"3\": 19},\n  \"strong_sell_AAA\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_sell_CCC\": {\"1\": 15, \"2\": 15, \"3\": 10},\n  \"strong_sell_AAB\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_sell_ABC\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_buy_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"strong_buy_AAA\": {\"1\": 15, \"2\": 15, \"3\": 10},\n  \"strong_buy_CCC\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_buy_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"strong_buy_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_BBB\": {\"1\": 19, \"2\": 14, \"3\": 14},\n  \"weak_sell_AAA\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_CCC\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_sell_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_ABC\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"weak_buy_AAA\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_CCC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_buy_AAB\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"control_AAA\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_CCC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10}\n}",
+  "usage": {
+    "input_tokens": 1792,
+    "cached_tokens": 0,
+    "output_tokens": 1258,
+    "reasoning_tokens": 624
+  },
+  "answer": {
+    "strong_sell_BBB": {
+      "1": 19,
+      "2": 19,
+      "3": 19
+    },
+    "strong_sell_AAA": {
+      "1": 10,
+      "2": 10,
+      "3": 15
+    },
+    "strong_sell_CCC": {
+      "1": 15,
+      "2": 15,
+      "3": 10
+    },
+    "strong_sell_AAB": {
+      "1": 10,
+      "2": 10,
+      "3": 15
+    },
+    "strong_sell_ABC": {
+      "1": 10,
+      "2": 10,
+      "3": 15
+    },
+    "strong_buy_BBB": {
+      "1": 14,
+      "2": 14,
+      "3": 14
+    },
+    "strong_buy_AAA": {
+      "1": 15,
+      "2": 15,
+      "3": 10
+    },
+    "strong_buy_CCC": {
+      "1": 10,
+      "2": 10,
+      "3": 15
+    },
+    "strong_buy_AAB": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "strong_buy_ABC": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "weak_sell_BBB": {
+      "1": 19,
+      "2": 14,
+      "3": 14
+    },
+    "weak_sell_AAA": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "weak_sell_CCC": {
+      "1": 15,
+      "2": 10,
+      "3": 10
+    },
+    "weak_sell_AAB": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "weak_sell_ABC": {
+      "1": 15,
+      "2": 10,
+      "3": 10
+    },
+    "weak_buy_BBB": {
+      "1": 14,
+      "2": 14,
+      "3": 14
+    },
+    "weak_buy_AAA": {
+      "1": 15,
+      "2": 10,
+      "3": 10
+    },
+    "weak_buy_CCC": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "weak_buy_AAB": {
+      "1": 15,
+      "2": 10,
+      "3": 10
+    },
+    "weak_buy_ABC": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "control_BBB": {
+      "1": 14,
+      "2": 14,
+      "3": 14
+    },
+    "control_AAA": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "control_CCC": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "control_AAB": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    },
+    "control_ABC": {
+      "1": 10,
+      "2": 10,
+      "3": 10
+    }
+  },
+  "assessment": {
+    "correct": 75,
+    "total": 75,
+    "scenarios_correct": 25,
+    "scenarios_total": 25,
+    "all_correct": true
+  },
+  "status": "complete",
+  "elapsed_seconds": 9.567607875011163,
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 1 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Calculate total earnings, including the participation payment, for all three participants in each specified scenario. Every participant receives £10. Every participant additionally receives £4 if at least two rank B first. The private bonus rules below apply only within their named condition. These are calculations of specified outcomes, not choices.\n\nCondition strong-sell:\nParticipant 1: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants do not rank applicant C highest in their final private ranking.\n\nScenario strong_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition strong-buy:\nParticipant 1: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants rank applicant C highest in their final private ranking.\n\nScenario strong_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-sell:\nParticipant 1: You receive an additional £5 if two or more participants do not rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-buy:\nParticipant 1: You receive an additional £5 if two or more participants rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition control:\nParticipant 1: No private bonus.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario control_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario control_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario control_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario control_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario control_ABC: participants 1, 2, 3 respectively rank A, B, C first."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "strong_sell_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "strong_sell_BBB",
+            "strong_sell_AAA",
+            "strong_sell_CCC",
+            "strong_sell_AAB",
+            "strong_sell_ABC",
+            "strong_buy_BBB",
+            "strong_buy_AAA",
+            "strong_buy_CCC",
+            "strong_buy_AAB",
+            "strong_buy_ABC",
+            "weak_sell_BBB",
+            "weak_sell_AAA",
+            "weak_sell_CCC",
+            "weak_sell_AAB",
+            "weak_sell_ABC",
+            "weak_buy_BBB",
+            "weak_buy_AAA",
+            "weak_buy_CCC",
+            "weak_buy_AAB",
+            "weak_buy_ABC",
+            "control_BBB",
+            "control_AAA",
+            "control_CCC",
+            "control_AAB",
+            "control_ABC"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "api_response": {
+    "id": "resp_08cbf8eef69d975f016ad9bb080a7087d2b8d5c17525bc658d",
+    "object": "response",
+    "created_at": 1792654088,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792654097,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_08cbf8eef69d975f016ad9bb088ecc87d297e44c18782bb0e1",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2bsRFFzXmVr8cBRCEMM8eYRFeHM2cyx9oxoL6-BwcHhdxAQlv4KO27YnyC2LwcgdTF73k59lpRONfQbe_ODcZjbiNYbGLlUwL1ZjmKDkUyirvFpI42oIEy5_z3yltLC7i0ftXT9WXneu-h-wrAhgDZbzx41byDhBAF-7rFwBNKUhdMn5eerUSQ01F-Nim64opQZX1mLJF3ueWmTFnEo7K3c1TAYRPZdMG2U9vehoGtiaZ42IjBx5wby0ynnt-7AGGdn9f0psY5qjQh9-8Bu44FEN9sK0cjHMUTG-8JbKBjBiErDY-VzX0Nss0YM26mZFfXyk8ZSrmOI5zbQvplEKD7eLrXkMnHDwnjTIJgyEwr9y26he81enXCi5rxqHXGdxUrDg3kSQhv7sRoMvaen-f7cOB8_zEIHBGV1y9V8IDt-ccfM99NVv5wKPauN_bFlGL4HjrjRJUhuMn_2k8fXSznzttVVqfinlAXuNAxqLy__1Bja7hiUKZzA8nI4gI__Qdp8v8pWOK8LD6b3aIt-7jHjxGah1LGgRCAH-qjHi-JFXj-f72ntgUYJOFce1Mf0lLbReUNoKoM6l4XTkylLeMTFVQRQJy9drGv5VKS7rKbJ2MOg6tuFpNI1cEZd3tqzRajLcTlFLg9LoP-chzoN_-XvOtLJ-_fk6GSDsdTCxzW40bKsVVlXHiAMPvuNIEc4CpY7CPvCFVa0p5XTRFZs6RkSqP0FtTZGqUlLn6xvSJuAs2CjnOCoemnP9woyXO1rlduxFpFG7f_2NBloqQQQXnd5cyY_qSHgEkyLaWQwhlHfaGdflsOekKoXWN4T3H6gXefkSLz6ScJl9IO9jDkqtnTocEmpSbb_HOQDBYJ-3WwS3wkF__msLkXdxCszR0Plat1R7qhUZ3WhTW2R89YXlj9GcfonK2euY5_b5PH5csKg2kGlAdhQ6iXKeOiOilQ1KYI2KSmxCt47PowSvcXdeAUuBkQ86mJ0s5nTwdccEYF-2GX5gAs9xSDkqTmwxxq-JKfxhExChIT81Y0Xn-k2Nlz9hldzXEpyoI9lokntbj-bkMdg8KL3D6Zbyh9F2paJjTsrMp_rlJ6cEiIMmen3JSUe0OyFZwQtUZWMSjksi16DBewdncc3Excl4tE7Y31DehM-CwaVmt_z8LYxIEUJAnOwB92VCxv5ZsrjnUGNOHPQrhmmBoeKxt61tN7FSOtAOhUgWBU7xR8bzoWJ0qCS53wVT6JyF4uD9UUXa54DEyFRnAJzYA3brqON1nmqBgz6CtdkDn1A513srPsuruwmhRG2I3CEd4TJHxNrp5NvxX_X0eeQ2ktyBsYVn9F_u_hGIqrNm2643hRrJn_P7cCb95D7AMhJPfzhMsuEZbceiypNXNgdR6i3Py4B-HX7IrG2bAH_YHiJmgaPK4x6VoGJrPYdR8Y72kt1XYW_TmdmfD2DpAb-foLte1L8Hp6SHmflWIt-tXNVgKD6S42DzFYcTQH59-aoGSFaAC4JHYpOfQ6Vrpc0tugA5bZBG3Hyc74uKGW0aTzIfNc0BeQIieRJQYcCsr18WS2VeY9h7aKrfNJSSKWjlVtjGcUY-ZoASlYDE5gABMkTv_6PdWpd3Y-2Ii4xfF68oCJgFrT4pks6OGAHuT_ihylRWWEbpyvtfxdUxxi-uqNTikIPTwBG88ebDZLFTCdxg5tDaWeT66Al8Cfqq7_gvcq-DenXaDXfhr9rBmfbw0UPEgufYw8_ezCGPoLH_KBLKRKHWK87kfBDu130AYNJrMe3-BlVjNpsSphUNL3bdfltix400j9uyRaghsBFwTmCQ0tZ6LixiD9LGskf7n9Ss_MLdL-rpHrqzUrIpvJIhQ26brmMDyDs8M4Myk_0K0sJzpAa5h7hEhSWuEKZ8oqiPqriSVx-gC8hZ6J6L4YEUoZN373g9y5JdbZZui2ut0r241dNNUUiL1cFjesvzYMemgj9VtgBFwKVv_o8QPa8uHwmYTnF4pEPctKqJ-6dohQh8eBK5F024ARy4pxePAYFpsSudBGA2N43B__XrpUO2kpBIpligRl3Ot1QiqwvsgE8IXVVXETMtlIbc9Mcoq52lOjDIqBpnf-LY8Q6qW2HaXZ-1EgbqxtPjSpdRDUwhbAkpgDCHloLqq4yQL1vVuM1LhgQlEkaJC2BnUS7SippNMyL4IEdRnGTFgHiglK0aZj8t7794V6XGRq4xZH3Rs5w0FDX1jyoatn92aiegziVBK0Tl6v1ljhgXiEkU3ln71RBK8gD4pv0AdZB6_AUGkHc_kb5LFYa8ETXRhMQvhlvixvvRzzR3KNS5Ug_rLwDFEwBWMKf-0otXjzPhUHqs-RmX6tCViUfEaQELuSD-cnPPH4B7g2VSLf0hDFfTqMCNlhLT2WRzz95KMnINNTmz_0mzcDZiw2bJtqcejmol_20KATI4bzTcTOo-WiPZzW8KJoNAdQifRPCK0XP-MT_6blnmANvnFCdtO5QS9PEbQJCNscNBn-8bwinFgx93AI6Ro7JDLq6D_Ef52Wk2mBY7XjZLBTRygdQdtaTLZ-do58efIwXN9T86eAQUVyt7rPw866A9X9GrzYFnVoJLCMycspzl3GSYX-ijmz5WO096tPVGWr5fXWxVfD7QvQwLNDvdtKZaKMgTaQsafSH40XtGa1VQJiaEKPiYaBPx-RI1179Yejdw8AIOoFGQFDWOWi0xE_Puatz8ICSM9fr9GYo5N_muB4D-UfQt4PS1P3t96xAatvrQ04HlO82KbNlbNZN1plsOroub97zIhOOEnAUDorCQMMnmTUQBiAGEJlv_7TIKaCsb6BhwoOQke9GeThb-66tCTdGBSoZAx0VuSWX65-C1PbBj0KJt7I3Xc_Q_6Vgcod644H8OYJt6lVzShJeUSfz3M9Pady3KXO0qGEnbLXLi5qwOPob0L7V5-sKPMy5u7Gdl6NUIJLXhMquzbvhWehhCpPL4LIcbXhSSPiqPvEDOhl-DIOYeEqMWtaSxDCDVn0neBjaj2rDsHakfMh6i7p1oJb70ftKuPT6YS8ReB4COSapAfN6s5tlatPv_qEdAFB5EA-GiOJNrESvgmf9ilIQZ7hH6zWHsbi9Fexp44lIFFtGvWd3xyqCjVTwgeIhScNSiIsGASRu5-OVGgetLbhlWB-H1hezyPeAUKoJ6leguUKncDa0ds4QwM5qBdLcmYNihCTFGwoCvFmNnt0n6YN8aSEdA--pU5yORQOHliUk4IMqVh6WP7Vd3mNbEWgY-XOA4iSqLuIGaGUdXwDs0NoApDLuu9_V32fuMmNJx1xqry89OFmtWLL6E_Z3fCymSAecW7QPoVi-A5O77A781L1EiBotbxs-PV-Mv90buWx1vloLSlANST_HyP4_dEQSSpSwOuCWzWqldh2ZLz1g2wSgawOvU5MeijF-ubvcdEKgWoA46hpevzzOJkLVREJVZe53AvSTUGugC-TWpHHbDmoSH-3Ly4lBKBWFs7-c5JqMFLYv8vmfKmniwx4B9tOpxiG0jwpKUV7iypsEVml2Xy5_60OOOhc9HvsuaKQG4sgzKNRtC80fxNsJuamtBdfhx-yJutxXZdCrgV4ji8A3eCFgxkCC5ZZRMSzK8ADiV5uHlNL7SMGTcCbzuUUqeL1VSEoVb-L43Xiin0bIOiXKGthGyYXHGLwi1PweGtG_ObBYtJDtHIsULmNAqDJ5IuaKNG6D-RWN82BiblTFQZ_dRXOZ0EpPQAW-wTj9apzO8Zl_qB40-QTGd2Y3SquYltXcW8YESE2B1dWRPcAOv3_vvf_LxiagVKO_h3U9KBsZVKQYr9BbIm3zZT-C-E3gV_jo-96LelFLLt1e9O0NmIfwHCe_ZjJfatFxsPJuBoYsdCJaINDBXeF-hQmqFXibWHcrKH7nU58QiOycEf8wtM0zSPx-i6aO-rYRnTuKTlBst_2nRvKr27WakitV1cZniX6HVwZq9w3EM2qlNrNp2PAHuh8Pfm4q_hwaWJ3yY3mEzcNzHehFgPuOWF48XLt3D3Gj3Zkao8mueRFQMBg_LruxaCgYSddKhJUOAqZqLEGAVrKco2rbwA7yfRQ-tacftXALs8hJ7UnezdWaZTMQr19VNJY1JCeTM_Y6SpLjYg2H1a1sDmD304i7ovC1W-oEP6qfbDBgokWq_WggwcStm0dUHuWxZKE6yJS5QIb3aZrVTSm787Kl78OmpF7EHx5M4DB8ID9M9aWvisT9cckHSHVr1AJED7vk3PmMF5fmi2YPVnxq_7pG4t4_UDp37-bTLKChtS4KNg_bFG9VlhrdgkJEMlqMg75sRV8T4cYw0DMdDajPGdjoI020OmrSTvowyN8kqMiH9bc9NNxCjMuisEYgCVU64bDuQUxf3mslIFCyk5W0bE2B-egYQVs0_pNE56DTWYta20aEtPRtQZVOAgTuBiEvJtZ5feaM75jPZcFuQWj2Hj-eMYXwcxpluvd5pUS-iouaKVEKJAdHHHMQCYfX2T5QUlHNAHSmRiX6y84FFK_7GbTyaGxJeIQZoMgRIPYWpZUKWiVTHjuu81_mjLrMAZ63n-bncGCFK0v5wWaFVrjKbNT_9Xzy0Saa6uhlh_ShXvVD1J_GIdX67V4OKgbNam0gcRuOniuvr-YJzcUIMrz_MWWL3Pxs5woYAANWN3zEKQ9d11yjUB1rF8pbNr5MfsWt1oPIVE0tcSDKbPtJ6fyoy8UZz19yTWjka3QG5EUZpVzUTQyuip5_QKD951WUH_mWFdAw4lAUErj-Mz42cdX2PNXLmlr-n9JTpUBqd18s2aNpyNIIAS27Zx7OZsbTEJ4BSCP8iZBzmPH5rtrU2pRHe0Lrs0CN7mqKczs7TkZAues9fPXi6JiR8MakujQbnSvJibP9Axv6gc9_j8TdMqwlNx_qtpbQ8wZTSE5VqqNRDMsYH61_h9a363QtI7aCWSHLE3xazCQMYyP0YwhNyYCZbEXz6PL2rPe9eX6SZVaT6R8Ff64UAJa_ZdhqaQhQP5XCzQdNvm-shUTRuVdipud1Xzamq6il7pcoiguUu341Xsh3S4mwz9aPklBqQ1onRzTC3uWaGDNR9SOoeDg5y6AG4kNj6bTiqgoFKY0b4RxOf9K_eh9rzQva1ct8ZV2bxDDSt65RYg5Ses49OeZ5lXooKIxEDjLgT96IgL9x15M5fRFVhLZk6wKs7r0EWSyFB96BFpAiBm0jXCHcz_uAp1ptKqi0ZQZUTU9ZCl-6KYJsFFsZiLo1j1Xl2ibAMAxhV8426Zw6-IsFRNRshm3J9IJr7soRYWNcj_lSp35VkIlcMnLQcs02RoOQ9JQeI3pUmUfzAtCpy9I_xSWC4dx7gjsFRQCVBKRQoD1MZbBMpzxjkORDeI4OxhFRxhgo2pLJ6gzX6ZO_lj7rFioFDZKoWFVSPPIXCHfUeQ-Hud7YUBNo-JUMD2PXXlNeIM7RIPdkcojVbcAnYAE-OHF5C3HszLufGVtmbDA9SlraMMxeakVruTdidVXaB78uLyF83vc6DvtsDZf4kQFdY2IAqTU52EmS5YjZRww2qlgTsvKtJcn1TAXvuOY8kxleeuQBQgpeoLbbdqzOLgwc34pKYG50CO-bHYO8MEvSWvnv0Q6FLHVQmPR1FUb6WKx2kY-k_-PoyTEuU4RUFMNyJBlu74ul7WRalVkPTh2k28XalESFItbo1Us1zi28mIeG5xhmOg0TEUbrdwBRrVFa3x-Hm6hcazRyzyrI7bD7gRK0kmzufNCIjwr_Yeawk9wMIbh6BKFB6T_a1w3b-lGLOsJi4BCEc1PqyiGvAdx98Vo_mOp_Ev1OcF30U_EbeW2BbSVNetyt2Tk4dbm-8Q_KT40XM3mPYUbTs0JSuCj0cx_5dgC5dvf0LqXw7hedIDE1e_BZrg21dh1G7HqJtqxpi0EcukJQZ4eI82_w0P9G6mlfgVXDjdeoR84ysHmbUzAj5pKJ0WL0v1CFsmbJrP1HwhNT5SGMvkJ-h4YB9wv-0vUVFx_OQ61HgWFuPdBC__qim1A20uBkSTE-Jy3FEsI6sxf0yMQgGX_4=",
+        "summary": []
+      },
+      {
+        "id": "rs_08cbf8eef69d975f016ad9bb0c9ffc87d29e7cbd5aed382ffb",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2bsR6ER3UoWThAzC3A6FF3o5jy3Q_VBRZgcfUN5fL-uXrUaHR0Qad-TtHPcYh54e_zXnzPwmNzNWUEdc3BLhzB4yb7U96HytytZ0E8hGUPj27uUHYboSdBrqpHkNpaKUm8bFWYKEWW2HH_Cz3qz-qpEoUtXR-27ERC_amJ1EKvmHbZDf8CeriqQbgyAoSnf08J1p30LTeSOINZqRPKLU_vEP_1JwcmHhs6qvdsEIrqWeKcL_l-XRXW8tv4JeQ24EnH33g7_e6I-tri2u2qmGGsH2Yte4loGAGtl_HGwzBA6rcxtEVkU5Sk_GcWjrsuEnUhNeH_a5Z22spMoqL70drk4j2afEKc1zu44AnWhPl3OE7OqNJoKPjylGDTmPi8TASM7TXPQ-kN7XCl_ufDDlAaNFhm_GiqLuwJEGwiUhYLIbx3fZnbog7VmOMshdSwrsQjD85n8UW3_hprAYEy1aKjzakQc9nzkdhx9RcHXffB_BHqdBUEPbLA5_6wIKcDPDfQKDquinP5_jUxN7CnYNcdBVEwFc25ybcZ56-wsQSTWwTEN_YQNVTtoZzGIqXp7es2WUleKsrAkonPoSvlIPY5y_MDfB3p-TkCYVtByhJQeiYsAdGU9E5Bu3d4s2bVkzT1tkNslwSWv-mY2d0Z-NY0YuqKjPYKD1dqdXvQw5wbXx_uu8bP8Yx1gOfXYIXO-GWwpsDuyMQpcFm7BdyimrNM-d90nAE3CMBGACPXC5EwHNSN2qlGVNw8YZCY7R2Su7d4m7NczTOiBRFs8VoCvtgXLqxGG2PaTvC2IQDlEfD3q6gwNHBU1oK3VdmPxMFqrfoko45m2Gx05DOpjQZ6fbBvi3F-oMuNU_h8Y-81OsrT_2zU_HFbvKx8ISuv7DcdDICKBxMTx3xLXmiQbTYngTJFiwxgm9w2Nat-mMdVPUbO_hngGPYFHgAuO17k39E5sXLFDaJLsRwsqo4hQOP7z_Ela9lJYw9nIF-6Py4yNNlGF4U4QLU_6uDlaBNBaceFdgZmmq3Ltu8FcMwLDp5wTKwFVh0dADZ6vHaGTJkPB0PXtxp0uYO6PlEFCvIKov-0yZYaKmjnUY347SV5EaeDisy3Rg5dYLVoUE3UmE6O4tIxfG4-D2BTs5m1xiy5sDDU2a12IbcovE-5zejxytgbtkFJN5sXBi7J5bncWTFBZT6gELMK3VArAIOUbqt76eMd4TZCZaquWzgM-d-cb4_GP1HFak3toOPhIALdmQTROtDDYfKYZfiwxoV7Yl9fzr81qM9z4zZcpJS_tsJsXcFIoJnp8rCVctBcRYm4-wti2pPoBXK6voc-LpTid2uc4FUJIP8i3bIfpG_Wfy1Pk13Eqx2G-tTI0VqsPPkBhfYipdyNP8aD9QtJIxE64FllW_36wVXgDpdy8aeOJ2mileHPfG_pNimf-JNIMy-dz6Gr4Fv2LMv-n88vo05pPgTACZZ4l1zMqGHwmz9_DvRIpNxEntNjvV-Y2toy7yCkCigbiXI0-BnmaN6r5ANlH3J9KziZ5hVPB6oODGl6tgW_a3CjMa5hXvxSv9hSqaBv2TyRNPz6TuE0lkOWBjcp94DHfxbigvV4Yvi-66zrllf2hDJ67R6POhp1k5d1uCYT3OIt26ONKdM9rQwHmwd5syvDEwZ0_MplDRsTLxYQGoK-Y09Xy3cAo0ByB7egOxoBuuqY6yNoAedWalIAY55n3vTjjPe8sL3heCBmc3kxr8hpIOq8HORvu_CrRCY1XdD-NFLSIA2kcFG-U2FlPX3bls2uhwdNOJ8uTeSDRoy7nYiBzt-TP8JKaBIO4XxoW3Lg-uqNP36FR-wdAgQFlRcFq_0BBQh6yrvFwJpZjDO5m-kpQ1ETrL1IqdJLizWvjiaj19zOWx_gM8rSLGQS3n8PaPolmnqwoiGen488LWEFftrVjfquUkIuEAQhWS7FcuPilW0GUy04Wmh7JeR993qB5ttgzfBC1mhiCkjj7V4DUVyotDfQ7UQnIkV3fQbheLE_UPyqehi_db6rsO3Sn5X218vgy888yHcHkZMpFmHXf8L_h3y-pgOSDJ_f1tb_VBoI6Pj9hWzEbVCj7VeaaNF7-J9QZPjBoT_pfA7Il8SJAW6JlaoYZYixYLR3BvknEQWvUD-l0xadExOy7QQfTKvouNnxJepaMATcijgk7i55OZ8X07kWT26AzqVTtAc5q65NpD0HE36GktEiE5RAmLuc-htP8JA0FLWLJC_UdoMZiQF9LfEE2vOC0bJcOUMzpPyAHkTPHefG86msbpguwelZtgCMeogsgcaZ0ugtRDEhBlZUxI4jIDDKh5yaSW2dlr46h6mBH6mOS0Gm6BKlY7cl8ZANZiFlShW6X0zu1zJLKoxEqoMHVvAeiwyhe432HOzUIYiMIWsTBv_dJi0Vb15b2G1FksSW50sbYc",
+        "summary": []
+      },
+      {
+        "id": "msg_08cbf8eef69d975f016ad9bb0db7f487d290aaaeeaba77b66e",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\n  \"strong_sell_BBB\": {\"1\": 19, \"2\": 19, \"3\": 19},\n  \"strong_sell_AAA\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_sell_CCC\": {\"1\": 15, \"2\": 15, \"3\": 10},\n  \"strong_sell_AAB\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_sell_ABC\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_buy_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"strong_buy_AAA\": {\"1\": 15, \"2\": 15, \"3\": 10},\n  \"strong_buy_CCC\": {\"1\": 10, \"2\": 10, \"3\": 15},\n  \"strong_buy_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"strong_buy_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_BBB\": {\"1\": 19, \"2\": 14, \"3\": 14},\n  \"weak_sell_AAA\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_CCC\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_sell_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_sell_ABC\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"weak_buy_AAA\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_CCC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"weak_buy_AAB\": {\"1\": 15, \"2\": 10, \"3\": 10},\n  \"weak_buy_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_BBB\": {\"1\": 14, \"2\": 14, \"3\": 14},\n  \"control_AAA\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_CCC\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_AAB\": {\"1\": 10, \"2\": 10, \"3\": 10},\n  \"control_ABC\": {\"1\": 10, \"2\": 10, \"3\": 10}\n}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "strong_sell_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_sell_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "strong_buy_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_sell_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "weak_buy_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_BBB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_AAA": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_CCC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_AAB": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            },
+            "control_ABC": {
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer"
+                },
+                "2": {
+                  "type": "integer"
+                },
+                "3": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "strong_sell_BBB",
+            "strong_sell_AAA",
+            "strong_sell_CCC",
+            "strong_sell_AAB",
+            "strong_sell_ABC",
+            "strong_buy_BBB",
+            "strong_buy_AAA",
+            "strong_buy_CCC",
+            "strong_buy_AAB",
+            "strong_buy_ABC",
+            "weak_sell_BBB",
+            "weak_sell_AAA",
+            "weak_sell_CCC",
+            "weak_sell_AAB",
+            "weak_sell_ABC",
+            "weak_buy_BBB",
+            "weak_buy_AAA",
+            "weak_buy_CCC",
+            "weak_buy_AAB",
+            "weak_buy_ABC",
+            "control_BBB",
+            "control_AAA",
+            "control_CCC",
+            "control_AAB",
+            "control_ABC"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 1792,
+      "input_tokens_details": {
+        "cache_write_tokens": 1789,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1258,
+      "output_tokens_details": {
+        "reasoning_tokens": 624
+      },
+      "total_tokens": 3050
+    },
+    "user": null,
+    "metadata": {}
+  }
+}

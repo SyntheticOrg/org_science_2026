@@ -1,0 +1,309 @@
+{
+  "started": "2026-10-22T08:22:02.058092+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "user",
+        "content": "You are coding a transcript from a decision-making experiment. Three participants discussed which of three job applicants (A, B, C) is best. Each privately held three of five ratings (positive or negative) per applicant.\n\nParticipant 2 privately held exactly these ratings:\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nBelow are all public messages by participant 2.\n\nRound 1: My information: A has positive interpersonal skills and experience, and negative personal skills. B has negative personal skills, and positive experience and intelligence. C has positive interpersonal skills, negative personal skills, and negative motivation. Combining this with what’s been shared, B has 3 positives and 2 negatives (strength 4), while C has 2 positives and 3 negatives (strength 1). A’s intelligence is still unknown: if positive, A ties B at 4; if negative, A ties C at 1.\nRound 2: The combined profiles confirm B is strongest. A has 2 positives and 3 negatives (strength 1); B has 3 positives and 2 negatives (strength 4); and C has 2 positives and 3 negatives (strength 1). So the ranking is B first, with A and C tied below.\nRound 3: The full information leaves B as the unique best applicant: its strength is 4, compared with strength 1 for both A and C. Please make sure B is ranked first in the final private ranking.\nRound 4: Agreed. The scores are B = 4, A = 1, and C = 1, so B should be ranked first. A and C can be ordered either way because they are tied.\nRound 5: The final scores are B = 4 and A = C = 1. B is the unique strongest applicant, so B should be ranked first.\n\nFor each of participant 2's own ratings, code what the public messages said about it:\n- \"shared\": some message states this applicant's rating on this characteristic correctly, and no message contradicts it.\n- \"misstated\": some message gives the opposite rating for this applicant and characteristic, or describes it as unknown or missing although the participant held it.\n- \"withheld\": no message states this specific rating. Totals or counts that do not name the characteristic (\"A has two positives\") count as withheld.\nCode only what participant 2 said, not what other participants said."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "cue_coding",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "A_interpersonal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "A_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "A_experience": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_experience": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_intelligence": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_interpersonal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_motivation": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            }
+          },
+          "required": [
+            "A_interpersonal_skills",
+            "A_personal_skills",
+            "A_experience",
+            "B_personal_skills",
+            "B_experience",
+            "B_intelligence",
+            "C_interpersonal_skills",
+            "C_personal_skills",
+            "C_motivation"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_0da5e35dc9591345016ad9c7aa33c087d29443fdf07ad6dc57",
+    "object": "response",
+    "created_at": 1792657322,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792657325,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0da5e35dc9591345016ad9c7aa8e4887d2916c2144eb310764",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cet3EwSmtBzO9JVUpZ70LICBKDAzt4p-8qtezTNmQF7t2wR2dGVpIbhWICwcZcbneNgVFPM3P6otPU4TObzc5Y5Aw8tE2WjdX4ad1aLohnXI81uz8DnJ25NtWiNd9YcERz4e7jk2DH5h7zxeQLaxT1ZNWnUKetSy9VKljpoxHljiJYX3xd3FSYh4WuodF-nUQtYS6eSiESXh7xjpPVs1WWOCa95XzbHGXRfhJJPGRWBEXTs8U0cqrkTpPpnmV85GjA1uUn01wGjNbUpNl36hiPsEF1PoffF1BmwBDUibPkNH_PzagV3pvzU6phXS5gzLWcYAToLqRhHKHyMYQWOfIoc-f8gmDXRV_iqJSeQz5fj6HwOS3MRH6a3SXMfbLVJF3w3Ax5KxRO1Oa5ERsD5SEBam2QCVYqk2Ac1CILm7cp-vzrsMms3FoXrKla5yz7ZNmxehjQwQgGmUM90ZL1LoZihV3vR0P_BhZ1KQq2cgfJMDzCrjysKVXj05kPoLd84ZIicXgw7qo2Zj0IL0_OrQPwdB4UrmMMXTKdDShHB86bY_qVm3yf-kfvyVTyktg2NFUQFKW0sCqGb1807HlDaARhAYkD9yfP6DmnLHglI_J10Bq17OETnk-VviBCV90ZayoNkFe05A5ekW0kfGsIa_XOM7nUtVUNb4gtVam0HJRzrp7gHodctZkrG5fqZRKrOwHJ0j6Oa-NqiBf2HZAjvxBmITaTmkMILSQ4_TEtJtrgln7_HSQIcSndmmbbmN7oEH0jZsIhBUIIkCRiDpbEASsvucLyajvOySeQ0EdEcniKOWDOi05IvB2H_4JlcxeZQWNsB_yhrvRP7c3vxArA5foEmIGgFAcSXYupYtE0uR6dR8qGHlIq8ObXHRz0Hv6zcBQjPKUo5N08zRPLY8SqscPcCqQehVOJcZkvZ31hzpmMMLFjEgONeMNl6810d6i8Wj7XDyPLpMZgWEBQ34hogt06BgcQF0kXJN1zR2Ra2fCEkJExOS7K6v73iwg09XGoVloDaIu4AIXW0nuRn_3dv2MIMyYwhPHc0fTtDKsQ8GhsVAam521icSW4Yxu20MkjUi4k8udL2RaIMLPOxKild79BAOs-4nuPAPuUIdjOeXLGTxwYLDnbKRrnbRl_IEhNRANrH9uQn09R7yqvRcwWEWZds_4UG3rcWeBpIlnHsTMnxmaZ8P-9x1eUcCZTIeuAKaVnqh7Tkh0TlE4q1EBJmCznuX-grruMPs7E9YkKT1lVpW1EMxEgBnzzw0i7leGNte0ZxaB8ukcck8KeW_sWKBW9l3jKADVa2sVPvYRbymskZN1C5DhUsklfW-yoe1WWJelHQg4hcDtI1iLjtqZT7Osv4YDlLMTz-LgGhlZzI41HX1ozODm6GhcbUOlarsxvRZGb3kYaLdfuA-qTOqgh-VpWciAk3r521wqfWMLFDlkf0Gv4SRfm0LmwDXeXr-o6veRastCjB5NCevgWFrqSNCjGp4wwNOXqPDqTVz11WEXo6BICF3jA5Cmpl6yzaMMGpa9-gGA2zeEN7X0ROPmWrszQWfXwxBaeJfbFldCJhT54suUAFVsA8mQcs7CqqVzX9briWQ3Ghm480EygdNAXZ_GEawcARbg11WuvzN7gMse_rQexvUW8smvn0qOnziRUpahG5vsqWK8oFkviFX0mQ_oM3ghYfGC3XTGbWVmWnaiWKsV8xuwmXkoJZ40hIFutsmhtcV0yPPGI7uH5O7jrFMepPEy1WPwysCUnWn5NaQwkryC389KIydMIed4g-_i6xNT_ywVh-o7IbsfTTnktB3fE2Q7IDSqUboWWkQmbOmOxLkEUuE5VwjouGpjAKeFhZtIxG-co4ahtp5W7aqNc3VM4_QnMj3Bm7dJevlTQu1Ijph6yfuh9sbFNiyVHrliouUq2maoN1Su1Oh_TxWRdQ0PnSkk-jVNjnFvKUqzKCv6C22B8CCGtjBXSm4Y5WNF5i1VXBeWr6YkIcYuSfuBdUlvQrmRgpvZSgg_rTJd4IAk2j_-n9FuNAu3a_vmsuhCEuZScnhMfyFvi3IqfYQKP4tryerQ5rKiQtQ5i3vA5DW2Pb9guUVqQbS_Flho5lue2BW1J6clOPykOwzwL4vti0QiWzu5Xgr00Z9pMa9v5iTSk46viv5kVfV3bGOKW29eyZbnl4tQnOTVqYrTeRVUlk4Bf20AxBEhks2VolqCo2bkONO_yk6xOpK2ucV_XswrzzLEh_IhWvTpLqcJAxdaVbfFIuyMSjIh8U5JcFTo3XnQdsS68SMhwBZKw6ebxQymts3kn6PHvq7k8UzRv06_gKZm25ghwHyUm0mB65VOFUbf9xmk5yERUtKm0flyMCSoPcdDWfVPRzVeNWpWlPoB51rsB8Fmdd0rwCYVGdkpb7b6VnZGT9wX8VxivabQMJn9k-G8F3qCPyJ0JX8LwcH8D1i6eJTacaJU9ce_BZKbrtIbEq62MqVc0n_RrkurzZ7YgUTYfj73omVCktrRBEHyJeOT9g9asLr1g4EGvWxiLxzUYEq1LlmVQlYBITPX9-jInjhRiXoN6BkgVzBinX7UJ3ZkuVh4NsOmt4A8hO1oOFA3_9OAFW-0QXRqpwCFV7z40htRa4CeXROwxv9CqgkxnMaP-9g6-7-XO5PwZU-cvjObqamZukhQGY3O7XHWnTlAWWrtuky5WAPp_h2jL_iBwtsPUr2jCMWAbYuCncSbm5HAsUnri0euaQctWX2hRihQ4RGP_-b-nkmqkgfzEnPCbNbkCgGAZUQKb0zPtIheRkWBKZkwRuPxR16LvNQrGHcbUkmRE5XkFfY4_BbGjDZe8i-xJK_q_1VNyI3PavcfgZDmpKdR6xoF5MbINa83XjcPgfyxcTrdPq2rozXcEEpjvhARIs3jIS4dfcOyasAZKq8xQ2YmvN2iEcEVwAfjRzoYE1Xkzslp5OQLLhNLyVkxDiUTvkzsG1lyVJYSO0j_6Mi6qYrxOf9WR8iayxGFsAL8Iz4t_g7-MIYuIaa_TJAzHlUDVK1K9ujHoAqUMRJDHcCC4BQMOX8KMF6owtIGEpciXVG57U",
+        "summary": []
+      },
+      {
+        "id": "msg_0da5e35dc9591345016ad9c7acaae487d2b264c6ff2b760ba9",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"A_interpersonal_skills\":\"shared\",\"A_personal_skills\":\"shared\",\"A_experience\":\"shared\",\"B_personal_skills\":\"shared\",\"B_experience\":\"shared\",\"B_intelligence\":\"shared\",\"C_interpersonal_skills\":\"shared\",\"C_personal_skills\":\"shared\",\"C_motivation\":\"shared\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "cue_coding",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "A_interpersonal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "A_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "A_experience": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_experience": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "B_intelligence": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_interpersonal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_personal_skills": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            },
+            "C_motivation": {
+              "type": "string",
+              "enum": [
+                "shared",
+                "misstated",
+                "withheld"
+              ]
+            }
+          },
+          "required": [
+            "A_interpersonal_skills",
+            "A_personal_skills",
+            "A_experience",
+            "B_personal_skills",
+            "B_experience",
+            "B_intelligence",
+            "C_interpersonal_skills",
+            "C_personal_skills",
+            "C_motivation"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 750,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 202,
+      "output_tokens_details": {
+        "reasoning_tokens": 125
+      },
+      "total_tokens": 952
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 3.404243833007058,
+  "finished": "2026-10-22T08:22:05.462371+00:00"
+}

@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maciejovsky Replication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: one reading column (~62rem) for a research brief; figures break out to the full column, wide diagrams scroll in place. */
+:root {
+  --bg: #f5f7f7;
+  --surface: #ffffff;
+  --ink: #14191c;
+  --ink-2: #48525a;
+  --muted: #6f7a80;
+  --rule: #dbe1e4;
+  --accent: #1d5566;
+  --accent-soft: #e2edf0;
+  --disc: #1baf7a;
+  --mkt: #eb6834;
+  --best: #4a3aa7;
+  --other: #98a2a7;
+  --appA: #e87ba4;
+  --pos: #2a78d6;
+  --pos-bg: #dce9f9;
+  --neg: #d63c3b;
+  --neg-bg: #fbe2e1;
+  --blank: #eef1f2;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+    --accent: #8cc4d4; --accent-soft: #1b2b30; --disc: #199e70; --mkt: #d95926; --best: #9085e9; --other: #67737a; --appA: #d55181;
+    --pos: #3987e5; --pos-bg: #15304f; --neg: #e66767; --neg-bg: #42201f; --blank: #1e2427;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+  --accent: #8cc4d4; --accent-soft: #1b2b30; --disc: #199e70; --mkt: #d95926; --best: #9085e9; --other: #67737a; --appA: #d55181;
+  --pos: #3987e5; --pos-bg: #15304f; --neg: #e66767; --neg-bg: #42201f; --blank: #1e2427;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 62rem; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; gap: 64px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.85rem; }
+h3 { font-size: 1.2rem; font-family: var(--font-body); font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.15rem; color: var(--ink-2); max-width: 60ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+section { display: grid; gap: 20px; }
+.head { display: grid; gap: 6px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+
+/* header */
+header { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 8px 0 0; padding: 0; list-style: none; }
+.facts li { display: grid; gap: 2px; min-width: 0; }
+.facts dt, .facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts .v { font-weight: 500; }
+
+/* institution chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; padding: 1px 9px; border-radius: 99px; border: 1px solid var(--rule); background: var(--surface); white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
+.chip.disc { --c: var(--disc); }
+.chip.mkt { --c: var(--mkt); }
+.status { font-family: var(--font-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 4px; border: 1px solid var(--rule); white-space: nowrap; }
+.status.built { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+/* hypothesis */
+.claim { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; display: grid; gap: 6px; }
+.claim p { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.35; }
+
+/* cue matrix */
+.matrix-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 16px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font: 500 0.875rem var(--font-body); color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: 5px 14px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cues { width: 100%; min-width: 30rem; }
+.cues th, .cues td { padding: 6px 8px; text-align: center; }
+.cues thead th { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+.cues tbody th { text-align: left; font-weight: 400; color: var(--ink-2); white-space: nowrap; }
+.cell { display: inline-grid; place-items: center; width: 100%; max-width: 6.5rem; height: 2.1rem; border-radius: 5px; font: 500 1.05rem var(--font-mono); }
+.cell.pos { background: var(--pos-bg); color: var(--ink); box-shadow: inset 0 -3px 0 var(--pos); }
+.cell.neg { background: var(--neg-bg); color: var(--ink); box-shadow: inset 0 -3px 0 var(--neg); }
+.cell.none { background: var(--blank); color: var(--muted); font-size: 0.85rem; }
+.cues tfoot td, .cues tfoot th { border-top: 1px solid var(--rule); padding-top: 10px; }
+.score { font: 600 1.25rem var(--font-mono); }
+.score.top { color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.formula { font-family: var(--font-mono); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: nowrap; }
+.note { background: var(--accent-soft); border-radius: 8px; padding: 14px 18px; display: grid; gap: 6px; max-width: 70ch; }
+.note strong { color: var(--accent); }
+
+/* procedure */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; font-size: 0.9rem; min-width: 0; }
+.steps li::before { content: "Step " counter(s); font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+.steps li.split { border-style: dashed; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 16px; }
+.inst { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--c); border-radius: 10px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.inst.disc { --c: var(--disc); }
+.inst.mkt { --c: var(--mkt); }
+.inst dl { margin: 0; display: grid; grid-template-columns: 7.5rem 1fr; gap: 6px 12px; font-size: 0.92rem; }
+.inst dt { color: var(--muted); }
+.inst dd { margin: 0; min-width: 0; }
+.prompt { font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.55; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; margin: 0; overflow-x: auto; white-space: pre; color: var(--ink); }
+.prompt-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { font-size: 0.875rem; color: var(--ink-2); max-width: 70ch; }
+.fig-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.diagram { min-width: 760px; width: 100%; height: auto; display: block; color: var(--ink); }
+.diagram .box { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.25; }
+.diagram .inner { fill: var(--bg); stroke: var(--rule); stroke-width: 1; }
+.diagram .t { fill: var(--ink); font: 600 14px var(--font-body); }
+.diagram .s { fill: var(--ink-2); font: 400 12px var(--font-body); }
+.diagram .lbl { fill: var(--ink-2); font: 400 11.5px var(--font-mono); }
+.diagram .edge { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram .key { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.diagram .keylbl { fill: var(--accent); font: 500 11.5px var(--font-mono); }
+.diagram .arrowhead { fill: var(--ink-2); }
+.diagram .headkey { fill: var(--accent); }
+.diagram .built { fill: var(--accent); font: 500 10.5px var(--font-mono); }
+.diagram .next { fill: var(--muted); font: 500 10.5px var(--font-mono); }
+.diagram .disc-dot { fill: var(--disc); }
+.diagram .mkt-dot { fill: var(--mkt); }
+
+.comp { width: 100%; font-size: 0.92rem; }
+.comp th, .comp td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.comp thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+
+/* charts */
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 16px; }
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { font-family: var(--font-body); }
+.axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.grid-l { stroke: var(--rule); stroke-width: 1; }
+.zero-l { stroke: var(--ink-2); stroke-width: 1; }
+.val-t { fill: var(--ink); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lab-t { fill: var(--ink-2); font-size: 12px; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; line-height: 1.4; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); font-variant-numeric: tabular-nums; }
+.units { display: grid; gap: 10px; }
+.unit-row { display: grid; grid-template-columns: 6.5rem 1fr auto; align-items: center; gap: 10px; font-size: 0.9rem; }
+.unit-boxes { display: flex; flex-wrap: wrap; gap: 3px; }
+.unit-boxes i { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--c); background: transparent; }
+.unit-boxes i.on { background: var(--c); }
+.unit-row.disc { --c: var(--disc); }
+.unit-row.mkt { --c: var(--mkt); }
+.unit-row b { font-variant-numeric: tabular-nums; font-weight: 600; }
+details { font-size: 0.875rem; }
+summary { cursor: pointer; color: var(--accent); width: fit-content; }
+details table { margin-top: 8px; font-size: 0.85rem; }
+details th, details td { padding: 4px 12px 4px 0; text-align: right; border-bottom: 1px solid var(--rule); }
+details th:first-child, details td:first-child { text-align: left; }
+
+/* decisions */
+.dec { width: 100%; font-size: 0.92rem; min-width: 36rem; }
+.dec th, .dec td { text-align: left; padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.dec thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.dec td:first-child { font-weight: 500; white-space: nowrap; }
+.src { font-family: var(--font-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--rule); color: var(--ink-2); }
+.src.ours { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.key-result { border: 1px solid var(--rule); border-left: 4px solid var(--accent); background: var(--surface); border-radius: 8px; padding: 16px 20px; display: grid; gap: 6px; }
+.key-result p { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.35; max-width: 60ch; }
+.res { width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.res th, .res td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+.res thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.res td.n { text-align: right; }
+.prose { display: grid; gap: 12px; }
+.prose h3 { margin-top: 8px; }
+.risk { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.risk li { display: grid; grid-template-columns: 12rem 1fr; gap: 4px 20px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.risk li > :last-child { min-width: 0; }
+.risk b { font-weight: 600; }
+.status-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 10px; }
+.status-list div { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font-size: 0.9rem; }
+
+.toc { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; padding: 0; list-style: none; font-size: 0.92rem; }
+
+@media (max-width: 560px) {
+  .wrap { gap: 48px; padding-block: 32px 56px; padding-inline: 16px; }
+  .risk li { grid-template-columns: 1fr; }
+  .inst dl { grid-template-columns: 1fr; gap: 0 0; }
+  .inst dd { margin-bottom: 6px; }
+  .unit-row { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Synthetic organisations · first test</div>
+  <h1>Maciejovsky Replication</h1>
+  <p class="lede">We test whether LLM agents reproduce an established organisational finding, and where they depart from it. The agents rerun Study 1 of Maciejovsky and Budescu (2020), in which three people hold different parts of the evidence on three job applicants and pool it either by discussing or by trading shares in a market: first its control conditions, then its conflict-of-interest manipulations. This page describes the design; the results are on a separate page.</p>
+  <ul class="facts">
+    <li><span class="k">Source</span><span class="v"><a href="https://doi.org/10.1287/orsc.2020.1363">Organization Science 31(6)</a></span></li>
+    <li><span class="k">Conditions</span><span class="v"><span class="chip disc">Discussion</span> <span class="chip mkt">Market</span></span></li>
+    <li><span class="k">Agents</span><span class="v"><code>gpt-6-luna</code>, reasoning high</span></li>
+    <li><span class="k">Sample</span><span class="v">Pilot 3, then 50 triads per cell</span></li>
+    <li><span class="k">Status</span><span class="v">Experiments 1 and 2 complete; experiment 3 piloted</span></li>
+    <li><span class="k">Results</span><span class="v"><a href="results.html">results.html</a></span></li>
+  </ul>
+</header>
+
+<section id="why">
+  <h2>Why we replicate first</h2>
+  <p>Our paper uses synthetic organisations to build theory from counterfactuals, comparing matched versions of one situation that differ in their coordination arrangement. We can only rely on that comparison if synthetic agents reproduce a result already established with humans. Study 1 suits this check because both conditions give the same three roles the same evidence; they differ in how members exchange information and in how they are paid.</p>
+  <div class="claim">
+    <span class="eyebrow">Replication hypothesis</span>
+    <p>Without conflicts of interest, discussion produces more correct final choices than the market.</p>
+  </div>
+  <p class="muted small">Primary outcome: number of agents in a triad who rank the best applicant first after interacting (0 to 3). We also report unanimous and majority correctness separately. Conflict conditions and trust ratings are outside this first experiment.</p>
+</section>
+
+<section id="task">
+  <h2>Task and information</h2>
+  <p>Each participant sees three of the five attribute ratings for every applicant, nine cues in total. All attributes carry equal weight, and every participant knows the scoring rule. B is the unique best applicant only on the pooled evidence.</p>
+  <div class="formula">Strength = 2 × (positive attributes) − 1 × (negative attributes)</div>
+
+  <div class="matrix-card">
+    <div class="tabs" role="group" aria-label="Whose information to show">
+      <button type="button" id="view-1" data-view="1" aria-pressed="false">Participant 1</button>
+      <button type="button" id="view-2" data-view="2" aria-pressed="false">Participant 2</button>
+      <button type="button" id="view-3" data-view="3" aria-pressed="false">Participant 3</button>
+      <button type="button" id="view-all" data-view="all" aria-pressed="true">All evidence pooled</button>
+    </div>
+    <div class="scroll">
+      <table class="cues" id="cues" aria-describedby="cue-caption">
+        <thead><tr><th scope="col"></th><th scope="col">Applicant A</th><th scope="col">Applicant B</th><th scope="col">Applicant C</th></tr></thead>
+        <tbody></tbody>
+        <tfoot><tr><th scope="row">Strength</th><td></td><td></td><td></td></tr></tfoot>
+      </table>
+    </div>
+    <div class="legend" id="cue-caption">
+      <span><i class="sw" style="background:var(--pos-bg);box-shadow:inset 0 -3px 0 var(--pos)"></i>+ positive</span>
+      <span><i class="sw" style="background:var(--neg-bg);box-shadow:inset 0 -3px 0 var(--neg)"></i>− negative</span>
+      <span><i class="sw" style="background:var(--blank)"></i>not shown to this participant</span>
+      <span class="muted">Table 2 of the paper, read from the rendered page and checked by script.</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>This is a weak hidden profile.</strong>
+    <p class="small">Each participant already has B tied for first on their own cues (A = B for participants 1 and 2, B = C for participant 3). Pooling only the cues that two or more participants hold already picks B (A 3, B 5, C 2). With all evidence, A and C tie at 1, although the paper calls A second. Only "B ranked first" is well defined. Agents that apply the rule carefully may all rank B first in discussion, however little they share.</p>
+  </div>
+</section>
+
+<section id="procedure">
+  <h2>Procedure</h2>
+  <p>Each triad starts with three new agents. Steps 1 to 4 and step 6 are the same in both conditions; step 5 differs. Agents are never told which applicant is best.</p>
+  <ol class="steps">
+    <li><b>Instructions</b><span class="muted">condition-specific</span></li>
+    <li><b>Rules quiz</b><span class="muted">one retry, logged</span></li>
+    <li><b>Private cues</b><span class="muted">own nine only</span></li>
+    <li><b>First ranking</b><span class="muted">individual, private</span></li>
+    <li class="split"><b>Interaction</b><span class="muted">discussion or market</span></li>
+    <li><b>Final ranking</b><span class="muted">individual, private</span></li>
+  </ol>
+
+  <div class="cols">
+    <article class="inst disc">
+      <h3>Discussion control</h3>
+      <dl>
+        <dt>Humans</dt><dd>5 minutes face to face, no group ranking requested</dd>
+        <dt>Agents</dt><dd>5 rounds of text messages, one message each per round, rotating who starts</dd>
+        <dt>Payment</dt><dd>£10 show-up; £4 each if two or more members rank the best applicant first</dd>
+        <dt>Visibility</dt><dd>All members see all messages, labelled Participant 1 to 3</dd>
+      </dl>
+      <div class="prompt-label">What participant 1 receives as private cues</div>
+<pre class="prompt">Applicant A: interpersonal skills: positive; experience: positive; motivation: negative
+Applicant B: interpersonal skills: positive; intelligence: positive; motivation: negative
+Applicant C: personal skills: negative; experience: negative; intelligence: positive</pre>
+    </article>
+
+    <article class="inst mkt">
+      <h3>Market control</h3>
+      <dl>
+        <dt>Humans</dt><dd>z-Tree continuous double auction, 10 periods of 180 seconds</dd>
+        <dt>Agents</dt><dd>10 periods × 10 rounds; each round all three act once, in random order</dd>
+        <dt>Endowment</dt><dd>Each period resets: 200 ECU and 2 shares each of A, B, C</dd>
+        <dt>Actions</dt><dd>Bid, ask, buy, sell, cancel, pass; one share per order, prices 0 to 200 ECU</dd>
+        <dt>Payment</dt><dd>£10 show-up; in one random period, £2 per share of the best applicant plus cash at 100 ECU = £2</dd>
+      </dl>
+      <div class="prompt-label">What trader 1 sees in a round (real engine output)</div>
+<pre class="prompt">Applicant A: asks 80; bids 30; trade prices this period (oldest first) none
+Applicant B: asks none; bids 55; trade prices this period (oldest first) 62
+Applicant C: asks 40, 45; bids none; trade prices this period (oldest first) none
+Your open orders: #4 ask C at 45, #5 bid A at 30
+Your cash: 262 ECU (available: 232 ECU)
+Your shares: A: 2 (available: 2), B: 1 (available: 1), C: 2 (available: 1)</pre>
+    </article>
+  </div>
+</section>
+
+<section id="architecture">
+  <h2>Architecture</h2>
+  <p>The engines enforce the institutional rules in code; the prompts describe them to the agents. Each agent runs in its own context and receives only its own cues and what its institution shows it. The analysis is the only component that reads the answer key, and it uses the key for scoring.</p>
+  <figure class="fig-card">
+    <div class="scroll">
+      <svg class="diagram" viewBox="0 0 1000 420" role="img" aria-label="Architecture: the runner creates a fresh triad in the task environment and schedules turns for three isolated agents. Agents send actions to the discussion or market engine and receive observations back. Engines and agents write run records, which the analysis scores using the answer key from the task environment.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="arrowhead"/></marker>
+          <marker id="ahk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="headkey"/></marker>
+        </defs>
+
+        <!-- edges -->
+        <path class="edge" d="M100 200 V72 H286" marker-end="url(#ah)"/>
+        <text class="lbl" x="193" y="62" text-anchor="middle">fresh triad</text>
+        <path class="edge" d="M180 260 H246" marker-end="url(#ah)"/>
+        <text class="lbl" x="213" y="252" text-anchor="middle">turns</text>
+        <path class="edge" d="M410 120 V166" marker-end="url(#ah)"/>
+        <text class="lbl" x="418" y="148">own 9 cues</text>
+        <path class="edge" d="M570 236 H636" marker-end="url(#ah)"/>
+        <text class="lbl" x="603" y="228" text-anchor="middle">actions</text>
+        <path class="edge" d="M640 300 H574" marker-end="url(#ah)"/>
+        <text class="lbl" x="605" y="318" text-anchor="middle">observations</text>
+        <path class="edge" d="M820 260 H866" marker-end="url(#ah)"/>
+        <text class="lbl" x="843" y="252" text-anchor="middle">log</text>
+        <path class="edge" d="M410 350 V392 H925 V304" marker-end="url(#ah)"/>
+        <text class="lbl" x="660" y="384" text-anchor="middle">private rankings · quiz · tokens · failures</text>
+        <path class="edge" d="M925 220 V124" marker-end="url(#ah)"/>
+        <text class="lbl" x="933" y="176">records</text>
+        <path class="key" d="M530 72 H866" marker-end="url(#ahk)"/>
+        <text class="keylbl" x="698" y="62" text-anchor="middle">answer key, used only for scoring</text>
+
+        <!-- runner -->
+        <rect class="box" x="20" y="200" width="160" height="96" rx="7"/>
+        <text class="t" x="34" y="226">Experiment runner</text>
+        <text class="s" x="34" y="246">assigns condition</text>
+        <text class="s" x="34" y="263">schedules turns</text>
+        <text class="built" x="34" y="284">built · runner.py</text>
+
+        <!-- task env -->
+        <rect class="box" x="290" y="24" width="240" height="96" rx="7"/>
+        <text class="t" x="304" y="50">Task environment</text>
+        <text class="s" x="304" y="70">cue matrix · scoring rule</text>
+        <text class="s" x="304" y="87">answer key (private)</text>
+        <text class="built" x="304" y="108">built · task.py</text>
+
+        <!-- agents -->
+        <rect class="box" x="250" y="170" width="320" height="180" rx="7"/>
+        <text class="t" x="264" y="194">Agent adapter</text>
+        <text class="built" x="556" y="194" text-anchor="end">built · agent.py</text>
+        <rect class="inner" x="264" y="210" width="90" height="124" rx="5"/>
+        <rect class="inner" x="365" y="210" width="90" height="124" rx="5"/>
+        <rect class="inner" x="466" y="210" width="90" height="124" rx="5"/>
+        <text class="t" x="309" y="236" text-anchor="middle">Agent 1</text>
+        <text class="t" x="410" y="236" text-anchor="middle">Agent 2</text>
+        <text class="t" x="511" y="236" text-anchor="middle">Agent 3</text>
+        <text class="s" x="309" y="258" text-anchor="middle">own context</text>
+        <text class="s" x="410" y="258" text-anchor="middle">own context</text>
+        <text class="s" x="511" y="258" text-anchor="middle">own context</text>
+        <text class="s" x="309" y="276" text-anchor="middle">own cues</text>
+        <text class="s" x="410" y="276" text-anchor="middle">own cues</text>
+        <text class="s" x="511" y="276" text-anchor="middle">own cues</text>
+        <text class="lbl" x="309" y="316" text-anchor="middle">gpt-6-luna</text>
+        <text class="lbl" x="410" y="316" text-anchor="middle">gpt-6-luna</text>
+        <text class="lbl" x="511" y="316" text-anchor="middle">gpt-6-luna</text>
+
+        <!-- engines -->
+        <rect class="box" x="640" y="170" width="180" height="180" rx="7"/>
+        <text class="t" x="654" y="194">Institution engines</text>
+        <rect class="inner" x="652" y="206" width="156" height="62" rx="5"/>
+        <circle class="disc-dot" cx="668" cy="226" r="5"/>
+        <text class="t" x="680" y="231">Discussion</text>
+        <text class="s" x="666" y="250">shared transcript</text>
+        <text class="built" x="796" y="231" text-anchor="end">built</text>
+        <rect class="inner" x="652" y="276" width="156" height="62" rx="5"/>
+        <circle class="mkt-dot" cx="668" cy="296" r="5"/>
+        <text class="t" x="680" y="301">Market</text>
+        <text class="s" x="666" y="320">order book, accounts</text>
+        <text class="built" x="796" y="301" text-anchor="end">built</text>
+
+        <!-- records -->
+        <rect class="box" x="870" y="220" width="110" height="80" rx="7"/>
+        <text class="t" x="884" y="246">Run records</text>
+        <text class="s" x="884" y="266">one file</text>
+        <text class="s" x="884" y="283">per triad</text>
+
+        <!-- analysis -->
+        <rect class="box" x="870" y="24" width="110" height="96" rx="7"/>
+        <text class="t" x="884" y="50">Analysis</text>
+        <text class="s" x="884" y="70">B ranked first?</text>
+        <text class="s" x="884" y="87">tests and CIs</text>
+        <text class="built" x="884" y="108">built · analysis.py</text>
+      </svg>
+    </div>
+    <figcaption>Solid arrows show data passed between components. The dashed arrow shows the answer key passed to the analysis. "built" marks implemented components; "next" marks those still to write.</figcaption>
+  </figure>
+
+  <div class="scroll">
+    <table class="comp">
+      <thead><tr><th>Component</th><th>Responsibility</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>Task environment</td><td>Cue matrix, scoring rule, answer key, each agent's cue text</td><td><span class="status built">built</span></td></tr>
+        <tr><td>Market engine</td><td>Single-unit limit orders, cash and share reservation, no credit or short selling, crossing orders, anonymous book, spreads, dividends</td><td><span class="status built">built</span></td></tr>
+        <tr><td>Checks</td><td>Scores, information isolation, market rules, 200 random markets conserving cash and shares, full triads with a fake model</td><td><span class="status built">5 of 5 pass</span></td></tr>
+        <tr><td>Agent adapter</td><td>Three separate <code>gpt-6-luna</code> contexts, structured actions, retries, token use</td><td><span class="status built">built</span></td></tr>
+        <tr><td>Discussion engine</td><td>Five round-robin rounds, shared transcript</td><td><span class="status built">built</span></td></tr>
+        <tr><td>Experiment runner</td><td>Fresh triads, quiz, rankings, scheduling, one record file per triad</td><td><span class="status built">built</span></td></tr>
+        <tr><td>Analysis</td><td>B votes per triad, unanimity, majority, permutation test, bootstrap CI, manipulation checks</td><td><span class="status built">built</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="benchmarks">
+  <h2>Human benchmarks</h2>
+  <p>The participant-level data (Data A) are not in the published supplements, so the vote means come from the paper's Figure 2 and the unanimity counts from Table 3. Each condition had 15 triads.</p>
+
+  <div class="charts">
+    <figure class="fig-card">
+      <h3>Votes for B per triad</h3>
+      <div class="chart" id="votes"></div>
+      <figcaption>Mean number of members ranking B first after interaction, with the error bars as plotted in Figure 2 (probably ±1 SE; unlabelled in the paper). We digitised the means to within ±0.02; they are consistent with 34 and 19 of 45 votes.</figcaption>
+      <details><summary>Show data</summary>
+        <table><thead><tr><th>Condition</th><th>Mean B votes</th><th>Error bar</th><th>Implied votes</th></tr></thead>
+        <tbody><tr><td>Discussion</td><td>2.27</td><td>2.00 to 2.53</td><td>34 of 45</td></tr><tr><td>Market</td><td>1.27</td><td>1.03 to 1.50</td><td>19 of 45</td></tr></tbody></table>
+      </details>
+    </figure>
+
+    <figure class="fig-card">
+      <h3>Unanimous triads</h3>
+      <div class="units" role="img" aria-label="Unanimous correct triads: discussion 8 of 15, market 1 of 15.">
+        <div class="unit-row disc"><span>Discussion</span><span class="unit-boxes" data-n="8"></span><b>8 / 15</b></div>
+        <div class="unit-row mkt"><span>Market</span><span class="unit-boxes" data-n="1"></span><b>1 / 15</b></div>
+      </div>
+      <figcaption>Each square is one triad; a filled square means all three members ranked B first (Table 3). The order of the squares is arbitrary.</figcaption>
+    </figure>
+  </div>
+
+  <figure class="fig-card">
+    <h3>Spreads in the human control markets</h3>
+    <div class="chart" id="spreads"></div>
+    <figcaption>Mean bid-ask spread in the 15 human control markets, by period (Data B). The spread is the money offered to sell minus the money offered to buy, so a negative value means buyers offered more than sellers. From period 6 onward, offers to buy B exceeded offers to sell it, while A and C kept positive spreads. Prices therefore favoured B even though only one market triad ended with all three members ranking B first. We will compare the simulated markets with this pattern.</figcaption>
+    <details><summary>Show data</summary>
+      <table id="spread-table"><thead><tr><th>Period</th><th>B (ECU)</th><th>A and C, mean (ECU)</th></tr></thead><tbody></tbody></table>
+    </details>
+  </figure>
+
+  <div class="note">
+    <strong>Analysis plan</strong>
+    <p class="small">The unit is the triad. A one-sided permutation test compares mean B votes (discussion &gt; market), with a bootstrap 95% CI on the difference. Unanimous and majority correctness are reported as proportions with Wilson CIs and Fisher exact tests.</p>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2>Design decisions</h2>
+  <p>The authors did not publish their instructions or z-Tree code, so we set some rules ourselves. The table shows where each setting comes from. All settings are fixed before we compare outcomes.</p>
+  <div class="scroll">
+    <table class="dec">
+      <thead><tr><th>Element</th><th>Setting</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Cue matrix and scoring</td><td>As in Table 2 and the text</td><td><span class="src">paper</span></td></tr>
+        <tr><td>Market structure</td><td>10 periods, 200 ECU and 2 shares of each applicant per period, no credit, no short selling</td><td><span class="src">paper</span></td></tr>
+        <tr><td>Order types</td><td>One share per order, price only; several standing orders per book; buy and sell accept the best order</td><td><span class="src">Figure 1</span></td></tr>
+        <tr><td>Ranking before interaction</td><td>Collected in both conditions</td><td><span class="src">data codebook</span></td></tr>
+        <tr><td>Discussion length</td><td>5 round-robin rounds for 5 minutes</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Market length</td><td>10 rounds per period for 180 seconds</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Dividend feedback</td><td>Never revealed during the market</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Value of cash</td><td>Cash converts at the paper's 100 ECU = £2, so a B share is worth 100 ECU. The paper also says only dividends convert; following that in the pilot pinned every price at the 200 ECU cap</td><td><span class="src ours">our decision, revised after pilot</span></td></tr>
+        <tr><td>Order rules</td><td>Cancel allowed, prices 0 to 200 ECU, crossing orders trade at the standing price</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Information disclosure</td><td>Agents learn that they hold three of five cues per applicant, nothing about what others hold</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Market notes</td><td>Each market action carries a one-sentence private note on the reason, logged and never shown to other traders</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Side payments</td><td>Who is paid, for what, and how much, as in the paper's Study 1 method section</td><td><span class="src">paper</span></td></tr>
+        <tr><td>Payment disclosure</td><td>Paid agents learn only their own rule; unpaid agents get the control text</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Market side payments</td><td>Count purchases or sales of the target in the paid period only</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Salience</td><td>Paid agents see a one-line reminder of their rule each turn and answer two payoff quiz items</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Warm-up</td><td>Rules quiz with one retry; no practice market</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Instructions</td><td>Written from the paper's description, used verbatim</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Side-payment amount (experiment 3)</td><td>The paper's £5, plus £20 and £100, in discussion only</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Open protocol (experiment 3)</td><td>No quiz, no ranking before discussion, a sentence saying that what agents share is up to them, and a final ranking worded as a submission</td><td><span class="src ours">our decision, after pilots</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <h2>Risks and status</h2>
+  <ul class="risk">
+    <li><b>Ceiling in discussion</b><span>Confirmed: all 50 discussion triads ended unanimous on B. Every triad had pooled the full profile by the end of round 2, so the ceiling reflects complete information sharing on an easy task. Experiment 2 left discussion at the ceiling as well. The open protocol of experiment 3 is our response: it gives agents room to withhold.</span></li>
+    <li><b>Reconstructed instructions</b><span>We wrote the wording and quiz items ourselves, and the paper does not say what humans were told about other members' information. The authors may still have the original materials.</span></li>
+    <li><b>Partial benchmark</b><span>Without Data A we lack the 0 to 3 vote distribution, majority correctness, and pre-interaction rankings for humans.</span></li>
+    <li><b>Rounds for time</b><span>We chose five discussion rounds and ten trading rounds per period. These numbers have no direct counterpart in five minutes of talk or 180 seconds of trading.</span></li>
+  </ul>
+  <div class="status-list">
+    <div><span class="eyebrow">Done</span><span>Experiment 1 (controls) and experiment 2 (weak and strong manipulations): 50 triads per cell. Three pilots for experiment 3 (62 triads). See <a href="results.html">results.html</a>.</span></div>
+    <div><span class="eyebrow">Next</span><span>Experiment 3 main run: the four manipulations at £5, £20, and £100 under the open protocol, with its own control (650 triads)</span></div>
+    <div><span class="eyebrow">Then</span><span>Write-up of all three experiments; follow-ups with other models and a task with a stronger hidden profile</span></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  // ---- cue matrix ----
+  const ATTR = ["interpersonal skills", "personal skills", "experience", "intelligence", "motivation"];
+  const CUES = {
+    1: { A: { "interpersonal skills": 1, experience: 1, motivation: -1 }, B: { "interpersonal skills": 1, intelligence: 1, motivation: -1 }, C: { "personal skills": -1, experience: -1, intelligence: 1 } },
+    2: { A: { "interpersonal skills": 1, "personal skills": -1, experience: 1 }, B: { "personal skills": -1, experience: 1, intelligence: 1 }, C: { "interpersonal skills": 1, "personal skills": -1, motivation: -1 } },
+    3: { A: { experience: 1, intelligence: -1, motivation: -1 }, B: { "interpersonal skills": 1, "personal skills": -1, experience: 1 }, C: { "interpersonal skills": 1, intelligence: 1, motivation: -1 } },
+  };
+  const APPS = ["A", "B", "C"];
+  function view(v) {
+    if (v !== "all") return CUES[v];
+    const out = { A: {}, B: {}, C: {} };
+    for (const r of [1, 2, 3]) for (const a of APPS) Object.assign(out[a], CUES[r][a]);
+    return out;
+  }
+  const strength = (c) => Object.values(c).reduce((s, x) => s + (x > 0 ? 2 : -1), 0);
+  const tbody = document.querySelector("#cues tbody");
+  const foot = document.querySelectorAll("#cues tfoot td");
+  function render(v) {
+    const m = view(v);
+    tbody.innerHTML = ATTR.map((attr) => {
+      const label = attr.charAt(0).toUpperCase() + attr.slice(1);
+      const cells = APPS.map((a) => {
+        const x = m[a][attr];
+        if (x === undefined) return '<td><span class="cell none" aria-label="not shown">·</span></td>';
+        return x > 0 ? '<td><span class="cell pos" aria-label="positive">+</span></td>' : '<td><span class="cell neg" aria-label="negative">−</span></td>';
+      }).join("");
+      return `<tr><th scope="row">${label}</th>${cells}</tr>`;
+    }).join("");
+    const s = APPS.map((a) => strength(m[a]));
+    const max = Math.max(...s);
+    APPS.forEach((a, i) => {
+      foot[i].innerHTML = `<span class="score${s[i] === max ? " top" : ""}">${s[i]}</span>`;
+    });
+    document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
+  }
+  document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => render(b.dataset.view)));
+  render("all");
+
+  // ---- shared chart helpers ----
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const txt = (s, attrs, parent) => { const n = el("text", attrs, parent); n.textContent = s; return n; };
+  function tipFor(host) { const t = document.createElement("div"); t.className = "tip"; t.hidden = true; host.appendChild(t); return t; }
+  function placeTip(tip, host, svg, x, y, html) {
+    const r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+    tip.innerHTML = html; tip.hidden = false;
+    tip.style.left = (r.left - hr.left + x * r.width / vb.width) + "px";
+    tip.style.top = (r.top - hr.top + y * r.height / vb.height) + "px";
+  }
+
+  // ---- votes dot plot ----
+  (function () {
+    const host = document.getElementById("votes");
+    const W = 420, H = 150, L = 92, R = 24, T = 14, B = 34;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Mean votes for B: discussion 2.27, market 1.27, on a scale from 0 to 3." }, host);
+    const x = (v) => L + (v / 3) * (W - L - R);
+    for (const t of [0, 1, 2, 3]) {
+      el("line", { x1: x(t), x2: x(t), y1: T, y2: H - B, class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: x(t), y: H - B + 18, "text-anchor": "middle", class: "axis-t" }, svg);
+    }
+    txt("members ranking B first (of 3)", { x: (L + W - R) / 2, y: H - 2, "text-anchor": "middle", class: "axis-t" }, svg);
+    const rows = [
+      { name: "Discussion", m: 2.27, lo: 2.0, hi: 2.53, c: "var(--disc)", y: 46, votes: "34 of 45" },
+      { name: "Market", m: 1.27, lo: 1.03, hi: 1.5, c: "var(--mkt)", y: 88, votes: "19 of 45" },
+    ];
+    const tip = tipFor(host);
+    for (const r of rows) {
+      txt(r.name, { x: L - 12, y: r.y + 4, "text-anchor": "end", class: "lab-t" }, svg);
+      el("line", { x1: x(r.lo), x2: x(r.hi), y1: r.y, y2: r.y, stroke: r.c, "stroke-width": 2 }, svg);
+      for (const e of [r.lo, r.hi]) el("line", { x1: x(e), x2: x(e), y1: r.y - 6, y2: r.y + 6, stroke: r.c, "stroke-width": 2 }, svg);
+      el("circle", { cx: x(r.m), cy: r.y, r: 6, fill: r.c, stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      txt(r.m.toFixed(2), { x: x(r.m), y: r.y - 12, "text-anchor": "middle", class: "val-t" }, svg);
+      const hit = el("rect", { x: L, y: r.y - 18, width: W - L - R, height: 36, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x(r.m), r.y - 18, `${r.name}: ${r.m.toFixed(2)} (bar ${r.lo.toFixed(2)}–${r.hi.toFixed(2)})<br>≈ ${r.votes} votes`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    }
+  })();
+
+  // ---- unanimity units ----
+  document.querySelectorAll(".unit-boxes").forEach((box) => {
+    const n = +box.dataset.n;
+    box.innerHTML = Array.from({ length: 15 }, (_, i) => `<i class="${i < n ? "on" : ""}"></i>`).join("");
+  });
+
+  // ---- spread line chart ----
+  (function () {
+    const B = [17.1, -15.8, -75.4, 19.5, 43.1, -117.0, -155.3, -204.1, -121.9, -88.3];
+    const O = [103.2, 122.6, 108.0, 88.7, 79.0, 124.0, 90.4, 120.2, 116.1, 58.7];
+    const tb = document.querySelector("#spread-table tbody");
+    tb.innerHTML = B.map((b, i) => `<tr><td>${i + 1}</td><td>${b.toFixed(1)}</td><td>${O[i].toFixed(1)}</td></tr>`).join("");
+
+    const host = document.getElementById("spreads");
+    const W = 760, H = 300, L = 52, R = 130, T = 16, Bm = 42;
+    const lo = -250, hi = 150;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Mean spread by period. B falls from +17 ECU in period 1 to between −117 and −204 ECU from period 6 on; A and C stay between +59 and +124 ECU." }, host);
+    const x = (p) => L + ((p - 1) / 9) * (W - L - R);
+    const y = (v) => T + ((hi - v) / (hi - lo)) * (H - T - Bm);
+    for (let v = lo; v <= hi; v += 50) {
+      el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: v === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(v), { x: L - 8, y: y(v) + 4, "text-anchor": "end", class: "axis-t" }, svg);
+    }
+    for (let p = 1; p <= 10; p++) txt(String(p), { x: x(p), y: H - Bm + 18, "text-anchor": "middle", class: "axis-t" }, svg);
+    txt("trading period", { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle", class: "axis-t" }, svg);
+    txt("ECU", { x: L - 8, y: T - 4, "text-anchor": "end", class: "axis-t" }, svg);
+    txt("more selling", { x: W - R + 10, y: y(hi) + 10, class: "axis-t" }, svg);
+    txt("more buying", { x: W - R + 10, y: y(lo) - 2, class: "axis-t" }, svg);
+
+    const series = [
+      { name: "A and C (mean)", data: O, c: "var(--other)" },
+      { name: "B (best)", data: B, c: "var(--best)" },
+    ];
+    for (const s of series) {
+      el("polyline", { points: s.data.map((v, i) => `${x(i + 1)},${y(v)}`).join(" "), fill: "none", stroke: s.c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+      s.data.forEach((v, i) => el("circle", { cx: x(i + 1), cy: y(v), r: 4, fill: s.c, stroke: "var(--surface)", "stroke-width": 2 }, svg));
+      const last = s.data[s.data.length - 1];
+      txt(s.name, { x: x(10) + 12, y: y(last) + 4, class: "lab-t" }, svg);
+    }
+
+    const cross = el("line", { y1: T, y2: H - Bm, class: "zero-l", "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
+    const tip = tipFor(host);
+    const step = (W - L - R) / 9;
+    for (let p = 1; p <= 10; p++) {
+      const hit = el("rect", { x: x(p) - step / 2, y: T, width: step, height: H - T - Bm, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => {
+        cross.setAttribute("x1", x(p)); cross.setAttribute("x2", x(p)); cross.setAttribute("visibility", "visible");
+        placeTip(tip, host, svg, x(p), Math.min(y(B[p - 1]), y(O[p - 1])) - 6, `Period ${p}<br>B: ${B[p - 1].toFixed(1)} ECU<br>A and C: ${O[p - 1].toFixed(1)} ECU`);
+      });
+      hit.addEventListener("pointerleave", () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); });
+    }
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+{
+  "case_id": "full-profile-002",
+  "family": "full-profile",
+  "model": "gpt-6-luna",
+  "frame": "baseline",
+  "repeat": 2,
+  "fake": false,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are participant 1 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+    },
+    {
+      "role": "user",
+      "content": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant B: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\nApplicant A: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths."
+    }
+  ],
+  "started": "2026-10-22T07:28:04.603430+00:00",
+  "text": "{\"scores\":{\"A\":4,\"B\":1,\"C\":1},\"ranking\":{\"first\":\"A\",\"second\":\"B\",\"third\":\"C\"}}",
+  "usage": {
+    "input_tokens": 270,
+    "cached_tokens": 0,
+    "output_tokens": 123,
+    "reasoning_tokens": 82
+  },
+  "answer": {
+    "scores": {
+      "A": 4,
+      "B": 1,
+      "C": 1
+    },
+    "ranking": {
+      "first": "A",
+      "second": "B",
+      "third": "C"
+    }
+  },
+  "assessment": {
+    "correct": 4,
+    "total": 4,
+    "all_correct": true
+  },
+  "status": "complete",
+  "elapsed_seconds": 3.255901708995225,
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 1 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant B: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\nApplicant A: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scores": {
+              "type": "object",
+              "properties": {
+                "A": {
+                  "type": "integer"
+                },
+                "B": {
+                  "type": "integer"
+                },
+                "C": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "A",
+                "B",
+                "C"
+              ],
+              "additionalProperties": false
+            },
+            "ranking": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "second": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "third": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                }
+              },
+              "required": [
+                "first",
+                "second",
+                "third"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scores",
+            "ranking"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "api_response": {
+    "id": "resp_0a0b73e68dda66df016ad9bb056cb887d28376063c71e4a34a",
+    "object": "response",
+    "created_at": 1792654085,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792654087,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0a0b73e68dda66df016ad9bb067f7c87d29128b87d22cddc57",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2bsHzUwEe8NO45t-oQSae4e3Xnww6lBXzFXCn5OA7t5pRtI1AgJvLB4uoT6uEEHQaYZH3kNl7XBel30sQ4M1Ca-VQccIxWSytQLwoA0GjrdKxGT_yyNYPqMcO8VyZm1oEB5vQZVALNLJTZ2gZvWYNAsH2sP-FDtOuRPoU9rEqNXGi3fADaZvnDqyArCQKLk97W2BehEHjUcEEwxTbB7mz_huIXVpycoVtSZvoEbCrVeKkpoJ5E3ni_j_S6B3KDwzHDig4lNy1vR3wf2DUQg5GtRbWzQAbY14sZpNL4gGQGaRadWDVc2khDD5IxR9tYuqplcBbnE_BuOpZ6OAHB6RG7PzR-xHLhgthKfGcFt2MNFn1HRDCM0iJPexq5x1eFsVPTWw0b2QbycvVKWGIMfZIJSsOHbGlYouHMHojw5ToNEuZZAxxYzJu9RmV06nfB6T8j3s440jsVPMAZo7sfh4vrQ2zGgHVUajJePHjGspFUH464M6SB2a9r-CYvN6xdrZy9lhbis90Mn_GZwsj_W75kGzP9NRQvV0EqeoeZCOfBzN6Ny3dVQO2Y_3qExDv98S-0L905MohmSzy_v510KVKMcdMsSyFtN-TSNx09OAo-AVdh9_NnUUvRye1jrcgO-IeHa6STFclBqoTEdSbBplgg1hBXI_L8cXuwpj6wDyQkJTkZe05vGHwQD9rpHzY8I4kt5jjnO6Y5w8enJXLDXgGEheL2TxjCUgU751ZKOyO-_YAqrCnW_tMkGqN2LcybfP8Z4IHfQXKRgatz5dNp-TKqahJv397KvQGx8fGrirmVyt6eraaiRX9S7UcINJNRk3DAgy042zkIGD-Yg5LLphFthWiDIcb8SMgMIf3nTTTTfdNrFS36hdiRkOfgEdASXRea9AG1EOGd2cKyR4nC0gzIMtjPWM4KPQkb-Me7dn-OgkB7yFOx8Y9DzWkILwi7-eHFWNeLheIIeraUd99Sx4u92YskwlWAoPFJflR0VXqY5mjrGislGVq7i51WBvEmxfbq79qdntZ_ZB30zb_eyPjSIdpN5UlOTBqW2iiAE0KU_EUdbbz6A6qD6aohD4vDdSWdKs9XabPd6-TeAnLleq4xF8PqiD3eVS769DpJZmuZN94lMBjbe6TJvqlm2jSQ8n5-MxriU-U2qa-ll_ETR92JTjZny5t__L0etn3RdbzvFCk8CheBTsXqTDjoyYJdNLv1IdhCXqWvMZnsY3cwwHOsAA6y5c9OdCT0p23XZLh1KPiavZ-8YGz9YvlpLnYtZzxQX-segvv1I2OJao8MdUcPYLvH1jDdq-9slkPqyyuKfFN9ABO16ORPBJybIcDKCwi2ZvR_gsZzkFCo_HAkjy-mBz-aXfDoj5rrn5PXIP2LV7IZmLMEGQCwCOzF7Qcl0u5fHwHs7r4O2d9t8YPDF7gaZXZJMEGo4G0oQ_CQDNCxMhtY47d5hGyk6tz4gHtwQeFID3IrH8dP-pM7xBHTcT431HVjRvSnS1bhdw21-lU2wlLvkf6vlpXKXs262LMdhHZE4mnevwNQgjEtOg26_MEaMntOCYunQMx1g4stqYZSdMqtpuLYOMbJ0QNZ0Xore5X-naB4tdstOrykV4fiimjnn94f7YdaY-SzJVRgSO-dMUTQnXglV17v2Qhu-s_ijT0Oftyf8N2qy-i2U1NyflhmzLykSZIOM9VPdnMOpdP7p_ynHy0HgCWrnIjbEECw_D4tM28xo1_Qx5hkfiJfrlgyUb4grdfy181GZzLIJhxKvLs30zwEBp2c4LNI3GEIDfDuit-6bxz8wtdtdcTKMnb4UkP2TPwdXXL6sExCZSotnJyC_VH12M-imtAHGzSvqkYeQoac0pClk221pdPM8_jgR4VqRis1P0lhWd2tK9HodOxfPQmucL7Jn1vO9ts-jZ5O5iu5fc07uALVbg3gTL5JK6GtYC4O3JfoXYSliDz_VYZFf6NjzatsuGXPEoSU-voU-uguZn-Du461lRdNpykA80TcfFkJQRfnaSJdSmKF_XlATyCQfiLZTv7uRji9Bly_AshN8JvSeI4mrzF8TpHZEAK7jHR9QtQKgGxVAA-1cfbbItH87DtJtaLwKuL0BI1mef5H9tHUi7UzXpgVcTCBIRlM_SQQ729qIxLfSRQmefJuy9J13eOKmhPjLzw7KiaDTwnUrKN0fPYp2NbhjODg0lxl_yIz9xJwtHsGOslaLyp-GZ9clG35KYsKzLkv0LHk4RTMy54EkhImJPEyD1EcdqnOnk_Kq5d0Ck2hr_eYvGDTV3ImrVPq7Ezz3u1HW726IOmVyLJ33Sf6jxmYjhGlqibg==",
+        "summary": []
+      },
+      {
+        "id": "msg_0a0b73e68dda66df016ad9bb07391487d281b446fdc546e56e",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"scores\":{\"A\":4,\"B\":1,\"C\":1},\"ranking\":{\"first\":\"A\",\"second\":\"B\",\"third\":\"C\"}}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "incentive_probe",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scores": {
+              "type": "object",
+              "properties": {
+                "A": {
+                  "type": "integer"
+                },
+                "B": {
+                  "type": "integer"
+                },
+                "C": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "A",
+                "B",
+                "C"
+              ],
+              "additionalProperties": false
+            },
+            "ranking": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "second": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                },
+                "third": {
+                  "type": "string",
+                  "enum": [
+                    "A",
+                    "B",
+                    "C"
+                  ]
+                }
+              },
+              "required": [
+                "first",
+                "second",
+                "third"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scores",
+            "ranking"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 270,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 123,
+      "output_tokens_details": {
+        "reasoning_tokens": 82
+      },
+      "total_tokens": 393
+    },
+    "user": null,
+    "metadata": {}
+  }
+}

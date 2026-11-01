@@ -1,0 +1,17 @@
+{
+  "description": "Synthetic organisations: keep frozen study files and run records unchanged.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/study_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

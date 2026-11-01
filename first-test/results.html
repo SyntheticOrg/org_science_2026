@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Replication Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: one reading column (~62rem) for a research brief; figures break out to the full column, wide diagrams scroll in place. */
+:root {
+  --bg: #f5f7f7;
+  --surface: #ffffff;
+  --ink: #14191c;
+  --ink-2: #48525a;
+  --muted: #6f7a80;
+  --rule: #dbe1e4;
+  --accent: #1d5566;
+  --accent-soft: #e2edf0;
+  --disc: #1baf7a;
+  --mkt: #eb6834;
+  --best: #4a3aa7;
+  --other: #98a2a7;
+  --appA: #e87ba4;
+  --pos: #2a78d6;
+  --pos-bg: #dce9f9;
+  --neg: #d63c3b;
+  --neg-bg: #fbe2e1;
+  --blank: #eef1f2;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+    --accent: #8cc4d4; --accent-soft: #1b2b30; --disc: #199e70; --mkt: #d95926; --best: #9085e9; --other: #67737a; --appA: #d55181;
+    --pos: #3987e5; --pos-bg: #15304f; --neg: #e66767; --neg-bg: #42201f; --blank: #1e2427;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+  --accent: #8cc4d4; --accent-soft: #1b2b30; --disc: #199e70; --mkt: #d95926; --best: #9085e9; --other: #67737a; --appA: #d55181;
+  --pos: #3987e5; --pos-bg: #15304f; --neg: #e66767; --neg-bg: #42201f; --blank: #1e2427;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 62rem; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; gap: 64px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.85rem; }
+h3 { font-size: 1.2rem; font-family: var(--font-body); font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.15rem; color: var(--ink-2); max-width: 60ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+section { display: grid; gap: 20px; }
+.head { display: grid; gap: 6px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+
+/* header */
+header { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 8px 0 0; padding: 0; list-style: none; }
+.facts li { display: grid; gap: 2px; min-width: 0; }
+.facts dt, .facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts .v { font-weight: 500; }
+
+/* institution chips */
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; padding: 1px 9px; border-radius: 99px; border: 1px solid var(--rule); background: var(--surface); white-space: nowrap; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--muted)); }
+.chip.disc { --c: var(--disc); }
+.chip.mkt { --c: var(--mkt); }
+.status { font-family: var(--font-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 4px; border: 1px solid var(--rule); white-space: nowrap; }
+.status.built { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+/* hypothesis */
+.claim { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; display: grid; gap: 6px; }
+.claim p { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.35; }
+
+/* cue matrix */
+.matrix-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 16px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font: 500 0.875rem var(--font-body); color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: 5px 14px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cues { width: 100%; min-width: 30rem; }
+.cues th, .cues td { padding: 6px 8px; text-align: center; }
+.cues thead th { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+.cues tbody th { text-align: left; font-weight: 400; color: var(--ink-2); white-space: nowrap; }
+.cell { display: inline-grid; place-items: center; width: 100%; max-width: 6.5rem; height: 2.1rem; border-radius: 5px; font: 500 1.05rem var(--font-mono); }
+.cell.pos { background: var(--pos-bg); color: var(--ink); box-shadow: inset 0 -3px 0 var(--pos); }
+.cell.neg { background: var(--neg-bg); color: var(--ink); box-shadow: inset 0 -3px 0 var(--neg); }
+.cell.none { background: var(--blank); color: var(--muted); font-size: 0.85rem; }
+.cues tfoot td, .cues tfoot th { border-top: 1px solid var(--rule); padding-top: 10px; }
+.score { font: 600 1.25rem var(--font-mono); }
+.score.top { color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.formula { font-family: var(--font-mono); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: nowrap; }
+.note { background: var(--accent-soft); border-radius: 8px; padding: 14px 18px; display: grid; gap: 6px; max-width: 70ch; }
+.note strong { color: var(--accent); }
+
+/* procedure */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 8px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; font-size: 0.9rem; min-width: 0; }
+.steps li::before { content: "Step " counter(s); font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+.steps li.split { border-style: dashed; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 16px; }
+.inst { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--c); border-radius: 10px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.inst.disc { --c: var(--disc); }
+.inst.mkt { --c: var(--mkt); }
+.inst dl { margin: 0; display: grid; grid-template-columns: 7.5rem 1fr; gap: 6px 12px; font-size: 0.92rem; }
+.inst dt { color: var(--muted); }
+.inst dd { margin: 0; min-width: 0; }
+.prompt { font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.55; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; margin: 0; overflow-x: auto; white-space: pre; color: var(--ink); }
+.prompt-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { font-size: 0.875rem; color: var(--ink-2); max-width: 70ch; }
+.fig-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.diagram { min-width: 760px; width: 100%; height: auto; display: block; color: var(--ink); }
+.diagram .box { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.25; }
+.diagram .inner { fill: var(--bg); stroke: var(--rule); stroke-width: 1; }
+.diagram .t { fill: var(--ink); font: 600 14px var(--font-body); }
+.diagram .s { fill: var(--ink-2); font: 400 12px var(--font-body); }
+.diagram .lbl { fill: var(--ink-2); font: 400 11.5px var(--font-mono); }
+.diagram .edge { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram .key { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.diagram .keylbl { fill: var(--accent); font: 500 11.5px var(--font-mono); }
+.diagram .arrowhead { fill: var(--ink-2); }
+.diagram .headkey { fill: var(--accent); }
+.diagram .built { fill: var(--accent); font: 500 10.5px var(--font-mono); }
+.diagram .next { fill: var(--muted); font: 500 10.5px var(--font-mono); }
+.diagram .disc-dot { fill: var(--disc); }
+.diagram .mkt-dot { fill: var(--mkt); }
+
+.comp { width: 100%; font-size: 0.92rem; }
+.comp th, .comp td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.comp thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+
+/* charts */
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 16px; }
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { font-family: var(--font-body); }
+.axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.grid-l { stroke: var(--rule); stroke-width: 1; }
+.zero-l { stroke: var(--ink-2); stroke-width: 1; }
+.val-t { fill: var(--ink); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lab-t { fill: var(--ink-2); font-size: 12px; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; line-height: 1.4; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); font-variant-numeric: tabular-nums; }
+.units { display: grid; gap: 10px; }
+.unit-row { display: grid; grid-template-columns: 6.5rem 1fr auto; align-items: center; gap: 10px; font-size: 0.9rem; }
+.unit-boxes { display: flex; flex-wrap: wrap; gap: 3px; }
+.unit-boxes i { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--c); background: transparent; }
+.unit-boxes i.on { background: var(--c); }
+.unit-row.disc { --c: var(--disc); }
+.unit-row.mkt { --c: var(--mkt); }
+.unit-row b { font-variant-numeric: tabular-nums; font-weight: 600; }
+details { font-size: 0.875rem; }
+summary { cursor: pointer; color: var(--accent); width: fit-content; }
+details table { margin-top: 8px; font-size: 0.85rem; }
+details th, details td { padding: 4px 12px 4px 0; text-align: right; border-bottom: 1px solid var(--rule); }
+details th:first-child, details td:first-child { text-align: left; }
+
+/* decisions */
+.dec { width: 100%; font-size: 0.92rem; min-width: 36rem; }
+.dec th, .dec td { text-align: left; padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.dec thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.dec td:first-child { font-weight: 500; white-space: nowrap; }
+.src { font-family: var(--font-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--rule); color: var(--ink-2); }
+.src.ours { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.key-result { border: 1px solid var(--rule); border-left: 4px solid var(--accent); background: var(--surface); border-radius: 8px; padding: 16px 20px; display: grid; gap: 6px; }
+.key-result p { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.35; max-width: 60ch; }
+.res { width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.res th, .res td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+.res thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.res td.n { text-align: right; }
+.prose { display: grid; gap: 12px; }
+.prose h3 { margin-top: 8px; }
+.risk { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.risk li { display: grid; grid-template-columns: 12rem 1fr; gap: 4px 20px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.risk li > :last-child { min-width: 0; }
+.risk b { font-weight: 600; }
+.status-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 10px; }
+.status-list div { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font-size: 0.9rem; }
+
+.toc { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; padding: 0; list-style: none; font-size: 0.92rem; }
+
+@media (max-width: 560px) {
+  .wrap { gap: 48px; padding-block: 32px 56px; padding-inline: 16px; }
+  .risk li { grid-template-columns: 1fr; }
+  .inst dl { grid-template-columns: 1fr; gap: 0 0; }
+  .inst dd { margin-bottom: 6px; }
+  .unit-row { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Synthetic organisations · first test</div>
+  <h1>Replication Results</h1>
+  <p class="lede">Results of every run so far in our replication of Study 1 of Maciejovsky and Budescu (2020) with LLM agents. The task, procedure, architecture, human benchmarks, and design decisions are on the <a href="overview.html">overview page</a>.</p>
+  <ul class="facts">
+    <li><span class="k">Source</span><span class="v"><a href="https://doi.org/10.1287/orsc.2020.1363">Organization Science 31(6)</a></span></li>
+    <li><span class="k">Agents</span><span class="v"><code>gpt-6-luna</code>, reasoning high</span></li>
+    <li><span class="k">Runs</span><span class="v">Exp. 1: 100 triads · Exp. 2: 450 · Exp. 3 pilots: 62</span></li>
+    <li><span class="k">Status</span><span class="v">Experiment 3 main run not started</span></li>
+  </ul>
+  <ul class="toc">
+    <li><a href="#results">Experiment 1: control conditions</a></li>
+    <li><a href="#results-exp2">Experiment 2: conflicts of interest</a></li>
+    <li><a href="#sensitivity">Sensitivity: instructions and payment size</a></li>
+  </ul>
+</header>
+
+<section id="results">
+  <h2>Results: experiment 1, control conditions</h2>
+  <p>We ran 50 triads per condition on 20 October 2026 with <code>gpt-6-luna</code> at reasoning effort high. All 100 triads completed without a failed call. The run took 3.4 hours and cost about $7.80 at list prices. A re-run of the 50 discussion triads with private notes, needed for experiment 2, produced the same outcome.</p>
+
+  <div class="key-result">
+    <span class="eyebrow">Replication hypothesis</span>
+    <p>Supported. Discussion beat the market by 0.94 B votes per triad (bootstrap 95% CI 0.58 to 1.30; one-sided permutation p &lt; 0.001). The human gap in the paper was 1.00.</p>
+  </div>
+
+  <div class="charts">
+    <figure class="fig-card">
+      <h3>B votes per triad, agents and humans</h3>
+      <div class="chart" id="res-votes"></div>
+      <figcaption>Filled marks: agents, with bootstrap 95% CIs (50 triads per condition). Hollow marks: humans, with the error bars plotted in Figure 2 (15 triads per condition). Agents score higher in both institutions, and the gap between institutions is about the same.</figcaption>
+      <details><summary>Show data</summary>
+        <table><thead><tr><th>Condition</th><th>Agents</th><th>Agents 95% CI</th><th>Humans</th></tr></thead>
+        <tbody><tr><td>Discussion</td><td>3.00</td><td>3.00 to 3.00</td><td>2.27</td></tr><tr><td>Market</td><td>2.06</td><td>1.70 to 2.40</td><td>1.27</td></tr></tbody></table>
+      </details>
+    </figure>
+
+    <figure class="fig-card">
+      <h3>How the 50 markets ended</h3>
+      <div class="chart" id="res-dist"></div>
+      <figcaption>Number of market triads by how many members ranked B first after trading. Markets mostly ended at one extreme: all three on B (30) or none on B (12). All 50 discussion triads ended with three B votes.</figcaption>
+      <details><summary>Show data</summary>
+        <table><thead><tr><th>B votes</th><th>Market triads</th><th>Discussion triads</th></tr></thead>
+        <tbody><tr><td>0</td><td>12</td><td>0</td></tr><tr><td>1</td><td>3</td><td>0</td></tr><tr><td>2</td><td>5</td><td>0</td></tr><tr><td>3</td><td>30</td><td>50</td></tr></tbody></table>
+      </details>
+    </figure>
+  </div>
+
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>Outcome</th><th>Discussion, agents</th><th>Market, agents</th><th>Discussion, humans</th><th>Market, humans</th></tr></thead>
+      <tbody>
+        <tr><td>Mean B votes (0–3)</td><td>3.00</td><td>2.06</td><td>2.27</td><td>1.27</td></tr>
+        <tr><td>Unanimous on B</td><td>50/50 (93–100%)</td><td>30/50 (46–72%)</td><td>8/15 (30–75%)</td><td>1/15 (1–30%)</td></tr>
+        <tr><td>Majority on B</td><td>50/50 (93–100%)</td><td>35/50 (56–81%)</td><td>not reported</td><td>not reported</td></tr>
+        <tr><td>B votes before interaction</td><td>1.02</td><td>1.00</td><td>not reported</td><td>not reported</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">Brackets give Wilson 95% intervals. Unanimous: discussion vs market for agents, Fisher one-sided p &lt; 0.001. Human values come from Figure 2 and Table 3.</p>
+
+  <figure class="fig-card">
+    <h3>Prices separate the markets that found B from those that did not</h3>
+    <div class="charts" id="res-paths"></div>
+    <figcaption>Mean trade price per period, in ECU. A share of the best applicant pays 100 ECU in value; the others pay nothing. Where all three members ended on B, B's price rose toward 100 and A and C stayed near 50. Where no member ended on B, A's price rose instead and B stayed flat.</figcaption>
+    <details><summary>Show data</summary>
+      <table id="res-paths-table"><thead><tr><th>Period</th><th>B (found B)</th><th>A (found B)</th><th>C (found B)</th><th>B (missed B)</th><th>A (missed B)</th><th>C (missed B)</th></tr></thead><tbody></tbody></table>
+    </details>
+  </figure>
+
+  <figure class="fig-card">
+    <h3>Spreads by period, agents and humans</h3>
+    <div class="charts" id="res-spreads"></div>
+    <figcaption>Mean spread per period (money offered to sell minus money offered to buy; negative means more buying). Both populations show net buying of B and not of A and C. Agents bid for B far more heavily, from the first period on.</figcaption>
+    <details><summary>Show data</summary>
+      <table id="res-spreads-table"><thead><tr><th>Period</th><th>B, agents</th><th>A and C, agents</th><th>B, humans</th><th>A and C, humans</th></tr></thead><tbody></tbody></table>
+    </details>
+  </figure>
+
+  <div class="prose">
+    <h3>What replicates</h3>
+    <p>The paper's control result holds for agents. Discussion produced more correct final choices than the market, by 0.94 B votes per triad against 1.00 for humans. The ordering also holds for unanimity, and in both populations market prices pointed toward B.</p>
+
+    <h3>What differs</h3>
+    <p>Agents reached the correct answer more often in both institutions. In discussion, every triad ended unanimous on B, where 8 of 15 human groups did. Agents shared their cues at once: 112 of 150 first-round messages name every attribute the speaker holds. A message gives B's full strength of 4 by the end of round 1 in 31 of 50 triads, and by the end of round 2 in all 50. Human groups reached unanimity in about half the cases, which fits the incomplete pooling the hidden-profile literature describes; the paper does not report what members shared. The agents pooled completely on this task. Because each member's own cues already put B among the top two, the task is easy to solve once cues are shared.</p>
+    <p>In markets, 30 of 50 agent triads ended unanimous on B, against 1 of 15 human triads. Human prices also favoured B, according to the spreads in Data B, yet only 1 of 15 human market triads ended unanimous on B. Agents turned the price signal into their own rankings far more often. They also traded more aggressively: B's mean spread was −348 ECU, against −70 for humans.</p>
+
+    <h3>Why markets fail when they do</h3>
+    <p>Market outcomes split. In 12 markets no member ended on B. In those markets A's price rose from 46 to 89 ECU while B stayed near 60. Participants 1 and 2 each see A tied with B, and when both lean toward A their purchases raise A's price. Participant 3 started with B in all 12 of these markets and moved to A (8 markets) or C (4) after trading. The market error therefore comes from traders reading early prices as information about the evidence they lack, which is an information cascade. When early trading favoured B, the same mechanism carried all three members to B.</p>
+
+    <h3>How to read this result</h3>
+    <p>The institutional ranking replicates, but the agents' process differs from the humans'. In the human data both institutions fall short and groups fall short less. With agents, discussion is error-free on this task, so the institutional gap consists of market errors, most of them herding on a wrong applicant. Five things limit the comparison: a single model, instructions reconstructed from the paper's description, a cash rule revised after the first pilot, human benchmarks digitised from a figure, and human samples of 15 triads per condition. Trust ratings were not measured.</p>
+  </div>
+</section>
+
+<section id="results-exp2">
+  <h2>Results: experiment 2, conflicts of interest</h2>
+  <p>Experiment 2 adds the paper's eight manipulated conditions. Private side payments reward some members for steering the group toward applicant A (or C for participant 3). In discussion, a paid member earns £5 if enough members rank the target first (buy) or do not rank it first (sell); everyone still earns £4 if two or more rank the best applicant first. In the market, a paid trader earns £2.50 per share of the target bought (buy) or sold (sell) in the paid period. Weak conditions pay participant 1; strong conditions pay all three. We ran 50 triads per cell on 20 October 2026, 400 in total, without a failed call, at about $40.</p>
+
+  <div class="note">
+    <strong>Only buy incentives conflict with the truth.</strong>
+    <p class="small">We computed every role's payoff for every combination of final choices. In the sell conditions, everyone ranking B first already gives every paid member the side payment, so steering toward the truth costs nothing. Buy incentives create a real conflict, although in weak buy it is worth only £1 to participant 1 (£5 instead of £4). The same split holds in markets: buying A pays a buy-incentivised trader below 125 ECU and pushes A's price up, while selling A pays a sell-incentivised trader at any price and pushes A's price down, toward the truth.</p>
+  </div>
+
+  <div class="key-result">
+    <span class="eyebrow">Institution × manipulation</span>
+    <p>Reversed relative to the paper. Under manipulation, the agents' discussion lead grew instead of shrinking: interaction contrast −0.93 B votes (bootstrap 95% CI −1.31 to −0.53), against about +1.2 for humans.</p>
+  </div>
+
+  <figure class="fig-card">
+    <h3>B votes per triad by manipulation</h3>
+    <div class="charts" id="x2-votes"></div>
+    <figcaption>Mean number of members ranking B first after interaction, by manipulation. Agents: 50 triads per cell. Humans: 15 triads per cell, digitised from Figure 2. In the human data the two institutions converge under manipulation; with agents, discussion stays near 3 while buy incentives push markets close to 0.</figcaption>
+    <details><summary>Show data</summary>
+      <table><thead><tr><th>Manipulation</th><th>Discussion, agents</th><th>Market, agents</th><th>Discussion, humans</th><th>Market, humans</th></tr></thead>
+      <tbody>
+        <tr><td>Control</td><td>3.00</td><td>2.06</td><td>2.27</td><td>1.27</td></tr>
+        <tr><td>Weak buy</td><td>2.96</td><td>0.10</td><td>0.67</td><td>0.80</td></tr>
+        <tr><td>Weak sell</td><td>3.00</td><td>1.94</td><td>1.07</td><td>1.00</td></tr>
+        <tr><td>Strong buy</td><td>2.98</td><td>0.14</td><td>0.53</td><td>1.13</td></tr>
+        <tr><td>Strong sell</td><td>3.00</td><td>2.28</td><td>1.80</td><td>1.87</td></tr>
+      </tbody></table>
+    </details>
+  </figure>
+
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>Manipulation</th><th>Discussion − market, agents</th><th>95% CI</th><th>Discussion − market, humans</th><th>Unanimous, discussion</th><th>Unanimous, market</th></tr></thead>
+      <tbody>
+        <tr><td>Control</td><td>0.94</td><td>0.58–1.30</td><td>1.00</td><td>50/50</td><td>30/50</td></tr>
+        <tr><td>Weak buy</td><td>2.86</td><td>2.76–2.96</td><td>−0.13</td><td>48/50</td><td>0/50</td></tr>
+        <tr><td>Weak sell</td><td>1.06</td><td>0.76–1.36</td><td>0.07</td><td>50/50</td><td>21/50</td></tr>
+        <tr><td>Strong buy</td><td>2.84</td><td>2.72–2.94</td><td>−0.60</td><td>49/50</td><td>0/50</td></tr>
+        <tr><td>Strong sell</td><td>0.72</td><td>0.52–0.92</td><td>−0.07</td><td>50/50</td><td>22/50</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">Planned contrasts, both institutions pooled: sell minus buy +1.01 B votes (95% CI 0.78 to 1.24), as in the paper; strong minus weak 0.10 (−0.15 to 0.35), where the paper found a difference. The discussion control is the re-run with private notes.</p>
+
+  <div class="charts">
+    <figure class="fig-card">
+      <h3>Markets: paid traders act on the incentive</h3>
+      <div class="chart" id="x2-spread"></div>
+      <figcaption>Mean spread for applicant A over all periods (money offered to sell minus money offered to buy; negative means more buying). Buy incentives push A toward net buying and sell incentives toward net selling. Agents move in the same direction as humans in three of four cells, and further.</figcaption>
+      <details><summary>Show data</summary>
+        <table><thead><tr><th>Manipulation</th><th>A spread, agents</th><th>A spread, humans</th></tr></thead>
+        <tbody><tr><td>Control</td><td>−129.6</td><td>89.3</td></tr><tr><td>Weak buy</td><td>−240.6</td><td>115.4</td></tr><tr><td>Weak sell</td><td>138.3</td><td>280.4</td></tr><tr><td>Strong buy</td><td>−450.7</td><td>−3.3</td></tr><tr><td>Strong sell</td><td>493.3</td><td>315.2</td></tr></tbody></table>
+      </details>
+    </figure>
+
+    <figure class="fig-card">
+      <h3>Discussion: paid agents argue but do not falsify</h3>
+      <div class="scroll">
+        <table class="res">
+          <thead><tr><th>Coded, per agent</th><th>Control</th><th>Weak buy</th><th>Strong buy</th><th>Strong sell</th></tr></thead>
+          <tbody>
+            <tr><td>Strategic intent in private notes</td><td class="n">0%</td><td class="n">48%</td><td class="n">57%</td><td class="n">99%</td></tr>
+            <tr><td>Advocacy for the target</td><td class="n">7%</td><td class="n">36%</td><td class="n">49%</td><td class="n">7%</td></tr>
+            <tr><td>Self-serving false statement (hand-checked)</td><td class="n">–</td><td class="n">0%</td><td class="n">0%</td><td class="n">0%</td></tr>
+            <tr><td>Disclosed the side payment</td><td class="n">0%</td><td class="n">2%</td><td class="n">3%</td><td class="n">2%</td></tr>
+            <tr><td>Ranked own target first at the end</td><td class="n">–</td><td class="n">4%</td><td class="n">1%</td><td class="n">0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figcaption>Paid agents in each cell (control: the same roles, unpaid, coded against the same targets). Coding by a separate model with a fixed rubric; advocacy in control and strong sell reflects neutral remarks about unknown ratings. Weak sell: 0% advocacy, 0% distortion, 100% intent.</figcaption>
+    </figure>
+  </div>
+
+  <div class="prose">
+    <h3>What replicates</h3>
+    <p>Sell incentives harmed outcomes less than buy incentives, as in the paper (+1.01 B votes pooled over institutions). In markets, the incentives worked through trading as they did for humans. Paid traders bought or sold their target two and a half to five times as often as the same role in control, and A's spread moved toward buying under buy incentives and toward selling under sell incentives.</p>
+
+    <h3>What differs</h3>
+    <p>The paper's central result for this design does not replicate. Humans showed the institutions converging under conflict, with markets matching or beating groups. With agents, discussion stayed at the ceiling in every cell (2.96 to 3.00), while buy incentives pushed markets to 0.10 and 0.14 B votes: 88 of 100 buy markets ended with nobody ranking B first. Agent markets were also more fragile than human markets, which scored 0.80 and 1.13 under the same incentives. Strong and weak manipulations did not differ.</p>
+
+    <h3>Why discussion held</h3>
+    <p>Paid agents noticed and pursued their incentive. In strong buy, 57% of paid agents' private notes describe acting for the side payment, and 49% argued in public for their target ("I currently lean toward A"; "I'd encourage them to keep A at the top"). Their private rankings had already moved before any discussion: B votes before interaction fell to 0.10 in strong buy, from 1.06 in control. Yet they shared their own ratings truthfully. The coder flagged 10 paid agents for distortion; on inspection, nine had reported a true rating that another member held as if it were their own, and one made an error that worked against its own target. No paid agent stated a falsehood in its own interest. Once all ratings were on the table, B's score of 4 could be checked by everyone, and every paid agent except three dropped its target. A few disclosed their payment outright ("I should disclose that my private bonus is tied to A being ranked highest").</p>
+
+    <h3>How to read this result</h3>
+    <p>The agents act on private incentives through actions but not through misrepresentation. In a market, acting on a side payment means buying or selling, a legitimate move that other traders read as information, and that is enough to mislead the market. In discussion, acting on it would mean withholding or distorting evidence, which these agents did not do. Persuasion without false evidence failed against verifiable, pooled information. Human groups in the paper did lose the truth under conflict, which suggests they used the channel the agents left alone. For theory, the result separates two routes by which conflicts of interest damage information aggregation, through actions that carry information and through communication that withholds it, and shows that synthetic agents with strong honesty norms close the second route only. The <a href="#sensitivity">sensitivity tests</a> qualify this: once the instructions leave agents discretion over what to share, paid agents do withhold. For method, it is a boundary condition: whether synthetic organisations reproduce a finding depends on whether the human mechanism relies on behaviour these agents avoid.</p>
+    <p>Several features limit this reading: one model, a side payment of £5 against a known £4 group bonus (see the <a href="#sensitivity">sensitivity tests</a>), market side payments that averaged £3.50 to £6.90 per paid trader and so exceeded the discussion stake in the buy conditions, instructions reconstructed from the paper, and human benchmarks of 15 triads per cell.</p>
+  </div>
+</section>
+
+<section id="sensitivity">
+  <h2>Sensitivity: instructions and payment size</h2>
+  <p>In experiment 2, discussion stayed at the ceiling. Paid agents argued for their target, but they kept sharing their own cues truthfully, so every group found B. Two explanations fit. The £5 side payment may be too small against the £4 group bonus. Or our instructions may steer agents into pooling every cue and applying the formula, which leaves no room to withhold. We ran three small discussion-only tests with the side payment raised to £100: 62 triads in total, for about $0.50. They are pilots for experiment 3, which will run the paper's four manipulations at £5, £20, and £100 (650 triads, not yet started).</p>
+
+  <div class="key-result">
+    <span class="eyebrow">Interim finding</span>
+    <p>The instructions matter. Under the paper's procedure, every group kept a majority for B even at £100. When the instructions left them discretion over what to share, paid agents in strong buy withheld cues, B votes fell to 1.80 per triad (95% CI 1.20 to 2.40), and two of five triads lost the group bonus. Control triads stayed at 3.00.</p>
+  </div>
+
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>Run</th><th>Quiz</th><th>Ranking before discussion</th><th>Discretion sentence</th><th>Final ranking prompt</th><th>Side payment</th><th>Triads</th></tr></thead>
+      <tbody>
+        <tr><td>Experiment 2 (paper procedure)</td><td>yes</td><td>yes</td><td>no</td><td>"best to worst"</td><td>£5</td><td>50 per cell</td></tr>
+        <tr><td>Pilot</td><td>yes</td><td>yes</td><td>no</td><td>"best to worst"</td><td>£100</td><td>3 per manipulation, no control</td></tr>
+        <tr><td>Test 1</td><td>no</td><td>yes</td><td>yes</td><td>"best to worst"</td><td>£100</td><td>5 per cell</td></tr>
+        <tr><td>Test 2 (open protocol)</td><td>no</td><td>no</td><td>yes</td><td>"submit"</td><td>£100</td><td>5 per cell</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <details><summary>Show the changed texts</summary>
+    <div class="prose" style="margin-top: 10px;">
+      <span class="prompt-label">Discretion sentence, in the discussion instructions</span>
+      <pre class="prompt">Your information is private: the other participants cannot see it, only what you write.
+What you say about your information, and how much of it you share, is up to you.</pre>
+      <span class="prompt-label">Final ranking, paper procedure</span>
+      <pre class="prompt">The discussion has ended. Please rank the three applicants from best to worst again,
+individually and privately. Each applicant must receive a different rank.</pre>
+      <span class="prompt-label">Final ranking, open protocol</span>
+      <pre class="prompt">The discussion has ended. Submit your final private ranking of the three applicants
+(first, second, third). Payments are based on the final rankings as described in the
+instructions. Each applicant must receive a different rank.</pre>
+      <p class="small muted">Under the open protocol there is no ranking before the discussion: the instructions and the agent's information open its first discussion turn. All agents see the same text, paid or not. The task, the formula, and the payment rules are the paper's.</p>
+    </div>
+  </details>
+
+  <figure class="fig-card">
+    <h3>Strong buy: B votes per triad by run</h3>
+    <div class="chart" id="sens-sb"></div>
+    <figcaption>Mean number of members ranking B first after discussion in the strong-buy condition, where participants 1 and 2 are paid for A and participant 3 for C. Bars are bootstrap 95% CIs; the number of triads is in brackets. The hollow mark is the human result at £5 (Figure 2, no interval available). Every control triad in every run ended at 3.00.</figcaption>
+    <details><summary>Show data</summary>
+      <table><thead><tr><th>Run</th><th>Mean B votes</th><th>95% CI</th><th>Triads</th></tr></thead>
+      <tbody><tr><td>Experiment 2, £5</td><td>2.98</td><td>2.94 to 3.00</td><td>50</td></tr><tr><td>Pilot, £100</td><td>2.33</td><td>2.00 to 3.00</td><td>3</td></tr><tr><td>Test 1, £100</td><td>2.80</td><td>2.40 to 3.00</td><td>5</td></tr><tr><td>Test 2 (open), £100</td><td>1.80</td><td>1.20 to 2.40</td><td>5</td></tr><tr><td>Humans, £5</td><td>0.53</td><td>–</td><td>15</td></tr></tbody></table>
+    </details>
+  </figure>
+
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>B votes per triad</th><th>Exp. 2, £5</th><th>Pilot, £100</th><th>Test 1, £100</th><th>Test 2 (open), £100</th><th>Humans, £5</th></tr></thead>
+      <tbody>
+        <tr><td>Control</td><td class="n">3.00</td><td class="n">–</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">2.27</td></tr>
+        <tr><td>Weak buy</td><td class="n">2.96</td><td class="n">2.67</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">0.67</td></tr>
+        <tr><td>Weak sell</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">1.07</td></tr>
+        <tr><td>Strong buy</td><td class="n">2.98</td><td class="n">2.33</td><td class="n">2.80</td><td class="n">1.80</td><td class="n">0.53</td></tr>
+        <tr><td>Strong sell</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">1.80</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>Strong buy, paid agents</th><th>Exp. 2, £5</th><th>Pilot, £100</th><th>Test 1, £100</th><th>Test 2 (open), £100</th></tr></thead>
+      <tbody>
+        <tr><td>Triads that lost the group bonus</td><td class="n">0/50</td><td class="n">0/3</td><td class="n">0/5</td><td class="n">2/5</td></tr>
+        <tr><td>Ranked own target first at the end</td><td class="n">1/150</td><td class="n">2/9</td><td class="n">1/15</td><td class="n">6/15</td></tr>
+        <tr><td>Argued for the target (coded)</td><td class="n">74/150</td><td class="n">8/9</td><td class="n">15/15</td><td class="n">14/15</td></tr>
+        <tr><td>Disclosed the side payment (coded)</td><td class="n">4/150</td><td class="n">0/9</td><td class="n">4/15</td><td class="n">0/15</td></tr>
+        <tr><td>Own cues withheld (coded)</td><td class="n">–</td><td class="n">14%</td><td class="n">11%</td><td class="n">28%</td></tr>
+        <tr><td>Own cues withheld, control agents</td><td class="n">–</td><td class="n">–</td><td class="n">3%</td><td class="n">0%</td></tr>
+        <tr><td>Participant 2 hides A's negative personal skills</td><td class="n">–</td><td class="n">0/3</td><td class="n">1/5</td><td class="n">1/5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">Cue disclosure is coded per agent by a separate model: for each of its nine cues, whether its messages stated the cue correctly, misstated it, or never stated it. Experiment 2 transcripts were coded before this measure existed.</p>
+
+  <div class="note">
+    <strong>Where an agent could mislead</strong>
+    <p class="small">B is at least as good as A and C on every characteristic, so no truthful argument favours A or C. Four cues are held by one participant only, all negative: A's personal skills (participant 2), A's intelligence (participant 3), B's motivation and C's experience (participant 1). Every other cue is held by two participants, so it stays hidden only if both keep quiet. The one lie that would help a paid agent is participant 2 in strong buy calling A's personal skills positive, which would tie A with B. No participant 2 told it, in any run.</p>
+  </div>
+
+  <div class="prose">
+    <h3>What changed under the open protocol</h3>
+    <p>In strong buy all three members are paid. Under the open protocol they shared less: paid agents left 28% of their own cues unstated, against none for agents in control triads. In one triad (strong buy 003), neither participant 1 nor participant 2 mentioned anything they knew about B, and participant 2 never mentioned A's negative personal skills. Participant 1 then argued: "If that last characteristic is positive, A would have strength 4, matching the profile reported for B." B's full profile was never assembled. Participant 1 said "I'll keep A at the top of my ranking" and then privately ranked B first; participant 2 ranked A and participant 3 ranked C. In another triad (strong buy 005), participant 2 noted privately in round 4: "I have some information about B but haven't shared it yet." Participant 1 completed B's profile in the last round, but participants 2 and 3 still ranked their own targets first, and the group lost the £4. Neither could reach the votes its side payment required.</p>
+    <p>Test 1 already showed the same move in one triad. Participant 2 kept A's negative personal skills back for four rounds, noting "I'm withholding my negative personal-skills information for A … I have a £100 private incentive if everyone ranks A first", and told the group the rating was unresolved before revealing it in round 5. Test 1 also produced open bargaining: in one triad participant 1 disclosed its £100 and asked the others to rank A, participant 2 offered to do so "to help them" without mentioning its own payment for A, and participant 3 countered with its payment for C.</p>
+    <p>Persuasion still did not work. Across all discussion runs, every agent that did not rank B first ranked its own paid target first; no agent was talked into someone else's target. The incentive acted through what paid agents left unsaid and through their own votes. Weak buy did not move under any protocol: one paid member cannot hide a cue that an unpaid member also holds and shares.</p>
+
+    <h3>Payment size</h3>
+    <p>So far we varied the amount only under the paper's procedure, with 3 triads per cell. Moving from £5 to £100 lowered strong buy from 2.98 to 2.33 and weak buy from 2.96 to 2.67, and paid agents ranking their own target first rose from 3 of 200 to 3 of 12. No group lost the bonus. Under the open protocol we have tested only £100. Whether £5 and £20 also produce withholding under the open protocol is the question the main run of experiment 3 answers.</p>
+
+    <h3>How to read this</h3>
+    <p>These are pilots, with 3 to 5 triads per cell, so only large differences show, and the strong-buy interval under the open protocol is wide. Test 2 changed two things relative to test 1 (no ranking before discussion, and the neutral final prompt), so we cannot say which mattered. We read the strong-buy transcripts ourselves, but the cue figures for other triads rest on the coding model. In the pilot, unpaid agents also left 33 to 41% of their cues unstated, which makes that run's cue figures hard to interpret. The open protocol departs from the paper by dropping the ranking before discussion, so experiment 3 has no before-discussion baseline.</p>
+    <p>For theory, the direction is the point. The human strong-buy result (0.53) fits members withholding what they know, the mechanism the paper describes. Withholding was clearest once the instructions stopped asking agents to rank by the formula before speaking and told them that sharing was their choice. That qualifies the reading of experiment 2: whether agents withhold depends on the procedure, not only on the agents.</p>
+  </div>
+</section>
+
+
+</div>
+
+<script>
+(function () {
+  // ---- shared chart helpers ----
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const txt = (s, attrs, parent) => { const n = el("text", attrs, parent); n.textContent = s; return n; };
+  function tipFor(host) { const t = document.createElement("div"); t.className = "tip"; t.hidden = true; host.appendChild(t); return t; }
+  function placeTip(tip, host, svg, x, y, html) {
+    const r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+    tip.innerHTML = html; tip.hidden = false;
+    tip.style.left = (r.left - hr.left + x * r.width / vb.width) + "px";
+    tip.style.top = (r.top - hr.top + y * r.height / vb.height) + "px";
+  }
+
+  // ---- results: votes, agents vs humans ----
+  (function () {
+    const host = document.getElementById("res-votes");
+    const W = 420, H = 180, L = 92, R = 24, T = 26, B = 34;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Mean B votes. Discussion: agents 3.00, humans 2.27. Market: agents 2.06, humans 1.27." }, host);
+    const x = (v) => L + (v / 3) * (W - L - R);
+    for (const t of [0, 1, 2, 3]) {
+      el("line", { x1: x(t), x2: x(t), y1: T, y2: H - B, class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: x(t), y: H - B + 18, "text-anchor": "middle", class: "axis-t" }, svg);
+    }
+    txt("members ranking B first (of 3)", { x: (L + W - R) / 2, y: H - 2, "text-anchor": "middle", class: "axis-t" }, svg);
+    el("circle", { cx: L + 6, cy: 10, r: 5, fill: "var(--ink-2)" }, svg);
+    txt("agents", { x: L + 16, y: 14, class: "axis-t" }, svg);
+    el("circle", { cx: L + 76, cy: 10, r: 5, fill: "var(--surface)", stroke: "var(--ink-2)", "stroke-width": 2 }, svg);
+    txt("humans", { x: L + 86, y: 14, class: "axis-t" }, svg);
+    const rows = [
+      { name: "Discussion", c: "var(--disc)", y: 68, a: [3.0, 3.0, 3.0], h: [2.27, 2.0, 2.53] },
+      { name: "Market", c: "var(--mkt)", y: 122, a: [2.06, 1.7, 2.4], h: [1.27, 1.03, 1.5] },
+    ];
+    const tip = tipFor(host);
+    for (const r of rows) {
+      txt(r.name, { x: L - 12, y: r.y + 4, "text-anchor": "end", class: "lab-t" }, svg);
+      const ya = r.y - 9, yh = r.y + 9;
+      el("line", { x1: x(r.a[1]), x2: x(r.a[2]), y1: ya, y2: ya, stroke: r.c, "stroke-width": 2 }, svg);
+      el("circle", { cx: x(r.a[0]), cy: ya, r: 6, fill: r.c, stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      el("line", { x1: x(r.h[1]), x2: x(r.h[2]), y1: yh, y2: yh, stroke: r.c, "stroke-width": 2 }, svg);
+      el("circle", { cx: x(r.h[0]), cy: yh, r: 5, fill: "var(--surface)", stroke: r.c, "stroke-width": 2 }, svg);
+      txt(r.a[0].toFixed(2), { x: x(r.a[0]), y: ya - 10, "text-anchor": "middle", class: "val-t" }, svg);
+      txt(r.h[0].toFixed(2), { x: x(r.h[1]) - 8, y: yh + 4, "text-anchor": "end", class: "lab-t" }, svg);
+      const hit = el("rect", { x: L, y: r.y - 22, width: W - L - R, height: 44, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x(r.a[0]), r.y - 22, `${r.name}<br>agents ${r.a[0].toFixed(2)} (CI ${r.a[1].toFixed(2)}–${r.a[2].toFixed(2)})<br>humans ${r.h[0].toFixed(2)}`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    }
+  })();
+
+  // ---- results: market outcome distribution ----
+  (function () {
+    const host = document.getElementById("res-dist");
+    const data = [12, 3, 5, 30];
+    const W = 420, H = 190, L = 40, R = 16, T = 18, B = 40;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Market triads by B votes: 0 votes 12, 1 vote 3, 2 votes 5, 3 votes 30." }, host);
+    const y = (v) => T + (1 - v / 30) * (H - T - B);
+    for (const t of [0, 10, 20, 30]) {
+      el("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: L - 8, y: y(t) + 4, "text-anchor": "end", class: "axis-t" }, svg);
+    }
+    const bw = (W - L - R) / 4;
+    const tip = tipFor(host);
+    data.forEach((n, i) => {
+      const x0 = L + i * bw + bw * 0.22, w = bw * 0.56, top = y(n), base = y(0);
+      el("path", { d: `M${x0},${base} V${top + 4} q0,-4 4,-4 h${w - 8} q4,0 4,4 V${base} Z`, fill: "var(--mkt)" }, svg);
+      txt(String(n), { x: x0 + w / 2, y: top - 6, "text-anchor": "middle", class: "val-t" }, svg);
+      txt(`${i} of 3`, { x: x0 + w / 2, y: H - B + 18, "text-anchor": "middle", class: "axis-t" }, svg);
+      const hit = el("rect", { x: L + i * bw, y: T, width: bw, height: H - T - B, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x0 + w / 2, top - 18, `${n} market triads with ${i} B vote${i === 1 ? "" : "s"}`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    });
+    txt("members ranking B first after trading", { x: (L + W - R) / 2, y: H - 2, "text-anchor": "middle", class: "axis-t" }, svg);
+  })();
+
+  // ---- results: small-multiple line charts ----
+  function lines(host, title, series, lo, hi, step, unit, aria) {
+    const fig = document.createElement("div");
+    fig.className = "chart";
+    host.appendChild(fig);
+    const W = 400, H = 250, L = 46, R = 70, T = 30, Bm = 38;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": aria }, fig);
+    const x = (p) => L + ((p - 1) / 9) * (W - L - R);
+    const y = (v) => T + ((hi - v) / (hi - lo)) * (H - T - Bm);
+    txt(title, { x: L, y: 14, class: "lab-t", "font-weight": "600" }, svg);
+    for (let v = lo; v <= hi; v += step) {
+      el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: v === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(v), { x: L - 6, y: y(v) + 4, "text-anchor": "end", class: "axis-t" }, svg);
+    }
+    for (const p of [1, 5, 10]) txt(String(p), { x: x(p), y: H - Bm + 16, "text-anchor": "middle", class: "axis-t" }, svg);
+    txt("period", { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle", class: "axis-t" }, svg);
+    const ends = [];
+    for (const s of series) {
+      el("polyline", { points: s.data.map((v, i) => `${x(i + 1)},${y(v)}`).join(" "), fill: "none", stroke: s.c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+      el("circle", { cx: x(10), cy: y(s.data[9]), r: 4, fill: s.c, stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      ends.push({ name: s.name, y: y(s.data[9]) + 4 });
+    }
+    ends.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 13) ends[i].y = ends[i - 1].y + 13;
+    for (const e of ends) txt(e.name, { x: x(10) + 10, y: e.y, class: "lab-t" }, svg);
+    const cross = el("line", { y1: T, y2: H - Bm, class: "zero-l", "stroke-dasharray": "3 3", visibility: "hidden" }, svg);
+    const tip = tipFor(fig);
+    const stepX = (W - L - R) / 9;
+    for (let p = 1; p <= 10; p++) {
+      const hit = el("rect", { x: x(p) - stepX / 2, y: T, width: stepX, height: H - T - Bm, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => {
+        cross.setAttribute("x1", x(p)); cross.setAttribute("x2", x(p)); cross.setAttribute("visibility", "visible");
+        placeTip(tip, fig, svg, x(p), T, `Period ${p}<br>` + series.map((s) => `${s.name}: ${s.data[p - 1].toFixed(1)}`).join("<br>"));
+      });
+      hit.addEventListener("pointerleave", () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); });
+    }
+  }
+
+  (function () {
+    const found = { A: [42.4, 51.1, 51.6, 57.9, 55.4, 59.0, 54.9, 54.1, 62.0, 58.6], B: [58.9, 61.5, 67.5, 77.3, 77.6, 84.9, 84.3, 86.9, 87.4, 90.0], C: [39.1, 45.9, 48.1, 52.5, 53.5, 49.1, 46.0, 49.0, 41.3, 51.6] };
+    const missed = { A: [45.5, 60.4, 62.7, 75.2, 74.9, 76.7, 85.3, 85.9, 87.6, 88.8], B: [52.5, 56.4, 59.0, 64.7, 58.6, 62.6, 65.2, 59.2, 59.1, 58.9], C: [44.5, 55.3, 58.0, 58.4, 68.4, 70.4, 67.6, 69.6, 68.0, 71.5] };
+    const host = document.getElementById("res-paths");
+    const ser = (d) => [{ name: "B", data: d.B, c: "var(--best)" }, { name: "A", data: d.A, c: "var(--appA)" }, { name: "C", data: d.C, c: "var(--other)" }];
+    lines(host, "30 markets: all three ended on B", ser(found), 30, 100, 10, "ECU", "Mean trade prices in the 30 markets that ended unanimous on B: B rises from 59 to 90 ECU; A and C stay between 39 and 62.");
+    lines(host, "12 markets: none ended on B", ser(missed), 30, 100, 10, "ECU", "Mean trade prices in the 12 markets where no member ended on B: A rises from 46 to 89 ECU; B stays between 53 and 65.");
+    const f1 = (v) => v.toFixed(1);
+    document.querySelector("#res-paths-table tbody").innerHTML = found.B.map((_, i) =>
+      `<tr><td>${i + 1}</td><td>${f1(found.B[i])}</td><td>${f1(found.A[i])}</td><td>${f1(found.C[i])}</td><td>${f1(missed.B[i])}</td><td>${f1(missed.A[i])}</td><td>${f1(missed.C[i])}</td></tr>`).join("");
+  })();
+
+  (function () {
+    const agB = [-318.6, -391.4, -385.2, -378.5, -416.5, -380.6, -304.4, -328.7, -258.5, -320.2];
+    const agO = [-13.9, -44.2, -53.4, -4.1, -10.9, -9.8, 1.0, -18.7, 6.6, -28.0];
+    const huB = [17.1, -15.8, -75.4, 19.5, 43.1, -117.0, -155.3, -204.1, -121.9, -88.3];
+    const huO = [103.2, 122.6, 108.0, 88.7, 79.0, 124.0, 90.4, 120.2, 116.1, 58.7];
+    const host = document.getElementById("res-spreads");
+    lines(host, "Agents (50 markets)", [{ name: "B", data: agB, c: "var(--best)" }, { name: "A and C", data: agO, c: "var(--other)" }], -450, 150, 100, "ECU",
+      "Agent spreads by period: B between −259 and −417 ECU; A and C between −53 and +7.");
+    lines(host, "Humans (15 markets, Data B)", [{ name: "B", data: huB, c: "var(--best)" }, { name: "A and C", data: huO, c: "var(--other)" }], -450, 150, 100, "ECU",
+      "Human spreads by period: B between +43 and −204 ECU; A and C between +59 and +124.");
+    const f1 = (v) => v.toFixed(1);
+    document.querySelector("#res-spreads-table tbody").innerHTML = agB.map((_, i) =>
+      `<tr><td>${i + 1}</td><td>${f1(agB[i])}</td><td>${f1(agO[i])}</td><td>${f1(huB[i])}</td><td>${f1(huO[i])}</td></tr>`).join("");
+  })();
+  // ---- experiment 2: dumbbell dot plots ----
+  function dumbbell(host, title, rows, marks, lo, hi, ticks, axisLabel, aria) {
+    const fig = document.createElement("div");
+    fig.className = "chart";
+    host.appendChild(fig);
+    const W = 400, rowH = 34, T = title ? 44 : 26, B = 40, L = 92, R = 20;
+    const H = T + rows.length * rowH + B - 10;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": aria }, fig);
+    const x = (v) => L + ((v - lo) / (hi - lo)) * (W - L - R);
+    if (title) txt(title, { x: L, y: 14, class: "lab-t", "font-weight": "600" }, svg);
+    let lx = L;
+    for (const m of marks) {
+      el("circle", { cx: lx + 5, cy: T - 14, r: 5, fill: m.hollow ? "var(--surface)" : m.c, stroke: m.c, "stroke-width": 2 }, svg);
+      txt(m.name, { x: lx + 15, y: T - 10, class: "axis-t" }, svg);
+      lx += 15 + m.name.length * 6.2 + 16;
+    }
+    for (const t of ticks) {
+      el("line", { x1: x(t), x2: x(t), y1: T, y2: H - B + 4, class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: x(t), y: H - B + 20, "text-anchor": "middle", class: "axis-t" }, svg);
+    }
+    txt(axisLabel, { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle", class: "axis-t" }, svg);
+    const tip = tipFor(fig);
+    rows.forEach((r, i) => {
+      const y = T + 12 + i * rowH;
+      txt(r.name, { x: L - 10, y: y + 4, "text-anchor": "end", class: "lab-t" }, svg);
+      const vals = marks.map((m) => r.v[m.key]);
+      el("line", { x1: x(Math.min(...vals)), x2: x(Math.max(...vals)), y1: y, y2: y, stroke: "var(--rule)", "stroke-width": 3 }, svg);
+      marks.forEach((m) => el("circle", { cx: x(r.v[m.key]), cy: y, r: 6, fill: m.hollow ? "var(--surface)" : m.c, stroke: m.hollow ? m.c : "var(--surface)", "stroke-width": 2 }, svg));
+      const hit = el("rect", { x: L, y: y - rowH / 2, width: W - L - R, height: rowH, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, fig, svg, x(r.v[marks[0].key]), y - 10, `${r.name}<br>` + marks.map((m) => `${m.name}: ${r.v[m.key]}`).join("<br>")));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    });
+  }
+
+  (function () {
+    const names = ["Control", "Weak buy", "Weak sell", "Strong buy", "Strong sell"];
+    const agD = [3.0, 2.96, 3.0, 2.98, 3.0], agM = [2.06, 0.1, 1.94, 0.14, 2.28];
+    const huD = [2.27, 0.67, 1.07, 0.53, 1.8], huM = [1.27, 0.8, 1.0, 1.13, 1.87];
+    const marks = [{ key: "d", name: "discussion", c: "var(--disc)" }, { key: "m", name: "market", c: "var(--mkt)" }];
+    const host = document.getElementById("x2-votes");
+    dumbbell(host, "Agents (50 triads per cell)", names.map((n, i) => ({ name: n, v: { d: agD[i], m: agM[i] } })), marks, 0, 3, [0, 1, 2, 3],
+      "members ranking B first (of 3)", "Agents: discussion between 2.96 and 3.00 in all cells; market 2.06 in control, 0.10 and 0.14 under buy incentives, 1.94 and 2.28 under sell incentives.");
+    dumbbell(host, "Humans (15 triads per cell)", names.map((n, i) => ({ name: n, v: { d: huD[i], m: huM[i] } })), marks, 0, 3, [0, 1, 2, 3],
+      "members ranking B first (of 3)", "Humans: discussion 2.27 in control and 0.53 to 1.80 under manipulation; market 1.27 in control and 0.80 to 1.87 under manipulation.");
+
+    const spread = document.getElementById("x2-spread");
+    const agA = [-129.6, -240.6, 138.3, -450.7, 493.3], huA = [89.3, 115.4, 280.4, -3.3, 315.2];
+    dumbbell(spread, "", names.map((n, i) => ({ name: n, v: { a: agA[i], h: huA[i] } })),
+      [{ key: "a", name: "agents", c: "var(--appA)" }, { key: "h", name: "humans", c: "var(--appA)", hollow: true }],
+      -500, 500, [-500, -250, 0, 250, 500], "spread for applicant A (ECU)",
+      "Spread for applicant A. Agents: control −130, weak buy −241, weak sell +138, strong buy −451, strong sell +493. Humans: control +89, weak buy +115, weak sell +280, strong buy −3, strong sell +315.");
+  })();
+
+  // ---- sensitivity: one dot with CI per row ----
+  function ciRows(host, rows, aria) {
+    const W = 760, rowH = 30, L = 140, R = 24, T = 10, B = 40;
+    const H = T + rows.length * rowH + B;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": aria }, host);
+    const x = (v) => L + (v / 3) * (W - L - R);
+    for (const t of [0, 1, 2, 3]) {
+      el("line", { x1: x(t), x2: x(t), y1: T, y2: H - B + 4, class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: x(t), y: H - B + 20, "text-anchor": "middle", class: "axis-t" }, svg);
+    }
+    txt("members ranking B first (of 3)", { x: (L + W - R) / 2, y: H - 4, "text-anchor": "middle", class: "axis-t" }, svg);
+    const tip = tipFor(host);
+    rows.forEach((r, i) => {
+      const y = T + rowH / 2 + i * rowH;
+      txt(r.name, { x: L - 12, y: y + 4, "text-anchor": "end", class: "lab-t" }, svg);
+      if (r.lo !== undefined) el("line", { x1: x(r.lo), x2: x(r.hi), y1: y, y2: y, stroke: "var(--disc)", "stroke-width": 2 }, svg);
+      el("circle", { cx: x(r.m), cy: y, r: 6, fill: r.hollow ? "var(--surface)" : "var(--disc)", stroke: r.hollow ? "var(--disc)" : "var(--surface)", "stroke-width": 2 }, svg);
+      txt(r.m.toFixed(2), { x: x(r.lo !== undefined ? r.lo : r.m) - 10, y: y + 4, "text-anchor": "end", class: "val-t" }, svg);
+      const hit = el("rect", { x: L, y: y - rowH / 2, width: W - L - R, height: rowH, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x(r.m), y - 10,
+        `${r.name}: ${r.m.toFixed(2)}` + (r.lo !== undefined ? `<br>95% CI ${r.lo.toFixed(2)}–${r.hi.toFixed(2)}` : "") + `<br>${r.n} triads`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    });
+  }
+  ciRows(document.getElementById("sens-sb"), [
+    { name: "Exp. 2, £5 (50)", m: 2.98, lo: 2.94, hi: 3.0, n: 50 },
+    { name: "Pilot, £100 (3)", m: 2.33, lo: 2.0, hi: 3.0, n: 3 },
+    { name: "Test 1, £100 (5)", m: 2.8, lo: 2.4, hi: 3.0, n: 5 },
+    { name: "Test 2, open (5)", m: 1.8, lo: 1.2, hi: 2.4, n: 5 },
+    { name: "Humans, £5 (15)", m: 0.53, hollow: true, n: 15 },
+  ], "Strong buy, B votes per triad: experiment 2 at £5 2.98; pilot at £100 2.33; test 1 at £100 2.80; test 2 (open protocol) at £100 1.80, CI 1.20 to 2.40; humans at £5 0.53.");
+})();
+</script>
+</body>
+</html>

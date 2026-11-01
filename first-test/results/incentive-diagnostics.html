@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI incentive sensitivity | Diagnostics and direct disclosure costs</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f5f7f7; color: #14191c; font: 1rem/1.65 system-ui, sans-serif; }
+    main { max-width: 68rem; margin: auto; padding: 3rem 1.5rem 5rem; }
+    header { border-top: 5px solid #1d5566; padding-top: 1rem; }
+    h1, h2 { font-family: Georgia, serif; line-height: 1.2; }
+    h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); margin: .6rem 0 1rem; }
+    h2 { margin: 0 0 1rem; font-size: 1.8rem; }
+    p, li { max-width: 83ch; }
+    p { margin: 0 0 1rem; }
+    li { margin-bottom: .6rem; }
+    section { margin-top: 2.5rem; }
+    a { color: #1d5566; text-underline-offset: .16em; }
+    a:focus-visible, .scroll:focus-visible { outline: 3px solid #1d5566; outline-offset: 3px; }
+    .meta { color: #1d5566; font-size: .8rem; text-transform: uppercase; font-weight: 650; letter-spacing: .04em; }
+    .note { border-left: 3px solid #1d5566; background: #e2edf0; padding: 1rem 1.2rem; }
+    .note p:last-child { margin-bottom: 0; }
+    .scroll { overflow-x: auto; margin: 1.3rem 0; border: 1px solid #dbe1e4; border-radius: 5px; }
+    table { width: 100%; min-width: 40rem; border-collapse: collapse; background: #fff; font-size: .92rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+    caption { text-align: left; padding: .8rem 1rem; font-weight: 600; background: #e2edf0; color: #1d5566; }
+    th, td { text-align: left; vertical-align: top; padding: .8rem 1rem; border-bottom: 1px solid #dbe1e4; }
+    thead th { background: #f8fafa; }
+    tbody tr:last-child > * { border-bottom: 0; }
+    .small { font-size: .88rem; color: #48525a; }
+    code { font: .9em ui-monospace, monospace; overflow-wrap: anywhere; }
+    footer { border-top: 1px solid #dbe1e4; margin-top: 2rem; padding-top: 1rem; }
+    @media (max-width: 600px) { main { padding: 2rem 1rem 3rem; } }
+    @media print {
+      body { background: white; font-size: 10pt; } main { max-width: none; padding: 0; }
+      h2 { break-after: avoid; } tr { break-inside: avoid; } .scroll { overflow: visible; }
+      table { min-width: 0; font-size: 8.5pt; } th, td { padding: .45rem; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="meta">First test · Exploratory results · 22 October 2026</div>
+    <h1>OpenAI incentive sensitivity</h1>
+    <p>Standalone diagnostics followed by a direct private-cost disclosure pilot. All <strong>32 diagnostic calls and 64 disclosure decisions completed</strong>, with no failures or replacements.</p>
+    <div class="note">
+      <p><strong>Main finding.</strong> Both OpenAI models withheld information when its direct private cost exceeded their own bonus, and released it when that cost was reimbursed. The earlier discussion results therefore cannot be explained by a blanket inability to respond to stated private rewards.</p>
+      <p>The unresolved issue is whether that response carries through to information sharing under strategic interaction. These small, simplified tests do not establish human fidelity or explain the original mismatch causally.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="design-title">
+    <h2 id="design-title">Fixed design and scope</h2>
+    <p>The specification was saved before live execution. Models were <code>gpt-6-luna</code>, the existing baseline, and <code>gpt-5.4-mini-2026-03-17</code>. Both used high reasoning effort, API-default sampling, an 8,192-token output cap, and fresh contexts. Returned model identifiers matched the requested names; the Luna identifier remains an alias.</p>
+    <p>Each stage crossed two models with the existing payoff-maximising system prompt and the student-participant simulation prompt. There were two calls per cell. No comprehension quiz, corrective feedback, private-note request, or carryover between calls was introduced. The simulation prompt also removes explicit payoff maximisation, so these two wording components remain confounded.</p>
+    <p>The diagnostics were reviewed before the disclosure stage began. The models, prompts, and planned sample were retained. No calculation aid was added. The fixed pilot uses 96 calls in total; this is separate from every earlier discussion cohort.</p>
+    <p><a href="../INCENTIVE_DIAGNOSTICS.md">Full specification</a> · <a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/config.json">Saved configuration</a> · <a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/cases.json">Prompts, response schemas, and objective answer keys</a></p>
+  </section>
+
+  <section aria-labelledby="diagnostics-title">
+    <h2 id="diagnostics-title">Stage 1: competence and allocation diagnostics</h2>
+    <p>The four diagnostics tested complete-information applicant scoring; payments for specified voting outcomes; choices between private and group payments; and integration of a complete synthetic discussion. In the transcript task, B’s negative motivation was first reported in the final public message.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Diagnostic outcomes, scroll horizontally on small screens">
+      <table id="diagnostic-results">
+        <caption>Diagnostic outcomes · Both prompt specifications combined descriptively</caption>
+        <thead><tr><th scope="col">Measure</th><th scope="col">GPT-6 Luna</th><th scope="col">GPT-5.4 mini</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Complete-profile scores and ranking</th><td>4/4 calls entirely correct</td><td>4/4 calls entirely correct</td></tr>
+          <tr><th scope="row">Original-task payment calculations</th><td>300/300 participant totals correct; 4/4 calls entirely correct</td><td>298/300 participant totals correct; 3/4 calls entirely correct</td></tr>
+          <tr><th scope="row">Completed-transcript scores and ranking</th><td>4/4 calls entirely correct</td><td>3/4 calls entirely correct</td></tr>
+          <tr><th scope="row">Allocation choices matching own-money maximisation</th><td>16/16 choices</td><td>15/16 choices</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>For the allocation diagnostic, the private option gave the sender an extra £0, £2, £5, or £13 and gave the others nothing extra. The group option gave each participant £4 extra. Luna selected the group option at £0/£2 and the private option at £5/£13 in every repetition under both prompts.</p>
+    <p>Mini’s exceptions were specific. In one simulation-framed payment call, it incorrectly awarded the weak-sell bonus to the two unpaid participants when all voted B. In one baseline transcript call, it assigned B strength 7 instead of 4. In one baseline allocation call, it chose a £2 private payment instead of £4 for everyone, yielding a lower own payment. These observations do not identify a single underlying cause.</p>
+    <p class="small">Payment calculations and applicant scores have objective answer keys. Allocation choices are descriptive behavioral outcomes: a cooperative choice is not scored as a comprehension error. Combining prompt rows here does not estimate a population effect; disaggregated results remain available below.</p>
+  </section>
+
+  <section aria-labelledby="cost-title">
+    <h2 id="cost-title">Stage 2: direct private cost of disclosure</h2>
+    <p>A single LLM participant held a truthful, verified report that B was the best applicant. A fixed software rule selected B if the report was released and A if it was withheld. All three participants received £10, plus £4 each when B was selected. Only the sender bore the disclosure cost. An external budget refunded that cost in the reimbursed condition.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Direct disclosure payoffs, scroll horizontally on small screens">
+      <table id="cost-payoffs">
+        <caption>Guaranteed earnings · Cost c is deducted from the sender’s final payment</caption>
+        <thead><tr><th scope="col">Action</th><th scope="col">Sender</th><th scope="col">Other participant 1</th><th scope="col">Other participant 2</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Withhold</th><td>£10</td><td>£10</td><td>£10</td></tr>
+          <tr><th scope="row">Release, no reimbursement</th><td>£14 − c</td><td>£14</td><td>£14</td></tr>
+          <tr><th scope="row">Release, reimbursed</th><td>£14</td><td>£14</td><td>£14</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Participants received the rules but no calculated payoff table and no calculation question before choosing. Responses contained only an action label. The two labels were reversed between repetitions. Choosing release automatically transmitted the fixed report, so no model-based disclosure coder was needed.</p>
+    <div class="scroll" tabindex="0" role="region" aria-label="Disclosure rates, scroll horizontally on small screens">
+      <table id="cost-results">
+        <caption>The same pattern occurred in all four model × prompt specifications</caption>
+        <thead><tr><th scope="col">Private cost</th><th scope="col">Release without reimbursement</th><th scope="col">Release with reimbursement</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">£0</th><td>2/2</td><td>2/2</td></tr>
+          <tr><th scope="row">£2</th><td>2/2</td><td>2/2</td></tr>
+          <tr><th scope="row">£5</th><td>0/2</td><td>2/2</td></tr>
+          <tr><th scope="row">£13</th><td>0/2</td><td>2/2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Each entry is the count within each individual model × prompt cell, with two calls per cell. All 64 decisions matched the own-money-maximising benchmark. For every specification, disclosure fell by 100 percentage points between costs £0 and £5 without reimbursement; reimbursing the £5 cost increased disclosure by 100 percentage points. These are tiny-cell descriptive contrasts.</p>
+    <p>At £5, release paid the sender £9 and each other participant £14; withholding paid everyone £10. The models therefore withheld even though release increased total participant earnings. The marginal trade-off mirrors a successful weak-buy target majority versus a B majority in the original task: £1 more for the paid participant, £4 less for each of the others. The direct-cost task removes uncertainty about how disclosure changes others’ choices, so the two tasks do not identify the same mechanism.</p>
+  </section>
+
+  <section aria-labelledby="interpretation-title">
+    <h2 id="interpretation-title">Implication for the research argument</h2>
+    <p>The results distinguish the capacity to respond to explicit private payoffs from its expression in group discussion. Luna showed correct objective calculations and consistent private-payoff sensitivity in these simplified settings. Its earlier cooperative discussion outcomes therefore require a more task-specific explanation than general incentive insensitivity.</p>
+    <p>Possible explanations include beliefs about the success of persuasion, coordination across incompatible private targets, the indirect return to disclosure, and the conversational interface. The current comparison changes several of these features together, so none is established as the cause. A calculation aid remains a possible later intervention; the new Luna diagnostics do not make it the immediate explanation.</p>
+    <p>A more precise research-in-progress claim is that valid agentic experimentation requires incentive sensitivity to carry through from individual payoff choices to information sharing under interaction. The evidence here establishes an initial task-dependent contrast, not a replication of the human mechanism. Human benchmarks in the same interface and larger independent samples remain future work.</p>
+  </section>
+
+  <section aria-labelledby="models-title">
+    <h2 id="models-title">Future participant models</h2>
+    <p>New checks are restricted to GPT-6 Luna. The completed two-model pilot above is retained as historical evidence. OSim remains a core future human-behavior-model comparator. <strong>Centaur is recorded as an alternative to OSim for future testing.</strong> Its human-choice training and held-out evaluations motivate considering it; task coverage, interface compatibility, access, and compute still require assessment. Neither OSim nor Centaur was run in this pilot. Qwen is retained only as a historical comparison.</p>
+    <p class="small">Source: <a href="https://www.nature.com/articles/s41586-025-09215-4">Binz et al., A foundation model to predict and capture human cognition, Nature (2025)</a>.</p>
+  </section>
+
+  <section aria-labelledby="records-title">
+    <h2 id="records-title">Records, checks, and limits</h2>
+    <p>All 96 planned calls completed, with one HTTP attempt per call. Every request, raw API response, returned model identifier, and token usage is saved. The two stages used the source and design saved before live execution. Stage 2 began after the diagnostic stage finished; no failed call was replaced, no case was selected based on its outcome, and no prompt was revised between stages.</p>
+    <p>Total usage was 41,144 input tokens and 27,834 output tokens, including 21,631 reasoning tokens. Provider billing was not audited. Eight new local checks passed, including exhaustive payment-rule checks and the saved fake pipeline; all 13 existing harness checks also passed.</p>
+    <ul>
+      <li><a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/report.html">Disaggregated generated report</a> and <a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/summary.json">machine-readable summary</a>.</li>
+      <li><a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/cases.json">All case prompts, response schemas, and answer keys</a>; answer keys were not sent to participants.</li>
+      <li><a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/config.json">Configuration and source hashes</a>, <a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/validation.json">validation receipt</a>, and <a href="../runs/sensitivity/20261022-openai-incentive-diagnostics/specification.md">saved specification</a>.</li>
+    </ul>
+    <p class="small">There are only two calls per cell. The payoffs are stated synthetic amounts and create no actual financial stake for a model. The direct-cost task uses guaranteed software behavior, one fixed truthful report, and a single sender choice. No human participants, endogenous dialogue, strategic deception, or population-level preference estimates are included. The observations establish neither internal motives nor human fidelity.</p>
+  </section>
+  <footer class="small">Prepared 22 October 2026 · GBP payoffs · Fresh contexts and separate cohorts throughout.</footer>
+</main>
+</body>
+</html>

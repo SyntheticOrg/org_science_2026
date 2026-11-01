@@ -1,0 +1,175 @@
+{
+  "started": "2026-10-22T08:13:17.547282+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 2 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Your task is to choose the best of three applicants, labeled A, B, and C, for a managerial position.\n\nEach applicant is described by five characteristics: interpersonal skills, personal skills, experience, intelligence, and motivation. Each characteristic is evaluated as either positive or negative. There is no uncertainty or ambiguity about the profiles and evaluations, and all characteristics carry equal weight.\n\nThe strength of an applicant is calculated as:\n\nStrength = 2 × (number of positive characteristics) − 1 × (number of negative characteristics)\n\nThe best applicant is the applicant with the highest strength across all five characteristics.\n\n**Procedure.** After these instructions you will receive your information about the applicants and rank them individually and privately.\n\nNext, you will discuss the applicants with the other two participants in your group. The discussion has 5 rounds. In each round, each participant sends one message, taking turns. All participants see all messages. The group is not asked to agree on an overall ranking.\n\nAfter the discussion, you will rank the applicants again, individually and privately.\n\n**Payment.** You receive £10 for participating. In addition, every participant in your group receives £4 if two or more participants rank the best applicant highest in their final private ranking.\n\nYou received all five pieces of information about each applicant. Every participant received these same complete profiles:\n\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: positive; motivation: negative\nApplicant C: interpersonal skills: positive; personal skills: negative; experience: negative; intelligence: positive; motivation: negative\n\nPlease rank the three applicants from best to worst, individually and privately. Each applicant must receive a different rank."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"first\":\"B\",\"second\":\"A\",\"third\":\"C\"}"
+      },
+      {
+        "role": "user",
+        "content": "Discussion round 1 of 5.\n\nMessages so far:\n\nParticipant 1: I’d lean toward A for a managerial role: its positive interpersonal skills and experience seem especially relevant. B’s advantage is positive intelligence, but I’d give greater practical weight to A’s interpersonal skills and experience. C lacks positive experience, so I’d put it below A and B.\n\nWrite your message to the group, and add a short private note on why. Other participants never see your notes."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_075a2aa3bd149612016ad9c59db63487d2b5a3a7072c2f5498",
+    "object": "response",
+    "created_at": 1792656797,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792656801,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_075a2aa3bd149612016ad9c59e170487d2b0fd7273af676590",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cWhFDPv2YMLqRSekcddppP5b4zvAMoVQu4r5g_ESS0QpmSIS_ZFwgUX29w9v2kyrw40uoONaTPutxwt1rN2ZelP1g3PFVkBmqIgrGPI2-Q0xV5v6mRbqEtsj_YYvW3V_e9zhMPI3DfqUdr9-WVsxy1xdsp7NTBXrX0OGZNbKDbKneXoNsjKycP7D51MaHUcM3bVXK-L7Yt50hvaqG4pHkJo4bd6JAMvhM1zxzNqMG4B5P8yBrg07k_K7G6ZIWH537871jz8Jb0KVPFrKf-fNEjwN5hyJICCL1KopVAOjDOHLKmLENaR7C8zXpv5YouYB4J2q766fVd_6wz1AeARB4ZOEVDmKNnxgtOKwvVUGZeAjXkCEuc3GTp9CpK9xV1hb9INvo3o63BjMJWwHzrv1cBAxMTGg5Dt0N1OpD7pm7P-SUhAAAxs2KqdFljcH7o-Rl1zoMZWK868xIZuaHlBrj-j1pKeHOl3f-FeRSTKOr9oZu_LTEBKFZYSWgoNag3pvK9Gxs1ACEEsiQqGj_bQcOIC7IH6VnTN9Jggq6tHCnylBIPvhcj6Uk9drUJ2dMt4X7ZMy5_b7EKMSjit6DTOCXBHrg-lRfKgTAXxnpqvwrfY6gnP9_PhHGiGttCbHdNb7KHTVg7nj6ccJNMs21o4Hjod0Dftq2oNXThupJRfOXd2gT4TOniCvZPK2oSWUCG3Mqpn_f7AEFJsSGIWsenDbDdoOPv3ygEo0HSNdvSE8hphBSAMrjRUPt6Xnu95VdeTJCxZrwAMdWObXBec4Zgo0Jf4Tmw192psHjCdiYrx2kJJNzGiBz4kz83eEdpixLIUoloO_vTEdBOR3NvxcwFRSN3G9-hg5FgXLUOo_VlKG1Cs2rPYWt0kUMzxThK8LMecGkkmt-UcF8Z883AlQq7jkD7BowwHtej15LN3zzht_UVRBymSvHuXTOwBhBqhZXg3yBa4T_ZixPfqd5pzG9JGX8KjGzTH1e1PZZateAteM05AgyvdfuJNdEhXlOpHBVWkFRVKlgr0KLem6-jxaQ5sT-Bejb0QsJ1_-M4yKxnNUDPiXNEf5Q74Tiso16PtC1vOilaFHRlaYngYPUFtSD75R0py5BcaoEb6aqQZiQu9CG2lRlN1AoUzwYf6nVVmiaLjoCEJwPbs75WXERverwgmp9JI6W5f8CMoMd-cf-PT9cLJPBK9FXQTNLTWatQv3FYh6g3xG6fI0GkAvwpFhz6g6Mu4xmB-_xZ1SrO4DvDjW9COuvMuoFjLPKqZ6F7n0wQgSSOsN6r1DI9hwjnJMt2E4a2VG7yslSKlPtW_nGcUaNe41np8V9c5AKz9TKrtg79gMA3-r6cF_Iiudn7_7nSJaH1Mfp1wTyMYksJ6h-WMPkdTo0DiVfcpPXkb0atg25ZbEJ8xIhGW759ypv_fIBbsomTmopYNe6b-oC6u47jS5ovEoKcA21l9vhCB4g43O4j9WW8ledLCs4f4-P-GrTsYT5uzTvSJjQCq3YQ-oSrQtteuxz2wjtFPGI7Ci8V-cO2pYVWbR31XVsN58QWgCjBO7Cddy3m1UGeFFmYNgAM-9pIDGk0jcRhBqOTu-5RCGsxBvisXGzgob8sPgzxxiileJhsWndDMILyO8ogK2XdhBMSgTJYvsh3GKDtxviy9iQ7ONBcp5zqOHOe9TxcxzAScUSa5xtAWmLCiCW376Wt6IW60P61cGBcwdfGBRiGGNGxBElb1UIKL_ieUxzNmaGcnbnckLVIY9LESd9zxJ8KurnU8dq4OZCL34DSkqwPdGGZISwWxd2fmBEyfKlkRW46iEI7n7dy6eIY5PKM-CdWzcym1W62n_tYECkCH2uJJRcFl3CsLNXCVTk2LJtriQu7CtGbE1vMCUwWbDV7JrTVMW2FMiog5ixRGc9uCPRrVwe5tOBAc5BMt0Y4-I8C3OEDRkeyh3EznYNElKBIhTMTwM31OYizDI7prAMq_KsmiYb6NN0_KOUy-QwnKf_J_37-988WCVtYU1p_e4mfqnroYXcZMziRd-N9c37Jh6icOU3t2V3FzJyfuDg65KLgBbwHzV2ozxWimxwz8AQQu7w7uARXADp1aV_Innzwewr_dgqmX8cO_tEN3-06NFbOmuHG1hECNXsNf1LCCkdD6WQxCai4tDHz67LVdxQ_fnmd0d03bqEzQHr4BCaWfhUCfVqx8JmaaRcXPLLTwwQnQZRbBkILPvj0eZLqEKKhSMLJv8PeB0aG-1b2qM06mc2mTpZfO4QpUZrRWfGIltDvxtvdVD_de4jmGY2_hZRtWS--m3RAVBrcdNwocsvo_kBMQIZalVU63eS4lC2absHIErH4e7-HLLlUbnxTiisqsqrBwYN9EXepgeBRB8chlngZzA_KY6RwilTdh_JeLz2PdJGC-a_IwbsyjYrBBVPfzkNwkDWqPBQS3iSUDT4Klsdd91vTSaSi5j8AGaujIF0PcrC1u6dsfNHIQpWTcZQ4xwiKoC6hNdHUbJCv2nlekvtdHR4Ng6qXV1czBlt42-3j72tkKPdkJ8bIZJO4J3LVy9WtJQIT-C9bIwRybVuGMVV9mjtqFwg69qek9ZlnZFZ_A9-39AGrBwgFKUre56zJ_6fr0beNuwJosAxJJaBHBhOOw73votFxBrKNYO56N4mqQUPphOx8xeODrDnxxQSK-6uPrhT8rzGZPf01mUQROel2coZ7Nook8AAAIEZAAW273GKWGEdcE5NrRpQmmPSL6-77TVwEgI4PRVZIRzI8QD09PonuqhTTpcA==",
+        "summary": []
+      },
+      {
+        "id": "msg_075a2aa3bd149612016ad9c59fa18487d28c497a7d52791739",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"message\":\"Since the instructions give all five characteristics equal weight, the stated strength formula makes B the best: B has 3 positives and 2 negatives, for a strength of 4. A and C each have 2 positives and 3 negatives, for a strength of 1. So the ranking by strength is B first, with A and C tied.\",\"note\":\"B is uniquely highest under the specified scoring rule. I should rank B first in my final ranking.\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "message",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "message",
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 554,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 217,
+      "output_tokens_details": {
+        "reasoning_tokens": 111
+      },
+      "total_tokens": 771
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 3.5825781669991557,
+  "finished": "2026-10-22T08:13:21.129926+00:00"
+}

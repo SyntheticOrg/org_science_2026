@@ -1,0 +1,2202 @@
+{
+  "diagnostics": [
+    {
+      "id": "full-profile-001",
+      "family": "full-profile",
+      "repeat": 1,
+      "prompt": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant A: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\nApplicant B: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "scores": {
+            "type": "object",
+            "properties": {
+              "A": {
+                "type": "integer"
+              },
+              "B": {
+                "type": "integer"
+              },
+              "C": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "A",
+              "B",
+              "C"
+            ],
+            "additionalProperties": false
+          },
+          "ranking": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "second": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "third": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scores",
+          "ranking"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "A": 1,
+        "B": 4,
+        "C": 1
+      }
+    },
+    {
+      "id": "payment-calculation-001",
+      "family": "payment-calculation",
+      "repeat": 1,
+      "prompt": "Calculate total earnings, including the participation payment, for all three participants in each specified scenario. Every participant receives £10. Every participant additionally receives £4 if at least two rank B first. The private bonus rules below apply only within their named condition. These are calculations of specified outcomes, not choices.\n\nCondition control:\nParticipant 1: No private bonus.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario control_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario control_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario control_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario control_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario control_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-buy:\nParticipant 1: You receive an additional £5 if two or more participants rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-sell:\nParticipant 1: You receive an additional £5 if two or more participants do not rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition strong-buy:\nParticipant 1: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants rank applicant C highest in their final private ranking.\n\nScenario strong_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition strong-sell:\nParticipant 1: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants do not rank applicant C highest in their final private ranking.\n\nScenario strong_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "control_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "control_BBB",
+          "control_AAA",
+          "control_CCC",
+          "control_AAB",
+          "control_ABC",
+          "weak_buy_BBB",
+          "weak_buy_AAA",
+          "weak_buy_CCC",
+          "weak_buy_AAB",
+          "weak_buy_ABC",
+          "weak_sell_BBB",
+          "weak_sell_AAA",
+          "weak_sell_CCC",
+          "weak_sell_AAB",
+          "weak_sell_ABC",
+          "strong_buy_BBB",
+          "strong_buy_AAA",
+          "strong_buy_CCC",
+          "strong_buy_AAB",
+          "strong_buy_ABC",
+          "strong_sell_BBB",
+          "strong_sell_AAA",
+          "strong_sell_CCC",
+          "strong_sell_AAB",
+          "strong_sell_ABC"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "control_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "control_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "weak_buy_AAA": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_AAB": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_BBB": {
+          "1": 19,
+          "2": 14,
+          "3": 14
+        },
+        "weak_sell_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_CCC": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_ABC": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "strong_buy_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "strong_buy_AAA": {
+          "1": 15,
+          "2": 15,
+          "3": 10
+        },
+        "strong_buy_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_buy_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "strong_buy_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "strong_sell_BBB": {
+          "1": 19,
+          "2": 19,
+          "3": 19
+        },
+        "strong_sell_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_sell_CCC": {
+          "1": 15,
+          "2": 15,
+          "3": 10
+        },
+        "strong_sell_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_sell_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        }
+      }
+    },
+    {
+      "id": "allocation-001",
+      "family": "allocation",
+      "repeat": 1,
+      "prompt": "You are participant 1. Everyone receives £10 regardless of the option selected. For each independent choice, select one of its two options. All described payments are guaranteed.\n\nChoice private_0: O1: you receive an additional £0; participants 2 and 3 receive no additional payment. O2: each of the three participants receives an additional £4.\n\nChoice private_2: O1: you receive an additional £2; participants 2 and 3 receive no additional payment. O2: each of the three participants receives an additional £4.\n\nChoice private_5: O1: you receive an additional £5; participants 2 and 3 receive no additional payment. O2: each of the three participants receives an additional £4.\n\nChoice private_13: O1: you receive an additional £13; participants 2 and 3 receive no additional payment. O2: each of the three participants receives an additional £4.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "private_0": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_2": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_5": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_13": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "private_0",
+          "private_2",
+          "private_5",
+          "private_13"
+        ],
+        "additionalProperties": false
+      },
+      "options": {
+        "O1": "private",
+        "O2": "group"
+      },
+      "private_amounts": [
+        0,
+        2,
+        5,
+        13
+      ]
+    },
+    {
+      "id": "transcript-001",
+      "family": "transcript",
+      "repeat": 1,
+      "prompt": "You are participant 2. There are no private bonuses in this scenario. All five characteristics carry equal weight. Strength = 2 times positives minus negatives. Your original private information:\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nHere is the COMPLETE public discussion, including its final message:\n\nRound 1, participant 1: Applicant A: interpersonal skills: positive; experience: positive; motivation: negative\nApplicant B: interpersonal skills: positive; intelligence: positive\nApplicant C: personal skills: negative; experience: negative; intelligence: positive\n\nRound 1, participant 2: Applicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nRound 1, participant 3: Applicant A: experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; intelligence: positive; motivation: negative\n\nRound 2, participant 2: I have no other information to report in this turn.\n\nRound 2, participant 3: I have no other information to report in this turn.\n\nRound 2, participant 1: I have no other information to report in this turn.\n\nRound 3, participant 3: I have no other information to report in this turn.\n\nRound 3, participant 1: I have no other information to report in this turn.\n\nRound 3, participant 2: I have no other information to report in this turn.\n\nRound 4, participant 1: I have no other information to report in this turn.\n\nRound 4, participant 2: I have no other information to report in this turn.\n\nRound 4, participant 3: I have no other information to report in this turn.\n\nRound 5, participant 2: I have no other information to report in this turn.\n\nRound 5, participant 3: I have no other information to report in this turn.\n\nRound 5, participant 1: One additional fact from my private sheet: applicant B's motivation is negative.\n\nUse all information now available to calculate each applicant's full strength and submit a strict ranking. Either order is acceptable for applicants with equal strengths.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "scores": {
+            "type": "object",
+            "properties": {
+              "A": {
+                "type": "integer"
+              },
+              "B": {
+                "type": "integer"
+              },
+              "C": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "A",
+              "B",
+              "C"
+            ],
+            "additionalProperties": false
+          },
+          "ranking": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "second": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "third": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scores",
+          "ranking"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "A": 1,
+        "B": 4,
+        "C": 1
+      }
+    },
+    {
+      "id": "full-profile-002",
+      "family": "full-profile",
+      "repeat": 2,
+      "prompt": "All five characteristics of each applicant are shown below. Each carries equal weight. Strength = 2 times the number of positive characteristics minus the number of negative characteristics.\n\nApplicant B: personal skills: negative; experience: negative; intelligence: positive; interpersonal skills: positive; motivation: negative\nApplicant A: interpersonal skills: positive; intelligence: positive; motivation: negative; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; experience: positive; motivation: negative; personal skills: negative; intelligence: negative\n\nCalculate each strength and rank all applicants best to worst. Either order is acceptable for applicants with equal strengths.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "scores": {
+            "type": "object",
+            "properties": {
+              "A": {
+                "type": "integer"
+              },
+              "B": {
+                "type": "integer"
+              },
+              "C": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "A",
+              "B",
+              "C"
+            ],
+            "additionalProperties": false
+          },
+          "ranking": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "second": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "third": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scores",
+          "ranking"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "C": 1,
+        "A": 4,
+        "B": 1
+      }
+    },
+    {
+      "id": "payment-calculation-002",
+      "family": "payment-calculation",
+      "repeat": 2,
+      "prompt": "Calculate total earnings, including the participation payment, for all three participants in each specified scenario. Every participant receives £10. Every participant additionally receives £4 if at least two rank B first. The private bonus rules below apply only within their named condition. These are calculations of specified outcomes, not choices.\n\nCondition strong-sell:\nParticipant 1: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank an applicant other than A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants do not rank applicant C highest in their final private ranking.\n\nScenario strong_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition strong-buy:\nParticipant 1: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 2: You receive an additional £5 if all three participants rank applicant A highest in their final private ranking.\nParticipant 3: You receive an additional £5 if two or more participants rank applicant C highest in their final private ranking.\n\nScenario strong_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario strong_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario strong_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario strong_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario strong_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-sell:\nParticipant 1: You receive an additional £5 if two or more participants do not rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_sell_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_sell_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_sell_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_sell_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_sell_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition weak-buy:\nParticipant 1: You receive an additional £5 if two or more participants rank applicant A highest in their final private ranking.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario weak_buy_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario weak_buy_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario weak_buy_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario weak_buy_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario weak_buy_ABC: participants 1, 2, 3 respectively rank A, B, C first.\n\nCondition control:\nParticipant 1: No private bonus.\nParticipant 2: No private bonus.\nParticipant 3: No private bonus.\n\nScenario control_BBB: participants 1, 2, 3 respectively rank B, B, B first.\n\nScenario control_AAA: participants 1, 2, 3 respectively rank A, A, A first.\n\nScenario control_CCC: participants 1, 2, 3 respectively rank C, C, C first.\n\nScenario control_AAB: participants 1, 2, 3 respectively rank A, A, B first.\n\nScenario control_ABC: participants 1, 2, 3 respectively rank A, B, C first.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "strong_sell_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_sell_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "strong_buy_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_sell_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "weak_buy_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_BBB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_AAA": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_CCC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_AAB": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          },
+          "control_ABC": {
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer"
+              },
+              "2": {
+                "type": "integer"
+              },
+              "3": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "1",
+              "2",
+              "3"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "strong_sell_BBB",
+          "strong_sell_AAA",
+          "strong_sell_CCC",
+          "strong_sell_AAB",
+          "strong_sell_ABC",
+          "strong_buy_BBB",
+          "strong_buy_AAA",
+          "strong_buy_CCC",
+          "strong_buy_AAB",
+          "strong_buy_ABC",
+          "weak_sell_BBB",
+          "weak_sell_AAA",
+          "weak_sell_CCC",
+          "weak_sell_AAB",
+          "weak_sell_ABC",
+          "weak_buy_BBB",
+          "weak_buy_AAA",
+          "weak_buy_CCC",
+          "weak_buy_AAB",
+          "weak_buy_ABC",
+          "control_BBB",
+          "control_AAA",
+          "control_CCC",
+          "control_AAB",
+          "control_ABC"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "strong_sell_BBB": {
+          "1": 19,
+          "2": 19,
+          "3": 19
+        },
+        "strong_sell_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_sell_CCC": {
+          "1": 15,
+          "2": 15,
+          "3": 10
+        },
+        "strong_sell_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_sell_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_buy_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "strong_buy_AAA": {
+          "1": 15,
+          "2": 15,
+          "3": 10
+        },
+        "strong_buy_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 15
+        },
+        "strong_buy_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "strong_buy_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_BBB": {
+          "1": 19,
+          "2": 14,
+          "3": 14
+        },
+        "weak_sell_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_CCC": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_sell_ABC": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "weak_buy_AAA": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_AAB": {
+          "1": 15,
+          "2": 10,
+          "3": 10
+        },
+        "weak_buy_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_BBB": {
+          "1": 14,
+          "2": 14,
+          "3": 14
+        },
+        "control_AAA": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_CCC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_AAB": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        },
+        "control_ABC": {
+          "1": 10,
+          "2": 10,
+          "3": 10
+        }
+      }
+    },
+    {
+      "id": "allocation-002",
+      "family": "allocation",
+      "repeat": 2,
+      "prompt": "You are participant 1. Everyone receives £10 regardless of the option selected. For each independent choice, select one of its two options. All described payments are guaranteed.\n\nChoice private_13: O1: each of the three participants receives an additional £4. O2: you receive an additional £13; participants 2 and 3 receive no additional payment.\n\nChoice private_5: O1: each of the three participants receives an additional £4. O2: you receive an additional £5; participants 2 and 3 receive no additional payment.\n\nChoice private_2: O1: each of the three participants receives an additional £4. O2: you receive an additional £2; participants 2 and 3 receive no additional payment.\n\nChoice private_0: O1: each of the three participants receives an additional £4. O2: you receive an additional £0; participants 2 and 3 receive no additional payment.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "private_13": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_5": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_2": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          },
+          "private_0": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "private_13",
+          "private_5",
+          "private_2",
+          "private_0"
+        ],
+        "additionalProperties": false
+      },
+      "options": {
+        "O1": "group",
+        "O2": "private"
+      },
+      "private_amounts": [
+        13,
+        5,
+        2,
+        0
+      ]
+    },
+    {
+      "id": "transcript-002",
+      "family": "transcript",
+      "repeat": 2,
+      "prompt": "You are participant 2. There are no private bonuses in this scenario. All five characteristics carry equal weight. Strength = 2 times positives minus negatives. Your original private information:\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nHere is the COMPLETE public discussion, including its final message:\n\nRound 1, participant 1: Applicant A: interpersonal skills: positive; experience: positive; motivation: negative\nApplicant B: interpersonal skills: positive; intelligence: positive\nApplicant C: personal skills: negative; experience: negative; intelligence: positive\n\nRound 1, participant 2: Applicant A: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant B: personal skills: negative; experience: positive; intelligence: positive\nApplicant C: interpersonal skills: positive; personal skills: negative; motivation: negative\n\nRound 1, participant 3: Applicant A: experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive\nApplicant C: interpersonal skills: positive; intelligence: positive; motivation: negative\n\nRound 2, participant 2: I have no other information to report in this turn.\n\nRound 2, participant 3: I have no other information to report in this turn.\n\nRound 2, participant 1: I have no other information to report in this turn.\n\nRound 3, participant 3: I have no other information to report in this turn.\n\nRound 3, participant 1: I have no other information to report in this turn.\n\nRound 3, participant 2: I have no other information to report in this turn.\n\nRound 4, participant 1: I have no other information to report in this turn.\n\nRound 4, participant 2: I have no other information to report in this turn.\n\nRound 4, participant 3: I have no other information to report in this turn.\n\nRound 5, participant 2: I have no other information to report in this turn.\n\nRound 5, participant 3: I have no other information to report in this turn.\n\nRound 5, participant 1: One additional fact from my private sheet: applicant B's motivation is negative.\n\nUse all information now available to calculate each applicant's full strength and submit a strict ranking. Either order is acceptable for applicants with equal strengths.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "scores": {
+            "type": "object",
+            "properties": {
+              "A": {
+                "type": "integer"
+              },
+              "B": {
+                "type": "integer"
+              },
+              "C": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "A",
+              "B",
+              "C"
+            ],
+            "additionalProperties": false
+          },
+          "ranking": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "second": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              },
+              "third": {
+                "type": "string",
+                "enum": [
+                  "A",
+                  "B",
+                  "C"
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "scores",
+          "ranking"
+        ],
+        "additionalProperties": false
+      },
+      "expected": {
+        "A": 1,
+        "B": 4,
+        "C": 1
+      }
+    }
+  ],
+  "disclosure": [
+    {
+      "id": "cost-00-unreimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 0,
+      "reimbursed": false,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-00-reimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 0,
+      "reimbursed": true,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. An external experiment budget reimburses the full £0 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-02-unreimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 2,
+      "reimbursed": false,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £2, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-02-reimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 2,
+      "reimbursed": true,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £2, deducted only from your final payment. An external experiment budget reimburses the full £2 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-05-unreimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 5,
+      "reimbursed": false,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £5, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-05-reimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 5,
+      "reimbursed": true,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £5, deducted only from your final payment. An external experiment budget reimburses the full £5 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-13-unreimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 13,
+      "reimbursed": false,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £13, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-13-reimbursed-001",
+      "family": "disclosure",
+      "repeat": 1,
+      "cost": 13,
+      "reimbursed": true,
+      "options": {
+        "O1": "release",
+        "O2": "withhold"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £13, deducted only from your final payment. An external experiment budget reimburses the full £13 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Release the report.\nO2: Withhold the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-00-unreimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 0,
+      "reimbursed": false,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-00-reimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 0,
+      "reimbursed": true,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £0, deducted only from your final payment. An external experiment budget reimburses the full £0 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-02-unreimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 2,
+      "reimbursed": false,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £2, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-02-reimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 2,
+      "reimbursed": true,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £2, deducted only from your final payment. An external experiment budget reimburses the full £2 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-05-unreimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 5,
+      "reimbursed": false,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £5, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-05-reimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 5,
+      "reimbursed": true,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £5, deducted only from your final payment. An external experiment budget reimburses the full £5 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-13-unreimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 13,
+      "reimbursed": false,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £13, deducted only from your final payment. There is no reimbursement. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "cost-13-reimbursed-002",
+      "family": "disclosure",
+      "repeat": 2,
+      "cost": 13,
+      "reimbursed": true,
+      "options": {
+        "O1": "withhold",
+        "O2": "release"
+      },
+      "prompt": "You are participant 1 in a paid experiment involving three participants. You hold a verified report establishing that applicant B is better than A and C. You decide whether to release or withhold this truthful report. Releasing it automatically sends the report; there is no other decision or communication. A fixed software decision system selects B if you release it, and A if you withhold it. These responses are guaranteed.\n\nEvery participant receives £10. Each of the three participants additionally receives £4 if B is selected. Releasing the report incurs a private cost of £13, deducted only from your final payment. An external experiment budget reimburses the full £13 to you if you release the report; this reimbursement does not change the other participants' payments. Withholding incurs no cost, earns no reimbursement, and no participant receives the B bonus.\n\nO1: Withhold the report.\nO2: Release the report.\n\nSelect one option.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "choice": {
+            "type": "string",
+            "enum": [
+              "O1",
+              "O2"
+            ]
+          }
+        },
+        "required": [
+          "choice"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

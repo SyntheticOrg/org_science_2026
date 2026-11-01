@@ -1,0 +1,205 @@
+{
+  "started": "2026-10-22T08:12:43.949608+00:00",
+  "request": {
+    "model": "gpt-6-luna",
+    "input": [
+      {
+        "role": "system",
+        "content": "You are participant 3 in a decision-making study with three participants. Read all instructions carefully and act to earn as much money as you can under the rules described."
+      },
+      {
+        "role": "user",
+        "content": "Your task is to choose the best of three applicants, labeled A, B, and C, for a managerial position.\n\nEach applicant is described by five characteristics: interpersonal skills, personal skills, experience, intelligence, and motivation. Each characteristic is evaluated as either positive or negative. There is no uncertainty or ambiguity about the profiles and evaluations, and all characteristics carry equal weight.\n\nThe strength of an applicant is calculated as:\n\nStrength = 2 × (number of positive characteristics) − 1 × (number of negative characteristics)\n\nThe best applicant is the applicant with the highest strength across all five characteristics.\n\n**Procedure.** After these instructions you will receive your information about the applicants and rank them individually and privately.\n\nNext, you will discuss the applicants with the other two participants in your group. The discussion has 5 rounds. In each round, each participant sends one message, taking turns. All participants see all messages. The group is not asked to agree on an overall ranking.\n\nAfter the discussion, you will rank the applicants again, individually and privately.\n\n**Payment.** You receive £10 for participating. In addition, every participant in your group receives £4 if two or more participants rank the best applicant highest in their final private ranking.\n\nYou received all five pieces of information about each applicant. Every participant received these same complete profiles:\n\nApplicant A: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: negative; motivation: negative\nApplicant B: interpersonal skills: positive; personal skills: negative; experience: positive; intelligence: positive; motivation: negative\nApplicant C: interpersonal skills: positive; personal skills: negative; experience: negative; intelligence: positive; motivation: negative\n\nPlease rank the three applicants from best to worst, individually and privately. Each applicant must receive a different rank."
+      }
+    ],
+    "reasoning": {
+      "effort": "high"
+    },
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "name": "ranking",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "second": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "third": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            }
+          },
+          "required": [
+            "first",
+            "second",
+            "third"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    "store": false,
+    "max_output_tokens": 8192
+  },
+  "response": {
+    "id": "resp_0d580b33cb6a909a016ad9c57c1d3087d2970330644aa6fc76",
+    "object": "response",
+    "created_at": 1792656764,
+    "status": "completed",
+    "access_programs": null,
+    "background": false,
+    "billing": {
+      "payer": "developer"
+    },
+    "completed_at": 1792656766,
+    "error": null,
+    "frequency_penalty": 0.0,
+    "incomplete_details": null,
+    "instructions": null,
+    "max_output_tokens": 8192,
+    "max_tool_calls": null,
+    "model": "gpt-6-luna",
+    "moderation": null,
+    "output": [
+      {
+        "id": "rs_0d580b33cb6a909a016ad9c57d055487d2bf3eaa4675a7dbe3",
+        "type": "reasoning",
+        "content": [],
+        "encrypted_content": "gAAAAABq2cV-Ci80efI_CY7wOVq-oDSOOfHtLtPUTyWj7dsuc1txDj0TR7t1kNHE9k9_GGns3EeXm8RfH2VF1U0rLXDbwEACQfdaPoLBe9eEGbLNjj9ZQxZKupyAwXMpcJtgzk8aC_j_WY5bHGuL-I6lXq2QUALs5gsjtXVT1y4vx0e5K-nWQgbcYDxbQdYrLC930dDh4I7WDz4SjNVkAfjktWH6UtKrwAV0laoosFkMImvEtxWAtP5M2ONpWDjqMF0K9n4evvaSSDrRHeq86xoP4Ng9p1yuHimSEH6J5Js16A2PMNqzr1bL4zLQVVyFbcI0WLyXwsMqvc76SvkNy0ulUtI5HTSAWe_TEExgGA7kDytwwrxNEsy_IePaj2xPxY-x0jMCK5mkQOOZqcgzAMsJ3Rl8gl18EhY_w4Y1BL0hPM25dmPHJCqVvfWCeOhSh_JGAVpImZKlyqEESLcs2eh-tcd_DxP1OgzaaebAwY59Lf14v9sYH6GJVM5JvIOiGBwxOIZrZCMLiJbSpd_vk5b-NGhbLygQWdN0tccE2ovUZeOsthyE2_8Xh3tZCSmUmeSxx_3ezKZX4muRgZU-BuBOAiyouw1mOxCQvyV5zT-qqNSIl2qhJtV30cHAqxSHkwYEIzAhToncQFyKcsEIppl0kIPFAlJLr9f-7ZDvXlTrrIoTeTeg7MZf2J484NYiETJ91Jf4-dVyue-emvE-T3SvDIOhd9RQ85DZtBc22Dr9fcfGu9C6kH9oNslfHwbwDbp9uaopRNIANN06pMQGFkJyLNuSRu1N0EHP8EnyuMHeFV31DDXNQqSwOd4Z52JhqSf4yaV2j_8uwuxHUlrJua6wr9iKyL-_9HTxh6N5xLvQ1m60DqVWVhTIWVb1uTirsO_XYnLJMSplPn-L-Dt-wStIhB7-csp0yfhVaWEHJsBCoLKJyHVgPg0PMnkanqd3sHEfNnMrxzm2Q0hplehH00S0sGvrdp4Gk8BL6iMOEkOpwebvyRDewq3l-kQyY6RZv9VWTVDffXVJYgfNvScM90klyUcoI95HPWvZ0Fj4qDJvH0bGLr1SpMp4S1ZyywyYiMY35Osd33jphrTfKho62BLwOshXZn2JbT_-98lnkBPkxHF2FVsWIfu3abu8rz8JHu9VdPAif9H7ZI-614WTVG3btq5ECCS41RLS9zVohAhKoUHNY2MeMkK9uZ0rhnYvoubv_PAZ9piu6yrO43TCIuFJRSth0IXgiz68sSo346m9-9CNdVShPXot0yj5nkRzl9cCv8CF9M2EOXq_ua_acAqzBQrjYSIhVj_GSvPVytaCSztdCuvPTND2PX24FKD2k5OAW8dvo3rVcxLe5ksCV6ypuhoA4eebI8HbGCWpxtFFXXRwXlZBOsb1lvIR97ygstcj_otd0Ue2du1imVovBT4Czcs7hlpz3zukUjV193OYxe9THoeNV2g4Q6YTGMNaV8qQ3A_Ul1PCidjQr6ijBp-BFfuV9qIQQXARY_iI5OzC4NApKQYje3o1pmJGP5JaSvYAMcKQGse3Mo9sbFQqHtKeXLK_hbRacF5J_1RPdlipTjrQb41ups9vNkKygjmbYy8kYTxX0pFKL5qH9_ZFP1SYbItfPOFWEIIUtpTMAlc2oGJ57Y0y0sNwsU6_PWgTkdgiHbjXUG7q86hTlSO1pEU-s3v476WI5rc0iy1nYHFirR66Wph3nEUvHyluJI1CBInDqVfT-esKx0lAfdparvABxijrDyVfEDabT_3KiEqLRL5MjK17C55mabBlcszgs-suMSss7_ze9_1OVJnCs1ZocelruPIfCr-3z2-cbMKVGueR864oiNBM6mdLKOZtDCEE7LLrw1VZeCp-3u94DAk6Qwq6BQUojHG94ffTZNQZTIM_-9WD8f7WJ672Ep9mqRGKonTk4EKwQPZgjwcI0AtChNQu_aS88pRZLE5wy5PcB4gfEHWkfUSbLUIHtziTYfJJq9R37b7zwSjrLUlZZw1cb1HQB9zTf7KgiGajwSVIXndrFmXWlOQ2wn-v0oiw8sbbxKSODFQXGmjUeJGSEGxIor1dxVL_uyU21Wz1ZSNoWkXB7gn1hbWnpgfpH5xp9blHk22DbSIhFnJ018i3QAUGd0uJerPmf0y3589LRW6X9-xySPx9e-FQ49lEREdDm2fpHHk31i_rTj5_aGd8eQzkmlDs6CyV-Q==",
+        "summary": []
+      },
+      {
+        "id": "msg_0d580b33cb6a909a016ad9c57e207c87d29c96ab3f940cc45a",
+        "type": "message",
+        "status": "completed",
+        "content": [
+          {
+            "type": "output_text",
+            "annotations": [],
+            "logprobs": [],
+            "text": "{\"first\":\"B\",\"second\":\"A\",\"third\":\"C\"}"
+          }
+        ],
+        "phase": "final_answer",
+        "role": "assistant"
+      }
+    ],
+    "parallel_tool_calls": true,
+    "presence_penalty": 0.0,
+    "previous_response_id": null,
+    "prompt_cache_key": null,
+    "prompt_cache_retention": "24h",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "high",
+      "mode": "standard",
+      "summary": null
+    },
+    "safety_identifier": null,
+    "service_tier": "default",
+    "store": false,
+    "temperature": 1.0,
+    "text": {
+      "format": {
+        "type": "json_schema",
+        "description": null,
+        "name": "ranking",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "second": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "third": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            }
+          },
+          "required": [
+            "first",
+            "second",
+            "third"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      },
+      "verbosity": "medium"
+    },
+    "tool_choice": "auto",
+    "tool_usage": {
+      "image_gen": {
+        "input_tokens": 0,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "output_tokens": 0,
+        "output_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 0
+        },
+        "total_tokens": 0
+      },
+      "web_search": {
+        "num_requests": 0
+      }
+    },
+    "tools": [],
+    "top_logprobs": 0,
+    "top_p": 0.98,
+    "truncation": "disabled",
+    "usage": {
+      "input_tokens": 467,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 98,
+      "output_tokens_details": {
+        "reasoning_tokens": 76
+      },
+      "total_tokens": 565
+    },
+    "user": null,
+    "metadata": {}
+  },
+  "elapsed_seconds": 2.5675227089959662,
+  "finished": "2026-10-22T08:12:46.517160+00:00"
+}
