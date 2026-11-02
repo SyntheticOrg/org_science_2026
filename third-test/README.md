@@ -2,6 +2,8 @@
 
 Replication of Brandts and Cooper (2025), *Managerial Leadership, Truth-Telling, and Efficient Coordination*, The Economic Journal 135(670), 1942-1979, https://doi.org/10.1093/ej/ueaf019. Human values were recomputed from the authors' replication package.
 
+Specification, decisions, and pilot log in `APPROACH.md`, illustrated overview in `overview.html`, results in `results/main.md`. Raw runs in `runs/main/exp1/`, `runs/main/exp2/`, and `runs/pilot-*/`, one JSON file per group. The published article (CC BY 4.0) is in `paper/`.
+
 ## Design
 
 A manager and two agents in seven treatments that vary the communication between them and the manager's decision rights.

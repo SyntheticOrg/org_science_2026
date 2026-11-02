@@ -1,6 +1,6 @@
 """Coder: codes units of text with a fixed rubric in separate model calls (standard library only).
 
-Kit file of the synthetic-organisations plugin, generalised from the transcript coder of the Brandts & Cooper replication. The coder sees a
+Kit file of the synthetic-organisations plugin, generalised from third-test/harness/code_chat.py. The coder sees a
 unit's text, never the state it is checked against: truth and errors are computed in code afterwards. coding.json
 can be resumed and refuses a changed rubric or schema. Hand checks (GUIDE-LLM item E.1): review() prints every
 positive unit and a seeded share of all units; the researcher writes a verdict per checked unit into

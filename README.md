@@ -53,11 +53,11 @@ Specification and calibration log in `APPROACH.md`, findings in `results/second-
 
 ## third-test: managerial leadership and truth-telling
 
-A manager and two agents in seven treatments that vary communication and decision rights. Chat outperformed the safe outcome, as for humans, but agents misreported far less often under structured reports (11.1% against 41.6%) and managers rarely erred, so the advantage of chat largely disappeared. Design and results in `third-test/README.md`.
+A manager and two agents in seven treatments that vary communication and decision rights. Chat outperformed the safe outcome, as for humans, but agents misreported far less often under structured reports (11.1% against 41.6%) and managers rarely erred, so the advantage of chat largely disappeared. Summary in `third-test/README.md`, specification in `APPROACH.md`, results in `results/main.md`, raw runs in `runs/`.
 
 ## Running
 
-Python 3.12, standard library only (`second-test/harness/report.py` needs matplotlib). Put the API key in `.env` at the repository root as `OPENAI_API_KEY=...`.
+Python 3.12, standard library only, except `second-test/harness/report.py` (matplotlib) and `third-test/harness/analysis.py` (pandas, scipy). Put the API key in `.env` at the repository root as `OPENAI_API_KEY=...`.
 
 ```
 cd first-test
@@ -66,13 +66,20 @@ python3 harness/runner.py --triads 1 --fake          # full pipeline with a scri
 python3 harness/runner.py --triads 50 --workers 100  # experiment 1
 python3 harness/runner.py --triads 50 --workers 400 --manipulations weak-buy weak-sell strong-buy strong-sell
 
-cd second-test
+cd ../second-test
 python3 harness/fetch_data.py                        # the authors' replication data
 python3 harness/test_core.py                         # checks
 python3 harness/runner.py --trials 1 --fake --workers 6
 python3 harness/runner.py --trials 10 --workers 20   # one run over all treatments
 python3 harness/summary.py                           # results/trials_summary.csv
 python3 harness/report.py                            # results/second-test-findings.pdf
+
+cd ../third-test
+python3 harness/test_core.py                         # checks (data checks need the replication package, see APPROACH.md)
+python3 harness/runner.py --fake --treatments all    # all eight treatments with a scripted model
+python3 harness/runner.py --groups 27 --workers 27   # experiment 1
+python3 harness/code_chat.py runs/<run>              # code chat rounds
+python3 harness/analysis.py runs/<exp1> runs/<exp2> > results/main.md
 ```
 
 New runs are written to `runs/<timestamp>/` in each test folder.

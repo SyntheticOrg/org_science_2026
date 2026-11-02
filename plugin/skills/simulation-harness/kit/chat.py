@@ -1,6 +1,6 @@
 """Chat: a turn-based conversation among the writers of a group (standard library only).
 
-Kit file of the synthetic-organisations plugin, generalised from the chat loop of the Brandts & Cooper replication.
+Kit file of the synthetic-organisations plugin, generalised from the chat loop in third-test/harness/runner.py.
 The study builds each prompt and calls the agent inside `say`; who may read the transcript is the study's choice.
 """
 

@@ -1,7 +1,7 @@
 """Statistics for group-level comparisons (standard library only).
 
 Kit file of the synthetic-organisations plugin, from first-test/harness/analysis.py. The unit is the group: pass one
-value per group, never one per message or round. Exact rank tests (as in the Brandts & Cooper replication) need scipy and
+value per group, never one per message or round. Exact rank tests (third-test/harness/analysis.py) need scipy and
 belong in the study's analysis when the source paper used them.
 """
 

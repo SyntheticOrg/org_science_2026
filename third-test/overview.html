@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brandts &amp; Cooper Replication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Same visual system as first-test/overview.html: one reading column, figures in cards, wide diagrams scroll in place. */
+:root {
+  --bg: #f5f7f7;
+  --surface: #ffffff;
+  --ink: #14191c;
+  --ink-2: #48525a;
+  --muted: #6f7a80;
+  --rule: #dbe1e4;
+  --accent: #1d5566;
+  --accent-soft: #e2edf0;
+  --f: #2a78d6;
+  --c: #e0692f;
+  --a: #6a4fc4;
+  --chat: #1baf7a;
+  --struct: #48525a;
+  --pos: #2a78d6;
+  --neg: #d63c3b;
+  --blank: #eef1f2;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+    --accent: #8cc4d4; --accent-soft: #1b2b30; --f: #3987e5; --c: #e5793f; --a: #9085e9; --chat: #2bc18a; --struct: #b3bdc2;
+    --pos: #3987e5; --neg: #e66767; --blank: #1e2427;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101416; --surface: #171c1f; --ink: #e8edef; --ink-2: #b3bdc2; --muted: #87939a; --rule: #2a3236;
+  --accent: #8cc4d4; --accent-soft: #1b2b30; --f: #3987e5; --c: #e5793f; --a: #9085e9; --chat: #2bc18a; --struct: #b3bdc2;
+  --pos: #3987e5; --neg: #e66767; --blank: #1e2427;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 62rem; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; gap: 64px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.85rem; }
+h3 { font-size: 1.1rem; font-family: var(--font-body); font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.15rem; color: var(--ink-2); max-width: 60ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+section { display: grid; gap: 20px; }
+/* Grid items may shrink below their content, so wide tables and diagrams scroll inside their own box instead of widening the page. */
+.wrap > *, section > *, .fig-card > *, .explorer > * { min-width: 0; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+
+header { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 8px 0 0; padding: 0; list-style: none; }
+.facts li { display: grid; gap: 2px; min-width: 0; }
+.facts .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts .v { font-weight: 500; }
+.toc { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0; padding: 0; list-style: none; font-size: 0.92rem; }
+
+.claim { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; display: grid; gap: 6px; }
+.claim p { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.35; }
+.note { background: var(--accent-soft); border-radius: 8px; padding: 14px 18px; display: grid; gap: 6px; max-width: 70ch; }
+.note strong { color: var(--accent); }
+.formula { font-family: var(--font-mono); font-size: 0.9rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 16px; overflow-x: auto; white-space: nowrap; }
+
+/* role and treatment tags */
+.role { display: inline-grid; place-items: center; width: 1.45em; height: 1.45em; border-radius: 50%; color: #fff; font: 600 0.8em var(--font-body); vertical-align: 0.05em; }
+.role.f { background: var(--f); } .role.c { background: var(--c); } .role.a { background: var(--a); }
+.tcode { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; padding: 1px 8px; border-radius: 4px; background: var(--blank); color: var(--ink); white-space: nowrap; }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { font-size: 0.875rem; color: var(--ink-2); max-width: 70ch; }
+.fig-card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.diagram { min-width: 760px; width: 100%; height: auto; display: block; }
+.diagram .box { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.25; }
+.diagram .t { fill: var(--ink); font: 600 15px var(--font-body); }
+.diagram .s { fill: var(--ink-2); font: 400 12.5px var(--font-body); }
+.diagram .lbl { fill: var(--ink-2); font: 400 12px var(--font-mono); }
+.diagram .edge { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram .hidden-edge { fill: none; stroke: var(--neg); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.diagram .arrowhead { fill: var(--ink-2); }
+
+/* steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 8px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: grid; gap: 2px; font-size: 0.9rem; min-width: 0; align-content: start; }
+.steps li::before { content: "Step " counter(s); font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+.steps li.split { border-style: dashed; }
+
+/* payoff explorer */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tabs .lab { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
+.tabs button { font: 500 0.875rem var(--font-body); color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: 4px 13px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.explorer { display: grid; gap: 20px; }
+.explorer figure { max-width: 34rem; }
+.payoff { width: 100%; min-width: 34rem; table-layout: fixed; }
+.payoff th { font: 500 0.78rem var(--font-mono); color: var(--muted); padding: 4px; }
+.payoff thead th { text-align: center; }
+.payoff tbody th { text-align: right; padding-right: 8px; width: 2.6rem; }
+.payoff td { padding: 3px; }
+.pc { position: relative; display: grid; place-items: center; align-content: center; gap: 2px; height: 4.4rem; padding-top: 10px; border-radius: 6px; line-height: 1.15; white-space: nowrap; }
+.pc b { font: 600 1.05rem var(--font-mono); }
+.pc small { font: 400 0.68rem var(--font-mono); color: var(--ink-2); }
+.pc.eff { box-shadow: inset 0 0 0 2.5px var(--chat); }
+.pc.safe { outline: 2px dashed var(--ink-2); outline-offset: -4px; }
+.pc .tag { position: absolute; top: 4px; left: 6px; font: 600 0.58rem var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+.pc.eff .tag { color: var(--chat); }
+.pc.safe .tag { color: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+
+/* treatment matrix */
+.design { display: grid; grid-template-columns: 8rem repeat(3, minmax(0, 1fr)); gap: 10px; }
+.design .colh { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em; color: var(--ink-2); align-self: end; padding: 0 4px 4px; line-height: 1.4; }
+.design .colh b { display: block; color: var(--ink); font-family: var(--font-body); font-size: 0.92rem; letter-spacing: 0; }
+.design .rowh { font-family: var(--font-mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); align-self: center; line-height: 1.4; }
+.design .rowh b { display: block; color: var(--ink); font-family: var(--font-body); font-size: 0.92rem; text-transform: none; letter-spacing: 0; }
+.tcard { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.tcard.star { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.tcard.follow { border-style: dashed; }
+.tcard.empty { background: transparent; border: none; color: var(--muted); font-size: 0.82rem; place-items: center; text-align: center; align-content: center; }
+.tcard h3 { font-size: 0.98rem; line-height: 1.3; }
+.tcard p { font-size: 0.86rem; color: var(--ink-2); }
+.tcard .where { display: none; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+.tcard .hum { font-size: 0.8rem; font-family: var(--font-mono); color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 6px; margin-top: 2px; }
+.tcard .hum b { color: var(--ink); font-weight: 500; }
+.tcard .badge { font: 600 0.66rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); }
+.mini svg { width: 100%; max-width: 15rem; height: auto; display: block; margin: 0 auto; }
+.mini .nl { font: 600 15px var(--font-body); fill: #fff; }
+.mini .nl.off { fill: var(--muted); }
+.mini .ml { font: 500 11px var(--font-mono); fill: var(--ink-2); }
+
+/* sequences */
+.seq { font: 500 0.72rem var(--font-mono); min-width: 40rem; }
+.seq th { color: var(--muted); font-weight: 500; padding: 2px 4px; text-align: right; white-space: nowrap; }
+.seq thead th { text-align: center; padding: 2px 0; }
+.seq td { padding: 1.5px; }
+.seq td i { display: grid; place-items: center; width: 100%; min-width: 1.6rem; height: 1.6rem; border-radius: 3px; font-style: normal; color: var(--ink); }
+.seq .split { border-left: 2px solid var(--ink-2); }
+
+/* prompts */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 16px; }
+.inst { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--rc); border-radius: 10px; padding: 16px 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.inst.f { --rc: var(--f); } .inst.a { --rc: var(--a); }
+.prompt { font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.55; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; margin: 0; overflow-x: auto; white-space: pre; color: var(--ink); }
+.prompt-label { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+
+/* charts */
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); gap: 16px; }
+.chart { position: relative; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { font-family: var(--font-body); }
+.axis-t { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.grid-l { stroke: var(--rule); stroke-width: 1; }
+.zero-l { stroke: var(--ink-2); stroke-width: 1; }
+.val-t { fill: var(--ink); font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lab-t { fill: var(--ink-2); font-size: 12px; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 0.8rem; line-height: 1.4; padding: 6px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); font-variant-numeric: tabular-nums; z-index: 2; }
+details { font-size: 0.875rem; }
+summary { cursor: pointer; color: var(--accent); width: fit-content; }
+details table { margin-top: 8px; font-size: 0.85rem; }
+details th, details td { padding: 4px 12px 4px 0; text-align: right; border-bottom: 1px solid var(--rule); }
+details th:first-child, details td:first-child { text-align: left; }
+
+.res { width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.res th, .res td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+.res thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.res td.n { text-align: right; }
+.hyp { margin: 0; padding-left: 1.4rem; display: grid; gap: 8px; max-width: 70ch; }
+.hyp b { font-weight: 600; }
+
+.dec { width: 100%; font-size: 0.92rem; min-width: 36rem; }
+.dec th, .dec td { text-align: left; padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.dec thead th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+.dec td:first-child { font-weight: 500; white-space: nowrap; }
+.src { font-family: var(--font-mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--rule); color: var(--ink-2); }
+.src.ours { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.risk { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.risk li { display: grid; grid-template-columns: 12rem 1fr; gap: 4px 20px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.risk li > :last-child { min-width: 0; }
+.risk b { font-weight: 600; }
+.status-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 10px; }
+.status-list div { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font-size: 0.9rem; }
+
+@media (max-width: 820px) {
+  .explorer { grid-template-columns: 1fr; }
+  .design { grid-template-columns: 1fr; }
+  .design .colh, .design .rowh, .design .tcard.empty { display: none; }
+  .tcard .where { display: block; }
+}
+@media (max-width: 560px) {
+  .wrap { gap: 48px; padding-block: 32px 56px; padding-inline: 16px; }
+  .risk li { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Synthetic organisations · third test</div>
+  <h1>Brandts &amp; Cooper Replication</h1>
+  <p class="lede">A manager and two agents must coordinate on one of five actions. The agents know which action is best for the group, but each prefers a different one, and the manager does not know. The paper varies who decides and how the three can talk, across seven treatments. This page explains the setting and every treatment; the full specification is in <a href="APPROACH.md">APPROACH.md</a>.</p>
+  <ul class="facts">
+    <li><span class="k">Source</span><span class="v"><a href="https://doi.org/10.1093/ej/ueaf019">Economic Journal 135(670), 2025</a></span></li>
+    <li><span class="k">Treatments</span><span class="v">7, plus 1 follow-up</span></li>
+    <li><span class="k">Agents</span><span class="v"><code>gpt-6-luna</code>, reasoning xhigh</span></li>
+    <li><span class="k">Sample</span><span class="v">27 groups × 18 rounds per treatment</span></li>
+    <li><span class="k">Status</span><span class="v">Main run complete 2026-10-26: R1, R3 and R4 replicate; R2 does not (APPROACH.md, Main run)</span></li>
+    <li><span class="k">Materials</span><span class="v"><a href="paper/paper.pdf">paper</a> · <a href="https://doi.org/10.5281/zenodo.14933575">replication package</a></span></li>
+  </ul>
+  <ul class="toc">
+    <li><a href="#why">Why this paper</a></li>
+    <li><a href="#setting">The setting</a></li>
+    <li><a href="#payoffs">Payoffs</a></li>
+    <li><a href="#round">One round</a></li>
+    <li><a href="#treatments">Treatments</a></li>
+    <li><a href="#benchmarks">Human results</a></li>
+    <li><a href="#agents">From humans to agents</a></li>
+    <li><a href="#risks">Risks and status</a></li>
+  </ul>
+</header>
+
+<section id="why">
+  <h2>Why this paper</h2>
+  <p>In the first test, agents with a private incentive argued for their side but never misstated what they knew. Here misreporting is built into the organisation: the people who hold the information gain from distorting it, and the person who decides cannot check it until the round is over. The paper varies the two basic levers of organisation design, the allocation of the decision right and the channel of communication, and keeps everything else fixed. That makes it a direct test of whether synthetic organisations respond to design the way human ones do.</p>
+  <div class="claim">
+    <span class="eyebrow">Headline result to replicate</span>
+    <p>Only the combination of managerial control and free-form chat significantly beats the safe outcome, because in chat agents almost stop lying to their manager (false game reports in 1% of agent-rounds, against 42% with structured messages, in rounds 10 to 18). Non-reporting rounds remain in the denominator.</p>
+  </div>
+</section>
+
+<section id="setting">
+  <h2>The setting</h2>
+  <p>Three players stay together for 18 rounds. The instructions call them F, C and A; the paper calls them agent 1, agent 2 and the manager. Each round the computer draws one of five games. Each game is a payoff table with the same five rows and five columns; only the numbers differ.</p>
+  <figure class="fig-card">
+    <div class="scroll">
+      <svg class="diagram" viewBox="0 0 900 360" role="img" aria-label="The three roles. A, the manager, does not see which game was drawn and is paid the sum of F's and C's payoffs. F and C, the agents, see the game. F chooses the row and most prefers outcome 5; C chooses the column and most prefers outcome 1, when the decision is delegated to them.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="arrowhead"/></marker>
+        </defs>
+        <!-- edges -->
+        <path class="edge" d="M362 292 H306" marker-end="url(#ah)"/>
+        <path class="edge" d="M538 292 H594" marker-end="url(#ah)"/>
+        <text class="lbl" x="334" y="282" text-anchor="middle">sees</text>
+        <text class="lbl" x="566" y="282" text-anchor="middle">sees</text>
+        <path class="hidden-edge" d="M450 250 V116"/>
+        <circle cx="450" cy="182" r="11" fill="var(--surface)" stroke="var(--neg)" stroke-width="1.5"/>
+        <path d="M444 176 L456 188 M456 176 L444 188" stroke="var(--neg)" stroke-width="2"/>
+        <text class="lbl" x="468" y="186" fill="var(--neg)" style="fill:var(--neg)">not shown to A</text>
+
+        <!-- A -->
+        <rect class="box" x="330" y="18" width="240" height="96" rx="8" style="stroke:var(--a);stroke-width:2"/>
+        <circle cx="356" cy="44" r="13" fill="var(--a)"/><text x="356" y="49" text-anchor="middle" style="fill:#fff;font:600 13px var(--font-body)">A</text>
+        <text class="t" x="378" y="49">The manager</text>
+        <text class="s" x="346" y="76">does not see the game</text>
+        <text class="s" x="346" y="96">earns F's + C's payoff (total surplus)</text>
+
+        <!-- game -->
+        <rect class="box" x="362" y="250" width="176" height="84" rx="8" style="stroke-dasharray:4 3"/>
+        <text class="t" x="450" y="278" text-anchor="middle">Game γ</text>
+        <text class="s" x="450" y="298" text-anchor="middle">1 to 5, drawn each round</text>
+        <text class="s" x="450" y="316" text-anchor="middle">all equally likely</text>
+
+        <!-- F -->
+        <rect class="box" x="30" y="236" width="276" height="108" rx="8" style="stroke:var(--f);stroke-width:2"/>
+        <circle cx="56" cy="262" r="13" fill="var(--f)"/><text x="56" y="267" text-anchor="middle" style="fill:#fff;font:600 13px var(--font-body)">F</text>
+        <text class="t" x="78" y="267">Agent 1 · row player</text>
+        <text class="s" x="46" y="294">sees the game</text>
+        <text class="s" x="46" y="313">most prefers outcome 5</text>
+        <text class="s" x="46" y="332">chooses the row, if delegated</text>
+
+        <!-- C -->
+        <rect class="box" x="594" y="236" width="276" height="108" rx="8" style="stroke:var(--c);stroke-width:2"/>
+        <circle cx="620" cy="262" r="13" fill="var(--c)"/><text x="620" y="267" text-anchor="middle" style="fill:#fff;font:600 13px var(--font-body)">C</text>
+        <text class="t" x="642" y="267">Agent 2 · column player</text>
+        <text class="s" x="610" y="294">sees the game</text>
+        <text class="s" x="610" y="313">most prefers outcome 1</text>
+        <text class="s" x="610" y="332">chooses the column, if delegated</text>
+      </svg>
+    </div>
+    <figcaption>"Outcome k" means both pick action k (row k and column k). The agents always want to match each other, but F wants the match high and C wants it low. Which match is best for the group depends on the game, and only the agents know the game. When A holds the decision, A picks both the row and the column.</figcaption>
+  </figure>
+</section>
+
+<section id="payoffs">
+  <h2>Payoffs</h2>
+  <p>Every table follows one rule, so the five tables differ only in where the group's best cell sits. Each agent loses for not matching the other agent (most), for being far from its own favourite, and for being far from the drawn game (least):</p>
+  <div class="formula">Agent payoff = 54 − 14 × |row − column| − 7 × |own choice − own favourite| − 4 × |own choice − game|</div>
+  <div class="fig-card">
+    <div class="tabs" role="group" aria-label="Game shown">
+      <span class="lab">Game</span>
+      <button type="button" data-game="1" aria-pressed="false">1</button>
+      <button type="button" data-game="2" aria-pressed="true">2</button>
+      <button type="button" data-game="3" aria-pressed="false">3</button>
+      <button type="button" data-game="4" aria-pressed="false">4</button>
+      <button type="button" data-game="5" aria-pressed="false">5</button>
+    </div>
+    <div class="tabs" role="group" aria-label="Payoff shown">
+      <span class="lab">Show</span>
+      <button type="button" data-metric="a" aria-pressed="true">A (total)</button>
+      <button type="button" data-metric="f" aria-pressed="false">F</button>
+      <button type="button" data-metric="c" aria-pressed="false">C</button>
+    </div>
+    <div class="explorer">
+      <div class="scroll">
+        <table class="payoff" id="payoff" aria-describedby="payoff-legend">
+          <thead><tr><th></th><th>c1</th><th>c2</th><th>c3</th><th>c4</th><th>c5</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <figure>
+        <h3 id="diag-title">If both agents match</h3>
+        <div class="chart" id="diag"></div>
+        <figcaption id="diag-cap"></figcaption>
+      </figure>
+    </div>
+    <div class="legend" id="payoff-legend">
+      <span><i class="sw" style="box-shadow:inset 0 0 0 2.5px var(--chat)"></i>efficient: total 80 in every game</span>
+      <span><i class="sw" style="outline:2px dashed var(--ink-2);outline-offset:-3px"></i>safe: both pick 3</span>
+      <span><i class="sw" style="background:color-mix(in srgb, var(--pos) 45%, var(--surface))"></i>higher payoff</span>
+      <span><i class="sw" style="background:color-mix(in srgb, var(--neg) 45%, var(--surface))"></i>loss</span>
+      <span class="muted">Each cell: the selected payoff, with F · C · A below. Computed from the verified rule, including the correction of C's payoff from −7 to −3 at Game 4, f5, c2 in three English instruction files.</span>
+    </div>
+  </div>
+  <div class="note">
+    <strong>Two benchmarks for every group.</strong>
+    <p class="small"><b>Efficient</b>: both play the game's own number. Total surplus is 80 every round, but the agents must change their actions as the game changes. Under managerial control, A must also acquire their information. <b>Safe</b>: both always play 3. It needs no information, gives F and C equal payoffs, and is each agent's maximin choice. It yields 64 in games 1 and 5, 72 in games 2 and 4, and 80 in game 3. Under managerial control, theory predicts the safe outcome: each agent gains from steering the manager toward its favourite, so pure-strategy equilibria are babbling equilibria and the manager learns nothing. Results are scored as the <b>efficiency gain</b>: 0% is the safe outcome, 100% is efficient, below 0% means surplus below the safe benchmark. A coordinated but poorly chosen outcome can also fall below that benchmark.</p>
+  </div>
+</section>
+
+<section id="round">
+  <h2>One round</h2>
+  <p>All treatments share this sequence. Only step 3 differs between treatments, and step 4 differs in who chooses. Earnings add up over all 18 rounds (1 ECU = €0.02, plus €5 for showing up).</p>
+  <ol class="steps">
+    <li><b>Game drawn</b><span class="muted">1 to 5, equally likely</span></li>
+    <li><b>F and C learn it</b><span class="muted">A does not</span></li>
+    <li class="split"><b>Communication</b><span class="muted">none, structured, chat, or preset messages</span></li>
+    <li class="split"><b>Choice</b><span class="muted">F the row and C the column, or A both</span></li>
+    <li><b>Feedback to all</b><span class="muted">the game, the row and column, all three payoffs, and in SC-MC both reports; A sees whether anyone lied</span></li>
+  </ol>
+</section>
+
+<section id="treatments">
+  <h2>Treatments</h2>
+  <p>The seven main treatments cross the type of communication (rows) with the role of the manager (columns). Each card draws who can send what to whom, and who decides. Human results are for rounds 10 to 18, as in the paper.</p>
+  <div class="legend">
+    <span><svg width="34" height="10" aria-hidden="true"><line x1="2" y1="5" x2="32" y2="5" stroke="var(--struct)" stroke-width="1.5"/></svg>structured message (arrow: direction)</span>
+    <span><svg width="34" height="10" aria-hidden="true"><line x1="2" y1="5" x2="32" y2="5" stroke="var(--chat)" stroke-width="4" stroke-linecap="round"/></svg>free-form chat</span>
+    <span><svg width="34" height="10" aria-hidden="true"><line x1="2" y1="5" x2="32" y2="5" stroke="var(--chat)" stroke-width="2.5" stroke-dasharray="4 3"/></svg>preset chat buttons</span>
+    <span><svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--ink)" stroke-width="2.5"/></svg>decides</span>
+    <span><svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="var(--blank)" stroke="var(--muted)" stroke-dasharray="3 2"/></svg>passive (paid, no action)</span>
+  </div>
+
+  <div class="design">
+    <div></div>
+    <div class="colh"><b>Agents decide</b>F and C talk to each other at most</div>
+    <div class="colh"><b>Agents decide, A advises</b>A can suggest what to play</div>
+    <div class="colh"><b>A decides (managerial control)</b>A chooses both the row and the column</div>
+
+    <div class="rowh"><b>None</b>no communication</div>
+    <article class="tcard">
+      <span class="where">No communication · agents decide</span>
+      <span><span class="tcode">NC-D</span></span>
+      <div class="mini" data-t="NC-D"></div>
+      <h3>Baseline</h3>
+      <p>F picks the row and C the column at the same time, without any messages.</p>
+      <div class="hum">Humans: surplus <b>61.4</b> · gain <b>−108%</b></div>
+    </article>
+    <div class="tcard empty">not run</div>
+    <div class="tcard empty">not run</div>
+
+    <div class="rowh"><b>Structured</b>fixed message menus</div>
+    <article class="tcard">
+      <span class="where">Structured · agents decide</span>
+      <span><span class="tcode">SC/S-D</span></span>
+      <div class="mini" data-t="SC/S-D"></div>
+      <h3>Suggestions between agents</h3>
+      <p>Three times, F and C each send a suggested (row, column) at the same time and then see the other's.</p>
+      <div class="hum">Humans: surplus <b>65.7</b> · gain <b>−58%</b></div>
+    </article>
+    <article class="tcard">
+      <span class="where">Structured · agents decide, A advises</span>
+      <span><span class="tcode">SC/A-D</span></span>
+      <div class="mini" data-t="SC/A-D"></div>
+      <h3>Advice from A</h3>
+      <p>A sends both agents a suggested (row, column) for each of the five games. F and C may ignore it.</p>
+      <div class="hum">Humans: surplus <b>64.4</b> · gain <b>−77%</b></div>
+    </article>
+    <article class="tcard">
+      <span class="where">Structured · A decides</span>
+      <span><span class="tcode">SC-MC</span></span>
+      <div class="mini" data-t="SC-MC"></div>
+      <h3>Reports to A</h3>
+      <p>F and C each tell A "it is game <i>n</i>", which "can be truthful or not". A then picks the row and the column.</p>
+      <div class="hum">Humans: surplus <b>71.7</b> · gain <b>+7%</b> · lies 42%</div>
+    </article>
+
+    <div class="rowh"><b>Chat</b>2 minutes, free text</div>
+    <article class="tcard">
+      <span class="where">Chat · agents decide</span>
+      <span><span class="tcode">CH/S-D</span></span>
+      <div class="mini" data-t="CH/S-D"></div>
+      <h3>Chat between agents</h3>
+      <p>F and C chat freely, then choose. Following the paper, A can read the chat but cannot write. F and C are told that A observes.</p>
+      <div class="hum">Humans: surplus <b>72.2</b> · gain <b>+14%</b></div>
+    </article>
+    <article class="tcard">
+      <span class="where">Chat · agents decide, A advises</span>
+      <span><span class="tcode">CH/A-D</span></span>
+      <div class="mini" data-t="CH/A-D"></div>
+      <h3>Chat with A</h3>
+      <p>All three chat freely. F and C still choose, so A can only persuade.</p>
+      <div class="hum">Humans: surplus <b>71.6</b> · gain <b>+3%</b> (erratic)</div>
+    </article>
+    <article class="tcard star">
+      <span class="where">Chat · A decides</span>
+      <span><span class="tcode">CH-MC</span> <span class="badge">only significant gain above safe</span></span>
+      <div class="mini" data-t="CH-MC"></div>
+      <h3>Chat, then A decides</h3>
+      <p>All three chat freely. Agents are not told to report the game, but usually do. Then A picks the row and the column.</p>
+      <div class="hum">Humans: surplus <b>75.2</b> · gain <b>+44%</b> · lies 1%</div>
+    </article>
+
+    <div class="rowh"><b>Preset chat</b>follow-up, 45 seconds</div>
+    <div class="tcard empty">not run</div>
+    <div class="tcard empty">not run</div>
+    <article class="tcard follow">
+      <span class="where">Preset chat (follow-up) · A decides</span>
+      <span><span class="tcode">EC-MC</span> <span class="badge">experiment 2</span></span>
+      <div class="mini" data-t="EC-MC"></div>
+      <h3>Chat buttons, then A decides</h3>
+      <p>Any number of fixed messages. A: "What game is it?", "Please, tell me the truth". F and C: "It is game __", "I am telling the truth", "[other] is telling the truth", "[other] is lying".</p>
+      <div class="hum">Humans: surplus <b>71.3</b> · gain <b>−5%</b> · lies 29%</div>
+    </article>
+  </div>
+  <div class="note">
+    <strong>Why the follow-up matters.</strong>
+    <p class="small">Chat differs from structured reports in several ways: agents can call out a liar, the manager can ask for the truth, agents can vouch for themselves, reports are asynchronous, and reporting is optional. EC-MC adds all five to structured messages. It removed less than half of the gap in lying, suggesting that free-form communication itself matters. With agents we can test the same mechanisms. The human study used different time budgets; equal turn budgets in the synthetic study are an operational adaptation.</p>
+  </div>
+</section>
+
+<section id="benchmarks">
+  <h2>Human results</h2>
+  <p>27 groups of three per treatment, students at the LINEEX lab in Valencia. The replication package contains every choice. Figures below use the paper's printed values; small differences from recomputing the supplied data are documented in the specification. Free-form chat transcripts are available only as codes.</p>
+  <div class="charts">
+    <figure class="fig-card">
+      <h3>Efficiency gain by treatment</h3>
+      <div class="chart" id="gain"></div>
+      <figcaption>Rounds 10 to 18, mean over groups. 0% is the safe outcome; efficient play would be 100%. Purple: the manager decides; grey: the agents decide. Only CH-MC is significantly above the safe outcome (p &lt; .001); SC-MC is not (p = .444).</figcaption>
+      <details><summary>Show data (Tables 2 and 9)</summary>
+        <table><thead><tr><th>Treatment</th><th>Coordinated</th><th>Efficient if coordinated</th><th>Surplus</th><th>Gain</th></tr></thead><tbody id="gain-table"></tbody></table>
+      </details>
+    </figure>
+    <figure class="fig-card">
+      <h3>Lies in reports to the manager</h3>
+      <div class="chart" id="lies"></div>
+      <figcaption>All 18 rounds. Share of agent-rounds with a false game report, including non-reporting rounds, by how good the true game's efficient outcome is for that agent (1 worst, 5 best; for C the games are mirrored). With structured reports, agents lie mostly when the truth hurts them. In chat, an agent can make both true and false reports in the same round; the indicators are not mutually exclusive.</figcaption>
+      <details><summary>Show data (Table 7)</summary>
+        <table><thead><tr><th>Game (mirrored)</th><th>SC-MC truth</th><th>SC-MC lie</th><th>CH-MC truth</th><th>CH-MC lie</th></tr></thead><tbody id="lie-table"></tbody></table>
+      </details>
+    </figure>
+  </div>
+  <div class="scroll">
+    <table class="res">
+      <thead><tr><th>Information reaching the manager (Table 9)</th><th class="n">SC-MC</th><th class="n">EC-MC</th><th class="n">CH-MC</th></tr></thead>
+      <tbody>
+        <tr><td>Game revealed: one agent truthful, not contradicted</td><td class="n">30.9%</td><td class="n">49.8%</td><td class="n">77.4%</td></tr>
+        <tr><td>Agent-rounds with a true game report</td><td class="n">58.4%</td><td class="n">63.6%</td><td class="n">48.3%</td></tr>
+        <tr><td>Agent-rounds with a false game report</td><td class="n">41.6%</td><td class="n">28.6%</td><td class="n">1.0%</td></tr>
+        <tr><td>Total surplus</td><td class="n">71.7</td><td class="n">71.3</td><td class="n">75.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">Table 9 covers rounds 10 to 18 and includes non-reporting agent-rounds. SC-MC uses the single mandatory report; CH-MC records whether truth or a lie occurred at any point; EC-MC uses the last game-number report. A later assertion such as "I am telling the truth" does not replace that game number.</p>
+  <p class="small muted">Two other findings matter for the comparison. Human managers in SC-MC made avoidable errors: they did not follow two matching reports in 18% of cases, which wiped out the value of the information they did get. And in CH-MC, agents who did not tell the truth mostly stayed silent rather than lie.</p>
+
+  <h3>What we test</h3>
+  <ol class="hyp">
+    <li><b>R1.</b> In CH-MC, total surplus is above the safe outcome.</li>
+    <li><b>R2.</b> Total surplus is higher in CH-MC than in SC-MC.</li>
+    <li><b>R3.</b> The share of agent-rounds with a false game report is far lower in CH-MC than in SC-MC, including non-reporting rounds.</li>
+    <li><b>R4.</b> In SC-MC, lying falls as the truth becomes better for the agent; in CH-MC it does not.</li>
+  </ol>
+  <p class="small muted">Secondary: NC-D lowest; the ordering of all seven treatments; EC-MC between SC-MC and CH-MC in lying.</p>
+</section>
+
+<section id="agents">
+  <h2>From humans to agents</h2>
+  <p>Each player is one <code>gpt-6-luna</code> context that keeps its own history for all 18 rounds. Agents see the authors' instructions, the five payoff tables as text, and the neutral labels F, C and A; the words "manager" and "agent" never appear. Each group faces the exact game draws of the human groups: the authors used nine fixed 18-round sequences, one per group position in a session, in all 40 sessions of the package.</p>
+
+  <figure class="fig-card">
+    <h3>The nine game sequences</h3>
+    <div class="scroll"><table class="seq" id="seq" aria-label="Game drawn in each round for each of the nine sequences"></table></div>
+    <figcaption>Each row is one sequence of games, rounds 1 to 18. Groups 1, 10 and 19 of every treatment play sequence 1, groups 2, 11 and 20 play sequence 2, and so on, exactly as the human groups did. The line marks round 10, where the analysis window starts.</figcaption>
+  </figure>
+
+  <div class="cols">
+    <article class="inst f">
+      <h3><span class="role f">F</span> in a CH-MC chat</h3>
+      <div class="prompt-label">Illustrative wording, not final</div>
+<pre class="prompt">Block 1, period 4 of 9.
+The computer selected Game 2.
+Player A does not know which game was selected.
+
+Chat, turn 2 of 5 (provisional budget).
+Messages this period:
+  A: Which game is it this time?
+  C: It's game 1.
+
+Write one brief, complete message,
+or stay silent.</pre>
+    </article>
+    <article class="inst a">
+      <h3><span class="role a">A</span> choosing after the chat</h3>
+      <div class="prompt-label">Illustrative wording, not final</div>
+<pre class="prompt">Block 1, period 4 of 9. You do not know
+which game was selected.
+
+The chat has ended. Messages this period:
+  A: Which game is it this time?
+  C: It's game 1.
+  F: That's not right, it's game 2.
+
+Choose a row (f1 to f5) and a column
+(c1 to c5).</pre>
+    </article>
+  </div>
+
+  <div class="scroll">
+    <table class="dec">
+      <thead><tr><th>Element</th><th>Setting</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Game and payoffs</td><td>Five tables generated from the verified rule; one cell corrected in three English instruction files so displayed and awarded payoffs agree</td><td><span class="src">paper, instructions</span></td></tr>
+        <tr><td>Roles</td><td>F, C and A, fixed for 18 rounds in the same group</td><td><span class="src">instructions</span></td></tr>
+        <tr><td>Game draws</td><td>The nine human sequences; 27 groups per treatment</td><td><span class="src">data</span></td></tr>
+        <tr><td>Pay</td><td>€0.02 per ECU, €5 show-up. The paper says €0.2, but only €0.02 fits the reported €19.90 average pay</td><td><span class="src">instructions, z-Tree</span></td></tr>
+        <tr><td>Structured messages</td><td>3 suggestion rounds, a 5 × 2 advice matrix, one report each; every entry required. In SC-MC, A enters the row and the column separately</td><td><span class="src">paper, z-Tree</span></td></tr>
+        <tr><td>Chat</td><td>Up to 8 turns, each writer acting once per turn in random order. One complete message or silence; no word cap or message cutting. Silence versus budget exhaustion is logged</td><td><span class="src ours">synthetic adaptation</span></td></tr>
+        <tr><td>Preset chat (EC-MC)</td><td>The same 8-turn budget and the original role-specific messages; repeated messages are allowed on later opportunities</td><td><span class="src ours">synthetic adaptation</span></td></tr>
+        <tr><td>Passive A</td><td>No model reply in NC-D, SC/S-D or CH/S-D. A remains in the group, makes no decision and is paid the sum. In CH/S-D, A receives the chat and F/C know A observes but cannot write</td><td><span class="src">paper; passive calls omitted</span></td></tr>
+        <tr><td>Instructions</td><td>The authors' English files, with copy errors that contradict the paper or the lab software corrected and documented</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Feedback</td><td>Game, row, column, all three payoffs, and in SC-MC both reports. Agents remember all rounds; humans saw a table of the current block</td><td><span class="src">z-Tree</span></td></tr>
+        <tr><td>Payoff calculator</td><td>None. Humans had one on every decision screen; agents have all five tables in the prompt</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Private notes</td><td>A one-sentence reason with every reply, in pilots only; the main runs have none</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Model</td><td><code>gpt-6-luna</code>, reasoning effort xhigh, chosen after pilots at medium, high and xhigh</td><td><span class="src ours">our decision</span></td></tr>
+        <tr><td>Lies in chat</td><td>A separate model call extracts ordered game claims, distinct from action suggestions. Code computes separate ever-true and ever-false indicators per agent-round; every lie is checked by hand. Coding never feeds back into play</td><td><span class="src ours">synthetic adaptation</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <h2>Risks and status</h2>
+  <ul class="risk">
+    <li><b>Honest agents</b><span>If agents seldom lie in SC-MC, there is no lying gap for chat to close (R3, R4). The first test's agents never stated a self-serving falsehood. That would itself be a finding; we will not push agents to lie.</span></li>
+    <li><b>Competent managers</b><span>An agent manager that always follows matching reports could lift SC-MC above the humans for reasons unrelated to truth-telling. Manager errors are reported separately.</span></li>
+    <li><b>Focal safe outcome</b><span>Without communication, agents may settle on 3 from round 1, which would make NC-D look better than in humans.</span></li>
+    <li><b>Prior knowledge</b><span>The game circulated in working papers before 2025. Neutral labels make recognition less likely; we search transcripts for the authors' names and the game's name.</span></li>
+    <li><b>Response opportunities</b><span>The budget was raised from 5 to 8 turns after the xhigh pilot cut off EC-MC exchanges. Check that players can request information, challenge a claim and respond before choices.</span></li>
+  </ul>
+  <div class="status-list">
+    <div><span class="eyebrow">Done</span><span>Spec corrected for interaction fidelity; payoffs and draws verified; printed/data benchmark differences documented; harness built, and a fake-model run of all eight treatments passes the checks for information isolation, complete messages and feedback; live pilots with notes at three effort levels, leading to xhigh effort and an 8-turn chat budget; main run of all eight treatments (216 groups), chats coded and hand-checked, analysis in results/main.md</span></div>
+    <div><span class="eyebrow">Next</span><span>Table 6 content categories once Appendix E is in hand</span></div>
+      </div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const txt = (s, attrs, parent) => { const n = el("text", attrs, parent); n.textContent = s; return n; };
+  function tipFor(host) { const t = document.createElement("div"); t.className = "tip"; t.hidden = true; host.appendChild(t); return t; }
+  function placeTip(tip, host, svg, x, y, html) {
+    const r = svg.getBoundingClientRect(), hr = host.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+    tip.innerHTML = html; tip.hidden = false;
+    tip.style.left = (r.left - hr.left + x * r.width / vb.width) + "px";
+    tip.style.top = (r.top - hr.top + y * r.height / vb.height) + "px";
+  }
+
+  // ---- payoffs: the paper's rule (k1 = 54, k2 = 14, k3 = 7, k4 = 4) ----
+  const pf = (r, c, g) => 54 - 14 * Math.abs(r - c) - 7 * Math.abs(r - 5) - 4 * Math.abs(r - g);
+  const pc = (r, c, g) => 54 - 14 * Math.abs(r - c) - 7 * Math.abs(c - 1) - 4 * Math.abs(c - g);
+  const pay = { f: pf, c: pc, a: (r, c, g) => pf(r, c, g) + pc(r, c, g) };
+  const SCALE = { a: 80, f: 54, c: 54 };
+  const NAME = { a: "A (total)", f: "F", c: "C" };
+  let game = 2, metric = "a";
+  const tbody = document.querySelector("#payoff tbody");
+
+  function shade(v, max) {
+    const p = Math.round(8 + 47 * Math.min(1, Math.abs(v) / max));
+    return `color-mix(in srgb, var(${v >= 0 ? "--pos" : "--neg"}) ${p}%, var(--surface))`;
+  }
+  function renderPayoffs() {
+    tbody.innerHTML = [1, 2, 3, 4, 5].map((r) => {
+      const cells = [1, 2, 3, 4, 5].map((c) => {
+        const f = pf(r, c, game), cc = pc(r, c, game), v = pay[metric](r, c, game);
+        const eff = r === game && c === game, safe = r === 3 && c === 3;
+        const cls = ["pc", eff ? "eff" : "", safe ? "safe" : ""].join(" ");
+        const tag = eff && safe ? "efficient = safe" : eff ? "efficient" : safe ? "safe" : "";
+        return `<td><span class="${cls}" style="background:${shade(v, SCALE[metric])}" aria-label="row ${r}, column ${c}: F ${f}, C ${cc}, A ${f + cc}${tag ? ", " + tag : ""}">${tag ? `<span class="tag">${tag}</span>` : ""}<b>${v}</b><small>${f} · ${cc} · ${f + cc}</small></span></td>`;
+      }).join("");
+      return `<tr><th scope="row">f${r}</th>${cells}</tr>`;
+    }).join("");
+    renderDiag();
+  }
+
+  // ---- diagonal: payoffs if both agents match on outcome k ----
+  const diagHost = document.getElementById("diag");
+  const diagTip = tipFor(diagHost);
+  function renderDiag() {
+    diagHost.querySelectorAll("svg").forEach((s) => s.remove());
+    const W = 380, H = 230, L = 30, R = 8, T = 30, B = 44;
+    const ks = [1, 2, 3, 4, 5];
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": `Game ${game}, payoffs when both agents choose the same action k: ` + ks.map((k) => `k=${k}: F ${pf(k, k, game)}, C ${pc(k, k, game)}, total ${pf(k, k, game) + pc(k, k, game)}`).join("; ") });
+    diagHost.prepend(svg);
+    const band = (W - L - R) / 5, bw = 15;
+    const y = (v) => T + (1 - v / 60) * (H - T - B);
+    for (const t of [0, 20, 40, 60]) {
+      el("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(String(t), { x: L - 6, y: y(t) + 4, "text-anchor": "end", class: "axis-t" }, svg);
+    }
+    ks.forEach((k, i) => {
+      const cx = L + band * i + band / 2;
+      const f = pf(k, k, game), c = pc(k, k, game), tot = f + c;
+      el("rect", { x: cx - bw - 1, y: y(f), width: bw, height: y(0) - y(f), rx: 2, fill: "var(--f)" }, svg);
+      el("rect", { x: cx + 1, y: y(c), width: bw, height: y(0) - y(c), rx: 2, fill: "var(--c)" }, svg);
+      const best = k === game;
+      txt(String(tot), { x: cx, y: Math.min(y(f), y(c)) - 8, "text-anchor": "middle", class: "val-t", style: best ? "fill:var(--chat)" : "" }, svg);
+      txt(`${k}`, { x: cx, y: H - B + 16, "text-anchor": "middle", class: "lab-t", style: "font-weight:600" }, svg);
+      if (best || k === 3) txt(best && k === 3 ? "efficient = safe" : best ? "efficient" : "safe", { x: cx, y: H - B + 31, "text-anchor": "middle", class: "axis-t", style: best ? "fill:var(--chat);font-weight:600" : "" }, svg);
+      const hit = el("rect", { x: cx - band / 2, y: T, width: band, height: H - T - B, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(diagTip, diagHost, svg, cx, Math.min(y(f), y(c)) - 14, `Both choose ${k}<br>F ${f} · C ${c} · total ${tot}`));
+      hit.addEventListener("pointerleave", () => (diagTip.hidden = true));
+    });
+    txt("total", { x: L, y: 14, class: "axis-t" }, svg);
+    el("rect", { x: L + 40, y: 5, width: 10, height: 10, rx: 2, fill: "var(--f)" }, svg);
+    txt("F", { x: L + 54, y: 14, class: "axis-t" }, svg);
+    el("rect", { x: L + 70, y: 5, width: 10, height: 10, rx: 2, fill: "var(--c)" }, svg);
+    txt("C", { x: L + 84, y: 14, class: "axis-t" }, svg);
+    document.getElementById("diag-title").textContent = `Game ${game}: if both agents choose the same action`;
+    document.getElementById("diag-cap").textContent = `F gains as the shared action rises, C as it falls; the total peaks at ${game}, the game's own number. Matching on 3 is safe: it never depends on the game.`;
+  }
+
+  document.querySelectorAll("[data-game]").forEach((b) => b.addEventListener("click", () => {
+    game = +b.dataset.game;
+    document.querySelectorAll("[data-game]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    renderPayoffs();
+  }));
+  document.querySelectorAll("[data-metric]").forEach((b) => b.addEventListener("click", () => {
+    metric = b.dataset.metric;
+    document.querySelectorAll("[data-metric]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    renderPayoffs();
+  }));
+  renderPayoffs();
+
+  // ---- treatment mini-diagrams ----
+  const POS = { A: [120, 34], F: [46, 122], C: [194, 122] };
+  const TREAT = {
+    "NC-D": { decide: ["F", "C"], passive: "observes", edges: [] },
+    "SC/S-D": { decide: ["F", "C"], passive: "observes", edges: [["F", "C", "struct", true]], label: "3 rounds" },
+    "SC/A-D": { decide: ["F", "C"], edges: [["A", "F", "struct"], ["A", "C", "struct"]], label: "advice" },
+    "SC-MC": { decide: ["A"], edges: [["F", "A", "struct"], ["C", "A", "struct"]], label: "reports" },
+    "CH/S-D": { decide: ["F", "C"], passive: "reads chat", edges: [["F", "C", "chat"]], label: "chat" },
+    "CH/A-D": { decide: ["F", "C"], edges: [["F", "C", "chat"], ["A", "F", "chat"], ["A", "C", "chat"]], label: "3-way chat" },
+    "CH-MC": { decide: ["A"], edges: [["F", "C", "chat"], ["A", "F", "chat"], ["A", "C", "chat"]], label: "3-way chat" },
+    "EC-MC": { decide: ["A"], edges: [["F", "C", "preset"], ["A", "F", "preset"], ["A", "C", "preset"]], label: "buttons" },
+  };
+  const COLOR = { A: "var(--a)", F: "var(--f)", C: "var(--c)" };
+  let mid = 0;
+  document.querySelectorAll(".mini").forEach((host) => {
+    const code = host.dataset.t, t = TREAT[code], id = "m" + (mid++);
+    const who = t.decide.includes("A") ? "A decides" : "F and C decide";
+    const svg = el("svg", { viewBox: "0 0 240 162", role: "img", "aria-label": `${code}: ${t.label || "no communication"}; ${who}${t.passive ? "; A is passive and " + t.passive : ""}.` }, host);
+    const defs = el("defs", {}, svg);
+    const mk = el("marker", { id: id + "h", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0 0 L10 5 L0 10 z", fill: "var(--struct)" }, mk);
+    if (t.edges.length === 3 && t.edges[0][2] !== "struct") {
+      el("polygon", { points: ["A", "F", "C"].map((n) => POS[n].join(",")).join(" "), fill: "color-mix(in srgb, var(--chat) 12%, transparent)" }, svg);
+    }
+    for (const [a, b, mode, both] of t.edges) {
+      const [x1, y1] = POS[a], [x2, y2] = POS[b];
+      const d = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / d, uy = (y2 - y1) / d, gap = 25;
+      const attrs = { x1: x1 + ux * gap, y1: y1 + uy * gap, x2: x2 - ux * gap, y2: y2 - uy * gap };
+      if (mode === "struct") Object.assign(attrs, { stroke: "var(--struct)", "stroke-width": 1.6, "marker-end": `url(#${id}h)` }, both ? { "marker-start": `url(#${id}h)` } : {});
+      if (mode === "chat") Object.assign(attrs, { stroke: "var(--chat)", "stroke-width": 4.5, "stroke-linecap": "round" });
+      if (mode === "preset") Object.assign(attrs, { stroke: "var(--chat)", "stroke-width": 2.5, "stroke-dasharray": "5 4" });
+      el("line", attrs, svg);
+    }
+    for (const n of ["A", "F", "C"]) {
+      const [x, y] = POS[n];
+      const off = n === "A" && t.passive;
+      if (t.decide.includes(n)) el("circle", { cx: x, cy: y, r: 23, fill: "none", stroke: "var(--ink)", "stroke-width": 2.5 }, svg);
+      el("circle", off ? { cx: x, cy: y, r: 17, fill: "var(--blank)", stroke: "var(--muted)", "stroke-dasharray": "3 2" } : { cx: x, cy: y, r: 17, fill: COLOR[n] }, svg);
+      txt(n, { x, y: y + 5, "text-anchor": "middle", class: "nl" + (off ? " off" : "") }, svg);
+    }
+    if (t.decide.includes("A")) txt("decides", { x: 150, y: 38, class: "ml" }, svg);
+    else { txt("decides", { x: 46, y: 158, "text-anchor": "middle", class: "ml" }, svg); txt("decides", { x: 194, y: 158, "text-anchor": "middle", class: "ml" }, svg); }
+    if (t.passive) txt(t.passive, { x: 146, y: 38, class: "ml" }, svg);
+    // Label placement: inside the triangle for 3-way channels, under the F-C line, or between the nodes for A's two links.
+    const ly = t.edges.length === 3 ? 102 : t.edges.some((e) => e[0] === "F" && e[1] === "C") ? 142 : 114;
+    if (t.label) txt(t.label, { x: 120, y: ly, "text-anchor": "middle", class: "ml" }, svg);
+  });
+
+  // ---- human results: efficiency gain ----
+  const T2 = [
+    ["NC-D", 69.5, 39.1, 61.4, -108.3, "D"], ["SC/S-D", 77.8, 57.1, 65.7, -57.5, "D"], ["SC/A-D", 69.5, 58.7, 64.4, -77.4, "D"],
+    ["SC-MC", 99.6, 45.9, 71.7, 6.5, "MC"], ["CH/S-D", 97.5, 48.1, 72.2, 14.0, "D"], ["CH/A-D", 90.9, 60.6, 71.6, 2.8, "D"],
+    ["CH-MC", 100.0, 61.7, 75.2, 44.3, "MC"], ["EC-MC", 96.7, 55.7, 71.3, -4.9, "MC"],
+  ];
+  document.getElementById("gain-table").innerHTML = T2.map((r) => `<tr><td>${r[0]}${r[0] === "EC-MC" ? " (follow-up)" : ""}</td><td>${r[1].toFixed(1)}%</td><td>${r[2].toFixed(1)}%</td><td>${r[3].toFixed(1)}</td><td>${r[4] > 0 ? "+" : ""}${r[4].toFixed(1)}%</td></tr>`).join("");
+  (function () {
+    const host = document.getElementById("gain");
+    const W = 440, rowH = 27, T = 8, B = 36, L = 70, R = 46;
+    const H = T + rowH * T2.length + B;
+    const lo = -145, hi = 60;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Efficiency gain by treatment, rounds 10 to 18: " + T2.map((r) => `${r[0]} ${r[4]}%`).join(", ") }, host);
+    const x = (v) => L + (v - lo) / (hi - lo) * (W - L - R);
+    for (const t of [-100, -50, 0, 50]) {
+      el("line", { x1: x(t), x2: x(t), y1: T, y2: H - B, class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(`${t > 0 ? "+" : ""}${t}%`, { x: x(t), y: H - B + 16, "text-anchor": "middle", class: "axis-t" }, svg);
+    }
+    txt("← worse than safe", { x: x(0) - 6, y: H - 4, "text-anchor": "end", class: "axis-t" }, svg);
+    txt("better →", { x: x(0) + 6, y: H - 4, class: "axis-t" }, svg);
+    const tip = tipFor(host);
+    T2.forEach((r, i) => {
+      const cy = T + rowH * i + rowH / 2, mc = r[5] === "MC", fu = r[0] === "EC-MC";
+      const col = mc ? "var(--a)" : "var(--muted)";
+      txt(r[0], { x: L - 10, y: cy + 4, "text-anchor": "end", class: "lab-t", style: r[0] === "CH-MC" ? "font-weight:600;fill:var(--ink)" : "" }, svg);
+      el("line", { x1: x(0), x2: x(r[4]), y1: cy, y2: cy, stroke: col, "stroke-width": 2, opacity: 0.5 }, svg);
+      el("circle", { cx: x(r[4]), cy, r: 5.5, fill: fu ? "var(--surface)" : col, stroke: col, "stroke-width": 2 }, svg);
+      txt(`${r[4] > 0 ? "+" : ""}${Math.round(r[4])}%`, { x: x(r[4]) + (r[4] >= 0 ? 10 : -10), y: cy + 4, "text-anchor": r[4] >= 0 ? "start" : "end", class: "val-t" }, svg);
+      const hit = el("rect", { x: 0, y: cy - rowH / 2, width: W, height: rowH, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x(r[4]), cy - 8, `${r[0]}${fu ? " (follow-up)" : ""}: gain ${r[4]}%<br>surplus ${r[3]} · coordinated ${r[1]}%`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    });
+  })();
+
+  // ---- human results: lies by game ----
+  const T7 = { scTruth: [24.9, 36.4, 68.0, 73.3, 87.6], scLie: [75.1, 63.6, 32.0, 26.7, 12.4], chTruth: [46.6, 42.8, 43.0, 50.1, 47.1], chLie: [2.5, 3.1, 2.2, 1.9, 0.3] };
+  document.getElementById("lie-table").innerHTML = [0, 1, 2, 3, 4].map((i) => `<tr><td>${i + 1}</td><td>${T7.scTruth[i]}%</td><td>${T7.scLie[i]}%</td><td>${T7.chTruth[i]}%</td><td>${T7.chLie[i]}%</td></tr>`).join("");
+  (function () {
+    const host = document.getElementById("lies");
+    const W = 440, H = 248, L = 40, R = 104, T = 12, B = 46;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Lie rate by mirrored game. SC-MC falls from 75% when the truth is worst for the agent to 12% when it is best. CH-MC stays between 0.3% and 3.1%." }, host);
+    const x = (g) => L + (g - 1) / 4 * (W - L - R);
+    const y = (v) => T + (1 - v / 80) * (H - T - B);
+    for (const t of [0, 20, 40, 60, 80]) {
+      el("line", { x1: L, x2: W - R, y1: y(t), y2: y(t), class: t === 0 ? "zero-l" : "grid-l" }, svg);
+      txt(`${t}%`, { x: L - 6, y: y(t) + 4, "text-anchor": "end", class: "axis-t" }, svg);
+    }
+    for (let g = 1; g <= 5; g++) txt(String(g), { x: x(g), y: H - B + 16, "text-anchor": "middle", class: "axis-t" }, svg);
+    txt("worst for the agent", { x: x(1), y: H - B + 32, "text-anchor": "start", class: "axis-t" }, svg);
+    txt("best", { x: x(5), y: H - B + 32, "text-anchor": "end", class: "axis-t" }, svg);
+    const series = [
+      { name: "Structured (SC-MC)", data: T7.scLie, truth: T7.scTruth, c: "var(--struct)", w: 2 },
+      { name: "Chat (CH-MC)", data: T7.chLie, truth: T7.chTruth, c: "var(--chat)", w: 3 },
+    ];
+    for (const s of series) {
+      el("polyline", { points: s.data.map((v, i) => `${x(i + 1)},${y(v)}`).join(" "), fill: "none", stroke: s.c, "stroke-width": s.w, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+      s.data.forEach((v, i) => el("circle", { cx: x(i + 1), cy: y(v), r: 4, fill: s.c, stroke: "var(--surface)", "stroke-width": 2 }, svg));
+      txt(s.name, { x: x(5) + 10, y: y(s.data[4]) + (s.c === "var(--chat)" ? 4 : -2), class: "lab-t" }, svg);
+    }
+    const tip = tipFor(host), step = (W - L - R) / 4;
+    for (let g = 1; g <= 5; g++) {
+      const hit = el("rect", { x: x(g) - step / 2, y: T, width: step, height: H - T - B, fill: "transparent" }, svg);
+      hit.addEventListener("pointerenter", () => placeTip(tip, host, svg, x(g), y(T7.scLie[g - 1]) - 6, `Game ${g} (mirrored)<br>SC-MC: lie ${T7.scLie[g - 1]}%, truth ${T7.scTruth[g - 1]}%<br>CH-MC: lie ${T7.chLie[g - 1]}%, truth ${T7.chTruth[g - 1]}%`));
+      hit.addEventListener("pointerleave", () => (tip.hidden = true));
+    }
+  })();
+
+  // ---- game sequences ----
+  const SEQ = ["425351522423153112", "315343155533321114", "341445143344224433", "224415425431121422", "351223543231235255", "223513445123452413", "452323145155351422", "335241231543231533", "144512334523154223"];
+  const seq = document.getElementById("seq");
+  const rounds = Array.from({ length: 18 }, (_, i) => i + 1);
+  seq.innerHTML = `<thead><tr><th>Round</th>${rounds.map((r) => `<th${r === 10 ? ' class="split"' : ""}>${r}</th>`).join("")}</tr></thead><tbody>` +
+    SEQ.map((s, k) => `<tr><th>Seq. ${k + 1}</th>${[...s].map((g, i) => `<td${i === 9 ? ' class="split"' : ""}><i style="background:color-mix(in srgb, var(--a) ${8 + 11 * (+g)}%, var(--surface))" aria-label="round ${i + 1}: game ${g}">${g}</i></td>`).join("")}</tr>`).join("") + "</tbody>";
+})();
+</script>
+</body>
+</html>

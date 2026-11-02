@@ -1,6 +1,6 @@
 """Runner: runs the groups of a study and keeps the research record (standard library only).
 
-Kit file of the synthetic-organisations plugin, generalised from the runner of the Brandts & Cooper replication. The study module
+Kit file of the synthetic-organisations plugin, generalised from third-test/harness/runner.py. The study module
 (harness/study.py) defines TREATMENTS, FOCAL, MODEL, EFFORT and run_group(group), and calls runner.main(study):
 
     python3 harness/study.py --fake                          # every treatment once, no API calls

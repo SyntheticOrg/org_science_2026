@@ -1,7 +1,7 @@
 """Model adapters and agents: one isolated conversation per participant (standard library only).
 
 Kit file of the synthetic-organisations plugin: copy it into the study's harness/ and adapt it there. Merged from
-the Brandts & Cooper replication's agent (an unusable reply is re-asked once with the problem shown, a second one raises
+third-test/harness/agent.py (an unusable reply is re-asked once with the problem shown, a second one raises
 GroupFailed), second-test/harness/agent.py (memory window with pinned instructions, persona, reasoning summaries)
 and first-test/harness/vllm_model.py (ChatModel for OpenAI-compatible endpoints such as vLLM or Modal).
 
